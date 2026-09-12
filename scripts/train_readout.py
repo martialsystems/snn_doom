@@ -52,6 +52,7 @@ path = freeze_role(
     "wta",
     {
         "frame_parity": True,
+        "sprite_blob": True,
         "cases": [c["name"] for c in frames["cases"]],
         "l1": {c["name"]: c["l1"] for c in frames["cases"]},
     },

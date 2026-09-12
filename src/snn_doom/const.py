@@ -19,6 +19,7 @@ MOVE_DIV: Final[int] = 2
 TURN_STEP: Final[int] = 2
 ENEMY_STEP: Final[int] = 2
 FOV_HALF: Final[int] = 8
+CENTER_COL: Final[int] = FOV_HALF  # column_angle(ang, CENTER_COL) == ang; hitscan uses this ray
 
 COLOR_SKY: Final[int] = 0
 COLOR_FLOOR: Final[int] = 1

@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from snn_doom.const import (
+    CENTER_COL,
     COS,
     FRAME_H,
     MARCH_LEN,
@@ -162,6 +163,10 @@ class DoomSNN:
                 vals = [float(s[self.pixels[c][r][k]]) for k in range(N_COLORS)]
                 frame[r, c] = int(np.argmax(vals))
         return frame
+
+    def read_hitscan(self) -> int:
+        """Center-column sprite latch. Same bit as teacher hitscan."""
+        return read_bit(self.net.spikes, self.sprite_cols[CENTER_COL])
 
     def read_state(self) -> dict[str, int]:
         s = self.net.spikes

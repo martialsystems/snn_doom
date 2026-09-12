@@ -5,6 +5,7 @@
   "hand_wired": true,
   "row": {
     "frame_parity": true,
+    "sprite_blob": true,
     "cases": [
       "idle",
       "forward",

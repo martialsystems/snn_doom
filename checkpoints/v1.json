@@ -1,6 +1,6 @@
 {
   "seed": 0,
-  "n_neurons": 7192,
+  "n_neurons": 7160,
   "steps_per_tick": 8352,
   "tick_tape": "logs/tick_tape.json",
   "modules": {

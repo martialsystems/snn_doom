@@ -56,3 +56,21 @@ def test_pipeline_pose_matches_teacher() -> None:
     assert st["px"] == tr.state.px
     pix = m.decode_pixels()
     assert (pix == 2).any()
+
+
+def test_pipeline_hitscan_center_column() -> None:
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.render import hitscan
+
+    m = build_doom_snn()
+    miss = spawn()
+    m.reset(miss)
+    m.tick(0)
+    tr = tick(miss, 0)
+    assert m.read_hitscan() == hitscan(tr.state) == 0
+    look = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+    m.reset(look)
+    m.tick(0)
+    tr = tick(look, 0)
+    assert hitscan(tr.state) == 1
+    assert m.read_hitscan() == 1

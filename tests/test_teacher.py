@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 
 from snn_doom.const import (
+    CENTER_COL,
     COLOR_ENEMY,
     COLOR_WALL,
     COS,
@@ -16,7 +17,7 @@ from snn_doom.const import (
 )
 from snn_doom.teacher.engine import apply_enemy, apply_move, apply_turn, run, tick
 from snn_doom.teacher.maps import DEFAULT_ROWS, parse_map, rows_of, spawn
-from snn_doom.teacher.render import cast_ray, column_angle, frame_to_ascii, paint_frame
+from snn_doom.teacher.render import cast_ray, column_angle, frame_to_ascii, hitscan, paint_frame
 from snn_doom.teacher.state import GameState, pack_input, unpack_input
 
 
@@ -168,3 +169,36 @@ def test_column_angles_cover_fov() -> None:
     angs = [column_angle(0, c) for c in range(N_COLS)]
     assert angs[0] == (0 - 8) % N_ANG
     assert len(set(angs)) == N_COLS
+    assert column_angle(0, CENTER_COL) == 0
+
+
+def test_hitscan_center_column_misses_when_looking_east() -> None:
+    s = spawn()
+    r = tick(s, 0)
+    assert hitscan(r.state) == 0
+    assert r.columns[CENTER_COL].sprite == 0
+
+
+def test_hitscan_center_column_hits_enemy_when_facing_it() -> None:
+    s = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+    r = tick(s, 0)
+    assert column_angle(r.state.ang, CENTER_COL) == r.state.ang
+    assert hitscan(r.state) == 1
+    assert r.columns[CENTER_COL].sprite == 1
+
+
+def test_sprite_paint_is_blob_not_wall_overwrite() -> None:
+    from snn_doom.teacher.render import Column, is_enemy_row, is_wall_row, paint_column
+
+    mid = FRAME_H // 2
+    blob = paint_column(Column(dist=10, side=0, sprite=1))
+    wall = paint_column(Column(dist=10, side=0, sprite=0))
+    l1 = int(np.abs(blob.astype(int) - wall.astype(int)).sum())
+    assert l1 == 3
+    enemy_rows = [r for r in range(FRAME_H) if blob[r] == COLOR_ENEMY]
+    assert enemy_rows == [mid - 1, mid, mid + 1]
+    wall_only = [r for r in range(FRAME_H) if wall[r] == COLOR_WALL and blob[r] != COLOR_ENEMY]
+    assert wall_only == [mid - 2, mid + 2]
+    assert is_enemy_row(mid, 10)
+    assert is_wall_row(mid - 2, 10)
+    assert not is_enemy_row(mid - 2, 10)

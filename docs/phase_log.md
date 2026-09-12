@@ -32,7 +32,9 @@ Failed: isolated RAY bake-off still `none`. Stitch distances now match the teach
 
 FRAME_READOUT frozen wta (`checkpoints/frame_readout.json`) after five-pose frames matched under argmax (`logs/frame_parity.json`, L1 0 as metric). RAY and READOUT ablations still split pixels vs pose. Idle LATCH stayed quiet. `--fwd` remains the LATCH witness.
 
-Multi-tick tape (`logs/tick_tape.json`): five poses, then idle/fwd/turn/back. Sequencer re-arms pose at frame_end. Sprite latches hold enemy columns. `all_match` true. Scale law now also requires every module hashed, the tape, and a named extra-units job. Extra units undeclared. `scale_166k.py` still blocked. v1 is 7,192 neurons.
+Multi-tick tape (`logs/tick_tape.json`): five poses, then idle/fwd/turn/back. Sequencer re-arms pose at frame_end. Sprite latches hold enemy columns. `all_match` true. Scale law now also requires every module hashed, the tape, and a named extra-units job. Extra units undeclared. `scale_166k.py` still blocked.
+
+Hitscan and held-fwd (2026-09-12): `CENTER_COL` is the heading ray. Teacher `hitscan` and `DoomSNN.read_hitscan` match on spawn-east (0) and facing the enemy (1). 32 held-fwd ticks match pose, 16 distances, hitscan, and frames. Step 6 was L1 2 with those three already matching: column 0 sprite at dist 10. Readout had been sprite AND wall. Teacher paints `is_enemy_row` (abs from mid ≤ max(1, half//2)). Isolated WTA readout now matches `paint_column`. v1 is 7,160 neurons.
 
 ## GraphForge pin (2026-09-12)
 

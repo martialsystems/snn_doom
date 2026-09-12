@@ -17,7 +17,10 @@ def main() -> None:
     summary = {
         "all_match": payload["all_match"],
         "extra_ticks": payload["extra_ticks"],
+        "held_ticks": payload["held_ticks"],
         "tapes": {t["name"]: t["match"] for t in payload["tapes"]},
+        "held": payload["held"]["match"],
+        "held_hitscan": sum(s["teacher_hitscan"] for s in payload["held"]["steps"]),
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:
@@ -26,6 +29,9 @@ def main() -> None:
                 continue
             bad = [s["i"] for s in tape["steps"] if not s["match"]]
             print(tape["name"], "fail steps", bad)
+        if not payload["held"]["match"]:
+            bad = [s["i"] for s in payload["held"]["steps"] if not s["match"]]
+            print("held_fwd fail steps", bad)
 
 
 if __name__ == "__main__":

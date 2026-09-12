@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from snn_doom.const import (
+    CENTER_COL,
     COLOR_ENEMY,
     COLOR_FLOOR,
     COLOR_SKY,
@@ -69,22 +70,36 @@ def cast_frame(state: GameState) -> tuple[Column, ...]:
     return tuple(cast_ray(state, column_angle(state.ang, c)) for c in range(N_COLS))
 
 
+def hitscan(state: GameState) -> int:
+    """Center-column sprite: the heading ray visited the enemy cell before a wall."""
+    return cast_ray(state, column_angle(state.ang, CENTER_COL)).sprite
+
+
 def column_height(dist: int) -> int:
     if dist <= 0:
         return 0
     return max(1, FRAME_H - dist)
 
 
+def is_wall_row(row: int, dist: int) -> bool:
+    h = column_height(dist)
+    return bool(h and abs(row - FRAME_H // 2) < max(1, h // 2))
+
+
+def is_enemy_row(row: int, dist: int) -> bool:
+    """Sprite blob. A subset of the wall slab except on thin / miss columns."""
+    h = column_height(dist)
+    return abs(row - FRAME_H // 2) <= max(1, (h // 2) // 2)
+
+
 def paint_column(col: Column) -> np.ndarray:
     """16-row 2-bit color strip. Host may only copy this out of spikes."""
     pix = np.empty(FRAME_H, dtype=np.uint8)
-    h = column_height(col.dist)
-    half = h // 2
+    mid = FRAME_H // 2
     for row in range(FRAME_H):
-        mid = FRAME_H // 2
-        if col.sprite and abs(row - mid) <= max(1, half // 2):
+        if col.sprite and is_enemy_row(row, col.dist):
             pix[row] = COLOR_ENEMY
-        elif h and abs(row - mid) < max(1, half):
+        elif is_wall_row(row, col.dist):
             pix[row] = COLOR_WALL
         elif row < mid:
             pix[row] = COLOR_SKY

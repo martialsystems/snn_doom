@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from snn_doom.ray_parity import CASES, LOGS
-from snn_doom.tick_tape import TAPE_N
+from snn_doom.tick_tape import HELD_N, TAPE_N
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -17,6 +17,8 @@ def test_tick_tape_artifact_when_logged() -> None:
     data = json.loads(path.read_text(encoding="utf-8"))
     assert data.get("all_match") is True
     assert data.get("extra_ticks") == TAPE_N
+    assert data.get("held_ticks") == HELD_N
+    assert data.get("held_key") == "fwd"
     assert len(data["tapes"]) == len(CASES)
     for tape in data["tapes"]:
         assert tape["match"] is True
@@ -25,4 +27,14 @@ def test_tick_tape_artifact_when_logged() -> None:
             assert step["pose_ok"] is True
             assert step["dist_ok"] is True
             assert step["frame_ok"] is True
+            assert step["hitscan_ok"] is True
             assert step["l1"] == 0
+    held = data["held"]
+    assert held["match"] is True
+    assert len(held["steps"]) == HELD_N
+    for step in held["steps"]:
+        assert step["hitscan_ok"] is True
+        assert step["pose_ok"] is True
+        assert step["dist_ok"] is True
+        assert step["frame_ok"] is True
+        assert step["l1"] == 0
