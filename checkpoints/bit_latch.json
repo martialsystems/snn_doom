@@ -1,0 +1,19 @@
+{
+  "role": "BIT_LATCH",
+  "encoding": "dual_rail",
+  "seed": 0,
+  "hand_wired": true,
+  "row": {
+    "role": "BIT_LATCH",
+    "encoding": "dual_rail",
+    "accuracy": 1.0,
+    "stability": 1.0,
+    "noise_robustness": 0.9791666666666667,
+    "n_neurons": 8,
+    "spikes_per_step": 1.3928571939468384,
+    "error": null,
+    "score": 0.9701589276134968,
+    "pass_gate": true
+  },
+  "frozen": true
+}

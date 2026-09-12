@@ -1,0 +1,1 @@
+A spiking net that is a tiny Doom engine: 8x8 map, pose, ray columns, one enemy, framebuffer from spikes.

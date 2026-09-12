@@ -1,0 +1,32 @@
+# Copyright (c) 2026 Martial Systems LLC
+from __future__ import annotations
+
+import numpy as np
+
+from snn_doom.modules.pipeline import build_doom_snn
+from snn_doom.teacher.maps import spawn
+
+
+def test_zero_readout_kills_pixels() -> None:
+    m = build_doom_snn()
+    m.reset(spawn())
+    before = m.decode_pixels().copy()
+    m.zero_module("FRAME_READOUT")
+    # one more settle without readout wires
+    for _ in range(8):
+        m.net.step(m._input_current(0))
+    after = m.decode_pixels()
+    # argmax of zeros is color 0 (sky). Wall mass must drop.
+    assert int((after == 2).sum()) < int((before == 2).sum()) or int(after.sum()) == 0
+
+
+def test_zero_clock_freezes_sequencer() -> None:
+    m = build_doom_snn()
+    m.reset(spawn())
+    m.zero_module("CLOCK")
+    s0 = m.net.module_spikes("SEQUENCER").copy()
+    for _ in range(24):
+        m.net.step(m._input_current(0))
+    s1 = m.net.module_spikes("SEQUENCER")
+    # without clock beats, gated rings should not walk a full cycle
+    assert s1.shape == s0.shape

@@ -1,0 +1,14 @@
+{
+  "seed": 0,
+  "modules": {
+    "CLOCK": "dual_rail",
+    "BIT_LATCH": "dual_rail",
+    "REGISTER_FILE": "dual_rail",
+    "ADDER_COMPARE": "dual_rail",
+    "RAM": "dual_rail",
+    "SEQUENCER": "dual_rail",
+    "RAY_COLUMN": "none",
+    "FRAME_READOUT": "population"
+  },
+  "bakeoff": "logs/bakeoff.json"
+}

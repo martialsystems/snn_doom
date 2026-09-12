@@ -1,0 +1,19 @@
+{
+  "role": "ADDER_COMPARE",
+  "encoding": "dual_rail",
+  "seed": 0,
+  "hand_wired": true,
+  "row": {
+    "role": "ADDER_COMPARE",
+    "encoding": "dual_rail",
+    "accuracy": 1.0,
+    "stability": 1.0,
+    "noise_robustness": 1.0,
+    "n_neurons": 129,
+    "spikes_per_step": 46.411458333333336,
+    "error": null,
+    "score": 0.9363581879844962,
+    "pass_gate": true
+  },
+  "frozen": true
+}

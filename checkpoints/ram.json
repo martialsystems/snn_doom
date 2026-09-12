@@ -1,0 +1,19 @@
+{
+  "role": "RAM",
+  "encoding": "dual_rail",
+  "seed": 0,
+  "hand_wired": true,
+  "row": {
+    "role": "RAM",
+    "encoding": "dual_rail",
+    "accuracy": 1.0,
+    "stability": 1.0,
+    "noise_robustness": 1.0,
+    "n_neurons": 142,
+    "spikes_per_step": 9.0,
+    "error": null,
+    "score": 0.9798429577464789,
+    "pass_gate": true
+  },
+  "frozen": true
+}

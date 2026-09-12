@@ -1,0 +1,19 @@
+{
+  "role": "FRAME_READOUT",
+  "encoding": "population",
+  "seed": 0,
+  "hand_wired": false,
+  "row": {
+    "role": "FRAME_READOUT",
+    "encoding": "population",
+    "accuracy": 1.0,
+    "stability": 1.0,
+    "noise_robustness": 1.0,
+    "n_neurons": 1696,
+    "spikes_per_step": 352.0,
+    "error": null,
+    "score": 0.841667924528302,
+    "pass_gate": true
+  },
+  "frozen": true
+}

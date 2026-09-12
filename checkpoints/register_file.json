@@ -1,0 +1,19 @@
+{
+  "role": "REGISTER_FILE",
+  "encoding": "dual_rail",
+  "seed": 0,
+  "hand_wired": true,
+  "row": {
+    "role": "REGISTER_FILE",
+    "encoding": "dual_rail",
+    "accuracy": 1.0,
+    "stability": 1.0,
+    "noise_robustness": 0.875,
+    "n_neurons": 104,
+    "spikes_per_step": 4.0,
+    "error": null,
+    "score": 0.9676807692307692,
+    "pass_gate": true
+  },
+  "frozen": true
+}

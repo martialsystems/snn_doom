@@ -1,0 +1,16 @@
+{
+  "runtime_checks": [
+    {
+      "id": "unit-tests",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/", "-q"],
+      "timeout_s": 180,
+      "paths": ["src/**", "tests/**", "scripts/**", "docs/**", "README.md", "requirements.txt", "vbd.runtime.json"]
+    },
+    {
+      "id": "readme-prose",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_readme.py", "tests/test_host_surface.py", "-q"],
+      "timeout_s": 30,
+      "paths": ["README.md", "docs/**", "scripts/run_demo.py", "src/snn_doom/demo/**"]
+    }
+  ]
+}
