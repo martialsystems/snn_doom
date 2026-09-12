@@ -23,12 +23,11 @@ def test_readme_and_docs_prose() -> None:
     readme = (REPO / "README.md").read_text(encoding="utf-8")
     assert readme.startswith("# snn_doom\n\nA fruit fly was mapped.")
     assert "## What this is not" not in readme
-    assert "7,217" in readme
-    assert "L1 54" in readme
     assert "inject" in readme.lower()
     assert "decode" in readme.lower()
     assert "docs/methodology.md" in readme
     method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
+    assert "7,217" in method
     assert "104-bit" in method
     assert "idle pixel L1 = 54" in method
     assert "teacher.tick" in method
