@@ -74,6 +74,32 @@ def test_four_bit_adder() -> None:
         assert got == want, f"{av}+{cv} got {got} want {want} cout={last[cout.t]}"
 
 
+def test_eight_bit_add_settles_within_budget() -> None:
+    from snn_doom.const import SETTLE_STEPS
+    from snn_doom.snn.digital import Rail, adder_n
+    from snn_doom.snn.io import drive_bit, drive_int, read_int, zeros
+    from snn_doom.snn.lif import NetBuilder
+
+    b = NetBuilder()
+    a = [Rail(*b.alloc_pair(f"a{i}", "ADDER_COMPARE")) for i in range(8)]
+    c = [Rail(*b.alloc_pair(f"c{i}", "ADDER_COMPARE")) for i in range(8)]
+    cin = Rail(*b.alloc_pair("cin", "ADDER_COMPARE"))
+    sums, _cout = adder_n(b, a, c, cin, "s", "ADDER_COMPARE")
+    net = b.compile()
+    # 30+6 dropped bit 5 at SETTLE=12. 127+1 is the slow COS-range case.
+    for av, cv, want in ((30, 6, 36), (24, 6, 30), (127, 1, 128), (88, 250, 82)):
+        net.reset()
+        last = None
+        for _ in range(SETTLE_STEPS):
+            cur = zeros(net)
+            drive_int(cur, a, av)
+            drive_int(cur, c, cv)
+            drive_bit(cur, cin, 0)
+            last = net.step(cur)
+        got = read_int(last, sums)
+        assert got == want, f"{av}+{cv} got {got} want {want}"
+
+
 def test_bias_stays_on() -> None:
     b = NetBuilder()
     n = const_bias(b)

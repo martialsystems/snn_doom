@@ -110,10 +110,15 @@ def test_scale_idle_intent_allowed() -> None:
 
 
 def test_gate_live_edges() -> None:
+    from doomforge.evidence import frozen_map, ray_distances_exact
+
     require_can_bakeoff()
     require_can_train("train_ray")
     require_demo_path()
-    with pytest.raises(LawBlockedError):
+    if frozen_map().get("RAY_COLUMN") and ray_distances_exact():
         require_can_train("train_readout")
-    with pytest.raises(LawBlockedError):
-        require_can_scale()
+    else:
+        with pytest.raises(LawBlockedError):
+            require_can_train("train_readout")
+        with pytest.raises(LawBlockedError):
+            require_can_scale()

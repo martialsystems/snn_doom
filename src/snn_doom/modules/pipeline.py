@@ -13,7 +13,7 @@ import numpy as np
 from snn_doom.const import (
     COS,
     FRAME_H,
-    MAX_DIST,
+    MARCH_LEN,
     MOVE_DIV,
     N_ANG,
     N_COLS,
@@ -196,8 +196,11 @@ def build_doom_snn() -> DoomSNN:
     pose_ring = gated_ring(b, 5, pose_gate, "SEQUENCER_POSE")
     # Relabel module for ablation: SEQUENCER_* still starts with SEQUENCER? zero_module is exact.
     # Use module name SEQUENCER for all sequencer neurons by patching after alloc is awkward.
-    march_ring = gated_ring(b, MAX_DIST, ray_gate, "SEQUENCER")
-    col_adv = and2(b, ray_gate, march_ring[-1], "col_adv", "SEQUENCER")
+    # Delay march/col so add/test still sees the current one-hot (teacher dist is that step).
+    march_gate = b.alloc("march_gate", "SEQUENCER")
+    b.wire(ray_gate, march_gate, 1.2)
+    march_ring = gated_ring(b, MARCH_LEN, march_gate, "SEQUENCER")
+    col_adv = and2(b, march_gate, march_ring[-1], "col_adv", "SEQUENCER")
     col_ring = gated_ring(b, N_COLS, col_adv, "SEQUENCER")
     # End of pose: last pose state AND beat -> pose_busy off, ray_busy on.
     pose_end = and2(b, pose_gate, pose_ring[-1], "pose_end", "SEQUENCER")
@@ -402,9 +405,10 @@ def build_doom_snn() -> DoomSNN:
     b.wire(capture, rhit.f, W_INH)
     for c in range(N_COLS):
         cap_c = and2(b, capture, col_ring[c], f"capc{c}", "RAY_COLUMN")
-        for m in range(1, MAX_DIST):
+        for m in range(1, MARCH_LEN):
             cap_m = and2(b, cap_c, march_ring[m], f"cap{c}_{m}", "RAY_COLUMN")
-            dval = m
+            # Capture lands one one-hot late vs the add that hit. Teacher dist is that add's index.
+            dval = m - 1
             for k in range(4):
                 if (dval >> k) & 1:
                     b.wire(cap_m, dist_cols[c][k].t, W_FORCE)

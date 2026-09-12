@@ -25,14 +25,12 @@ MODULES = (
 )
 
 
-def main() -> None:
-    base = build_doom_snn()
+def _pass(bits: int, label: str) -> dict:
     s0 = spawn()
+    base = build_doom_snn()
     base.reset(s0)
-    bits = pack_input(0, 0, 1, 0)
     pix0 = base.tick(bits)
     st0 = base.read_state()
-    spawn_px = s0.px
     rows = []
     for name in MODULES:
         m = build_doom_snn()
@@ -40,25 +38,32 @@ def main() -> None:
         m.zero_module(name)
         pix = m.tick(bits)
         st = m.read_state()
-        rows.append(
-            {
-                "module": name,
-                "pixel_l1": int(abs(pix.astype(int) - pix0.astype(int)).sum()),
-                "state_delta": {k: int(st[k] != st0[k]) for k in st0},
-                "pixels_nonzero": int((pix != 0).sum()),
-            }
-        )
-        print(name, rows[-1]["pixel_l1"], rows[-1]["state_delta"])
-    by = {r["module"]: r for r in rows}
+        row = {
+            "module": name,
+            "pixel_l1": int(abs(pix.astype(int) - pix0.astype(int)).sum()),
+            "state_delta": {k: int(st[k] != st0[k]) for k in st0},
+            "pixels_nonzero": int((pix != 0).sum()),
+        }
+        rows.append(row)
+        print(label, name, row["pixel_l1"], row["state_delta"])
+    return {"baseline_state": st0, "rows": rows, "spawn_px": s0.px}
+
+
+def main() -> None:
+    idle = _pass(0, "idle")
+    fwd = _pass(pack_input(0, 0, 1, 0), "fwd")
+    by = {r["module"]: r for r in fwd["rows"]}
     latch = by.get("BIT_LATCH") or {}
-    latch_held_key_dies = bool(st0["px"] != spawn_px) and bool(
+    latch_held_key_dies = bool(fwd["baseline_state"]["px"] != fwd["spawn_px"]) and bool(
         (latch.get("state_delta") or {}).get("px")
     )
     payload = {
-        "baseline_state": st0,
+        "idle": {k: v for k, v in idle.items() if k != "spawn_px"},
+        "fwd": {k: v for k, v in fwd.items() if k != "spawn_px"},
+        "baseline_state": fwd["baseline_state"],
         "held_key": "fwd",
         "latch_held_key_dies": latch_held_key_dies,
-        "rows": rows,
+        "rows": fwd["rows"],
     }
     out = ROOT / "logs" / "ablation.json"
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

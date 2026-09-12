@@ -7,7 +7,7 @@
     "ADDER_COMPARE": "dual_rail",
     "RAM": "dual_rail",
     "SEQUENCER": "dual_rail",
-    "RAY_COLUMN": "none",
+    "RAY_COLUMN": "dual_rail",
     "FRAME_READOUT": "population"
   },
   "bakeoff": "logs/bakeoff.json"

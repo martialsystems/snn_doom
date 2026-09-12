@@ -28,9 +28,9 @@ Next: stitch with the frozen priors plus a shared ray unit.
 
 Passed: 7,217 LIF neurons, 38,722 edges, under the 8,000 cap. Pose/enemy match the teacher on idle, forward, and turn. Walls appear in the decoded frame. Ablation: zero CLOCK/LATCH/REG/ALU/SEQUENCER kills motion; zero RAY kills pixels and leaves pose; zero READOUT kills pixels and leaves pose; zero RAM changes the frame.
 
-Failed: column distances are neural but not bit-exact vs the teacher (idle pixel L1 54). Isolated RAY bake-off still `none`.
+Failed: isolated RAY bake-off still `none`. Stitch distances now match the teacher on five poses (`logs/ray_parity.json` all_match). Miss was carry-chain starve at SETTLE=12 plus capture one one-hot late, not the angle table.
 
-Next: lock RAY dist to the teacher march, then scale.
+Next: readout freeze is a separate train edge. Do not start 166k because someone is curious.
 
 ## GraphForge pin (2026-09-12)
 

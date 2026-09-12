@@ -20,6 +20,7 @@ CASES = (
     ("idle", spawn(), 0),
     ("forward", spawn(), pack_input(0, 0, 1, 0)),
     ("turn", spawn(), pack_input(0, 1, 0, 0)),
+    ("back", spawn(), pack_input(0, 0, 0, 1)),
     (
         "wall_graze",
         spawn(px=3 * 16 + 4, py=4 * 16 + 8, ang=48),

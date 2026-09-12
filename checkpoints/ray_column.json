@@ -1,8 +1,17 @@
 {
   "role": "RAY_COLUMN",
-  "encoding": "none",
+  "encoding": "dual_rail",
   "seed": 0,
-  "hand_wired": false,
-  "row": null,
-  "frozen": false
+  "hand_wired": true,
+  "row": {
+    "parity": true,
+    "cases": [
+      "idle",
+      "forward",
+      "turn",
+      "back",
+      "wall_graze"
+    ]
+  },
+  "frozen": true
 }

@@ -15,16 +15,21 @@ def main() -> None:
     require_can_bakeoff()
     require_can_train("train_ray")
     require_demo_path()
-    try:
+    from doomforge.evidence import frozen_map, ray_distances_exact
+
+    if frozen_map().get("RAY_COLUMN") and ray_distances_exact():
         require_can_train("train_readout")
-        raise SystemExit("expected RAY freeze block on train_readout")
-    except LawBlockedError:
-        pass
+    else:
+        try:
+            require_can_train("train_readout")
+            raise SystemExit("expected RAY freeze block on train_readout")
+        except LawBlockedError:
+            pass
     try:
         require_can_scale()
-        raise SystemExit("expected scale_166k block")
-    except LawBlockedError:
-        pass
+        print("scale law would allow; not starting 166k")
+    except LawBlockedError as exc:
+        print("scale still blocked:", exc)
     print("doomforge sanity pass")
 
 

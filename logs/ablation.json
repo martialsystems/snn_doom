@@ -1,4 +1,254 @@
 {
+  "idle": {
+    "baseline_state": {
+      "px": 24,
+      "py": 88,
+      "ang": 0,
+      "ex": 102,
+      "ey": 40,
+      "enemy_alive": 1,
+      "player_hit": 0
+    },
+    "rows": [
+      {
+        "module": "CLOCK",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "BIT_LATCH",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 164
+      },
+      {
+        "module": "REGISTER_FILE",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 1,
+          "py": 1,
+          "ang": 0,
+          "ex": 1,
+          "ey": 1,
+          "enemy_alive": 1,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "ADDER_COMPARE",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAM",
+        "pixel_l1": 132,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 95
+      },
+      {
+        "module": "SEQUENCER",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAY_COLUMN",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "FRAME_READOUT",
+        "pixel_l1": 252,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      }
+    ]
+  },
+  "fwd": {
+    "baseline_state": {
+      "px": 28,
+      "py": 88,
+      "ang": 0,
+      "ex": 102,
+      "ey": 40,
+      "enemy_alive": 1,
+      "player_hit": 0
+    },
+    "rows": [
+      {
+        "module": "CLOCK",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "BIT_LATCH",
+        "pixel_l1": 3,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 164
+      },
+      {
+        "module": "REGISTER_FILE",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 1,
+          "py": 1,
+          "ang": 0,
+          "ex": 1,
+          "ey": 1,
+          "enemy_alive": 1,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "ADDER_COMPARE",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAM",
+        "pixel_l1": 135,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 95
+      },
+      {
+        "module": "SEQUENCER",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAY_COLUMN",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "FRAME_READOUT",
+        "pixel_l1": 255,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 0
+      }
+    ]
+  },
   "baseline_state": {
     "px": 28,
     "py": 88,
@@ -13,7 +263,7 @@
   "rows": [
     {
       "module": "CLOCK",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -27,7 +277,7 @@
     },
     {
       "module": "BIT_LATCH",
-      "pixel_l1": 141,
+      "pixel_l1": 3,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -37,11 +287,11 @@
         "enemy_alive": 0,
         "player_hit": 0
       },
-      "pixels_nonzero": 178
+      "pixels_nonzero": 164
     },
     {
       "module": "REGISTER_FILE",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 1,
         "py": 1,
@@ -55,7 +305,7 @@
     },
     {
       "module": "ADDER_COMPARE",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -69,7 +319,7 @@
     },
     {
       "module": "RAM",
-      "pixel_l1": 213,
+      "pixel_l1": 135,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -79,11 +329,11 @@
         "enemy_alive": 0,
         "player_hit": 0
       },
-      "pixels_nonzero": 140
+      "pixels_nonzero": 95
     },
     {
       "module": "SEQUENCER",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -97,7 +347,7 @@
     },
     {
       "module": "RAY_COLUMN",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 0,
         "py": 0,
@@ -111,7 +361,7 @@
     },
     {
       "module": "FRAME_READOUT",
-      "pixel_l1": 423,
+      "pixel_l1": 255,
       "state_delta": {
         "px": 0,
         "py": 0,

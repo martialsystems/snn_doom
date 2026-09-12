@@ -82,9 +82,11 @@ DIGITAL_TAU: Final[float] = 0.0
 DIGITAL_THRESH: Final[float] = 1.0
 ANALOG_TAU: Final[float] = 0.8
 ANALOG_THRESH: Final[float] = 1.0
-SETTLE_STEPS: Final[int] = 12
+# 8-bit ripple 127+1 first matches at LIF 24. COS/SIN adds plus dir mux need headroom.
+SETTLE_STEPS: Final[int] = 32
 POSE_WINDOWS: Final[int] = 5
-STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MAX_DIST)
+MARCH_LEN: Final[int] = MAX_DIST + 1  # beat 0 loads; beats 1..15 add like the teacher
+STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN)
 
 # Bake-off scoring (architecture.md).
 SCORE_W_ACC: Final[float] = 0.35

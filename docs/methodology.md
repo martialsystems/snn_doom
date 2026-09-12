@@ -28,8 +28,8 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Pose vs teacher (idle / forward / turn) | match |
 | Enemy step vs teacher | match |
 | Walls in the decoded frame | yes |
-| 16 column distances bit-exact | no (idle pixel L1 = 54) |
-| Isolated RAY bake-off winner | none |
+| 16 column distances bit-exact | yes (five poses in `logs/ray_parity.json`) |
+| Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
 | 166k scale-up | refused until RAY locks |
 
@@ -60,7 +60,7 @@ Inputs per LIF step: turn_left, turn_right, fwd, back.
 | ADDER_COMPARE | turn, move, enemy step, ray step | 8-bit add/compare |
 | RAM | 64 map cells | extra read ports |
 | SEQUENCER | pose / column / march rings | 5 / 16 / 15 |
-| RAY_COLUMN | one marching ray, 16 dist latches | not frozen; distances not bit-exact |
+| RAY_COLUMN | one marching ray, 16 dist latches | frozen dual-rail after five-pose 16-int match |
 | FRAME_READOUT | 16×16×4 color lines | WTA / pop / dual-rail all hit 1.0 in bake-off |
 
 Encodings that won the digital bake-off for CLOCK / LATCH / REG / ALU / RAM / SEQ: dual-rail, bistable, oscillator. RAY_COLUMN missed the 0.70 gate in every encoding. Shared LUT tagging once marked move COS ROM as RAY, so RAY ablation killed pose. Fixed. Do not do that again.
@@ -70,7 +70,7 @@ Full table: [bakeoff.md](bakeoff.md), `logs/bakeoff.json`.
 ## Phase rules
 
 Stage 0 teacher tests pass before bake-off.
-A module freezes before the next one trains. RAY has no freeze.
+A module freezes before the next one trains. RAY freeze is `checkpoints/ray_column.json` after the 16-int fixture matches.
 Demo path must not call `teacher.tick` or `cast_ray`.
 166,700 neurons are refused until column distances match the teacher march and ablations stay green.
 
@@ -113,4 +113,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## Next experiment
 
-Train or repair the shared ray unit so the 16 column distances match the teacher march on idle, forward, turn, and one wall-graze. Re-run ablations with a held key. Then freeze RAY. Then talk about 166k.
+RAY is frozen on the five-pose 16-int fixture. FRAME_READOUT is still unfrozen. Do not open a 166k tree because the scale law's inputs are green. The law opening is not a start order.
