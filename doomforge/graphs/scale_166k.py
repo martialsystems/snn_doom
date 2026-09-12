@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""166k refused until RAY distances lock and ablations isolate, including LATCH."""
+"""166k refused until the whole engine is hashed, the tick tape matches, and extra units have a job."""
 from __future__ import annotations
 
 from typing import Any
@@ -20,8 +20,12 @@ def _evaluate(state: dict[str, Any]) -> dict[str, Any]:
         v.append("ablations_not_isolating")
     if not bool(state.get("latch_held_key_dies")):
         v.append("latch_ablation_silent")
-    if not bool(state.get("ray_frozen")):
-        v.append("ray_not_frozen")
+    if not bool(state.get("all_modules_frozen")):
+        v.append("module_freeze_incomplete")
+    if not bool(state.get("multi_tick_parity")):
+        v.append("multi_tick_parity_missing")
+    if not bool(state.get("extra_units_declared")):
+        v.append("extra_units_undeclared")
     return {"violations": v, "events": [{"node": "evaluate", "ok": not v}]}
 
 
@@ -34,6 +38,8 @@ def build_graph():
             "ray_distances_exact",
             "ablations_isolate",
             "latch_held_key_dies",
-            "ray_frozen",
+            "all_modules_frozen",
+            "multi_tick_parity",
+            "extra_units_declared",
         ],
     )

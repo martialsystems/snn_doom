@@ -32,6 +32,8 @@ Failed: isolated RAY bake-off still `none`. Stitch distances now match the teach
 
 FRAME_READOUT frozen wta (`checkpoints/frame_readout.json`) after five-pose frames matched under argmax (`logs/frame_parity.json`, L1 0 as metric). RAY and READOUT ablations still split pixels vs pose. Idle LATCH stayed quiet. `--fwd` remains the LATCH witness.
 
+Multi-tick tape (`logs/tick_tape.json`): five poses, then idle/fwd/turn/back. Sequencer re-arms pose at frame_end. Sprite latches hold enemy columns. `all_match` true. Scale law now also requires every module hashed, the tape, and a named extra-units job. Extra units undeclared. `scale_166k.py` still blocked. v1 is 7,192 neurons.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

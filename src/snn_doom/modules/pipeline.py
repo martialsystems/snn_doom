@@ -209,8 +209,20 @@ def build_doom_snn() -> DoomSNN:
     b.wire(pose_end, ray_busy.t, W_FORCE)
     b.wire(pose_end, ray_busy.f, W_INH)
     frame_end = and3(b, col_adv, col_ring[-1], march_ring[-1], "frame_end", "SEQUENCER")
-    # after last column, stay in ray_busy until host finishes STEPS; next tick() does not reset rings
-    # unless reset() is called. tick() is one frame: STEPS includes pose+ray. Kick pose at reset only.
+    # Re-arm pose for the next host tick so multi-tick tapes cannot skip turn/move.
+    b.wire(frame_end, pose_busy.t, W_FORCE)
+    b.wire(frame_end, pose_busy.f, W_INH)
+    b.wire(frame_end, ray_busy.f, W_FORCE)
+    b.wire(frame_end, ray_busy.t, W_INH)
+    b.wire(frame_end, pose_ring[0], W_FORCE)
+    for i in range(1, 5):
+        b.wire(frame_end, pose_ring[i], W_INH)
+    b.wire(frame_end, march_ring[0], W_FORCE)
+    for i in range(1, MARCH_LEN):
+        b.wire(frame_end, march_ring[i], W_INH)
+    b.wire(frame_end, col_ring[0], W_FORCE)
+    for i in range(1, N_COLS):
+        b.wire(frame_end, col_ring[i], W_INH)
 
     in_rails = [Rail(*b.alloc_pair(f"in_{i}", "BIT_LATCH")) for i in range(4)]
     turn_l, turn_r, fwd, back = in_rails
@@ -353,7 +365,7 @@ def build_doom_snn() -> DoomSNN:
     rwall = or_n(b, [ram_r, rxn[7].t, ryn[7].t], "rwall", "RAY_COLUMN")
 
     dist_cols = [add_reg(b, f"dist{c}", 4, "RAY_COLUMN") for c in range(N_COLS)]
-    sprite_cols = [Rail(*b.alloc_pair(f"sp{c}", "RAY_COLUMN")) for c in range(N_COLS)]
+    sprite_cols = [bistable(b, f"sp{c}", "RAY_COLUMN") for c in range(N_COLS)]
 
     ro = build_fixed_readout(b, "wta")
     for c in range(N_COLS):
@@ -391,6 +403,10 @@ def build_doom_snn() -> DoomSNN:
     add_write(b, ry, we_col, py, "col_y", "RAY_COLUMN")
     b.wire(new_col, rhit.f, W_FORCE)
     b.wire(new_col, rhit.t, W_INH)
+    for c in range(N_COLS):
+        clr = and2(b, new_col, col_ring[c], f"spclr{c}", "RAY_COLUMN")
+        b.wire(clr, sprite_cols[c].f, W_FORCE)
+        b.wire(clr, sprite_cols[c].t, W_INH)
 
     # March step: if not hit, x,y := sum; if wall, capture dist = march_index+1 into active col.
     not_m0 = b.alloc("not_m0", "SEQUENCER")
@@ -416,10 +432,11 @@ def build_doom_snn() -> DoomSNN:
                 else:
                     b.wire(cap_m, dist_cols[c][k].f, W_FORCE)
                     b.wire(cap_m, dist_cols[c][k].t, W_INH)
-        spr = and2(b, cap_c, _cell_eq(b, rxn, ex, f"sprx{c}"), f"spr{c}", "RAY_COLUMN")
-        # sprite if enemy cell equals ray cell; cheap: same as collide using rxn/ryn vs ex/ey
-        spy = _cell_eq(b, ryn, ey, f"spry{c}")
-        spr = and2(b, spr, spy, f"spr2{c}", "RAY_COLUMN")
+        # Sprite if the march visits the enemy cell, not only at the wall hit.
+        vis = and2(b, do_step, col_ring[c], f"vis{c}", "RAY_COLUMN")
+        sprx = _cell_eq(b, rxn, ex, f"sprx{c}")
+        spry = _cell_eq(b, ryn, ey, f"spry{c}")
+        spr = and2(b, vis, and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN"), f"spr{c}", "RAY_COLUMN")
         b.wire(spr, sprite_cols[c].t, W_FORCE)
         b.wire(spr, sprite_cols[c].f, W_INH)
 

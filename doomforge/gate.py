@@ -56,7 +56,6 @@ def require_demo_path() -> None:
 
 
 def require_can_scale(*, intent: str = "scale_166k") -> None:
-    frozen = evidence.frozen_map()
     require_law(
         build_scale(),
         {
@@ -64,7 +63,9 @@ def require_can_scale(*, intent: str = "scale_166k") -> None:
             "ray_distances_exact": evidence.ray_distances_exact(),
             "ablations_isolate": evidence.ablations_isolate(),
             "latch_held_key_dies": evidence.latch_held_key_dies(),
-            "ray_frozen": bool(frozen.get("RAY_COLUMN")),
+            "all_modules_frozen": evidence.all_modules_frozen(),
+            "multi_tick_parity": evidence.multi_tick_parity(),
+            "extra_units_declared": evidence.extra_units_declared(),
         },
         allow_decisions=["allow"],
         law_id="doom.scale_166k",

@@ -1,5 +1,8 @@
 {
   "seed": 0,
+  "n_neurons": 7192,
+  "steps_per_tick": 8352,
+  "tick_tape": "logs/tick_tape.json",
   "modules": {
     "CLOCK": "dual_rail",
     "BIT_LATCH": "dual_rail",
@@ -10,5 +13,6 @@
     "RAY_COLUMN": "dual_rail",
     "FRAME_READOUT": "wta"
   },
-  "bakeoff": "logs/bakeoff.json"
+  "bakeoff": "logs/bakeoff.json",
+  "manifest": "checkpoints/freeze_manifest.json"
 }

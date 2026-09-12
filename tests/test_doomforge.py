@@ -91,7 +91,28 @@ def test_scale_refused_until_ray_locks() -> None:
                 "ray_distances_exact": False,
                 "ablations_isolate": True,
                 "latch_held_key_dies": True,
-                "ray_frozen": True,
+                "all_modules_frozen": True,
+                "multi_tick_parity": True,
+                "extra_units_declared": True,
+            },
+            allow_decisions=["allow"],
+            law_id="doom.scale_166k",
+            raise_error=True,
+        )
+
+
+def test_scale_refused_without_extra_units_job() -> None:
+    with pytest.raises(LawBlockedError):
+        require_law(
+            build_scale(),
+            {
+                "intent": "scale_166k",
+                "ray_distances_exact": True,
+                "ablations_isolate": True,
+                "latch_held_key_dies": True,
+                "all_modules_frozen": True,
+                "multi_tick_parity": True,
+                "extra_units_declared": False,
             },
             allow_decisions=["allow"],
             law_id="doom.scale_166k",
@@ -120,5 +141,5 @@ def test_gate_live_edges() -> None:
     else:
         with pytest.raises(LawBlockedError):
             require_can_train("train_readout")
-        with pytest.raises(LawBlockedError):
-            require_can_scale()
+    with pytest.raises(LawBlockedError):
+        require_can_scale()

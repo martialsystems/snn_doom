@@ -166,6 +166,47 @@ def ablations_isolate(report: dict[str, Any] | None = None) -> bool:
     return True
 
 
+def all_modules_frozen() -> bool:
+    frozen = frozen_map()
+    return bool(frozen) and all(frozen.get(role) for role in ROLE_FILES)
+
+
+def multi_tick_parity() -> bool:
+    path = LOGS / "tick_tape.json"
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    return bool(data.get("all_match"))
+
+
+_BANNED_EXTRA = (
+    "budget leftover",
+    "leftover from a fly",
+    "fly budget",
+    "malecns leftover",
+)
+
+
+def extra_units_declared() -> bool:
+    path = REPO / "config" / "scale_extra_units.json"
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    role = str(data.get("extra_units") or "").strip()
+    if not role:
+        return False
+    low = role.lower()
+    if any(b in low for b in _BANNED_EXTRA):
+        return False
+    return True
+
+
 def latch_held_key_dies(report: dict[str, Any] | None = None) -> bool:
     report = report if report is not None else ablation_report()
     if report.get("missing"):

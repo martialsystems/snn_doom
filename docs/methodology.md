@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,217 LIF neurons, 38,722 edges. v1 budget cap is 8,000.
+Running machine: 7,192 LIF neurons. v1 budget cap is 8,000. Extra cells vs the 7,217 stitch are sprite latches so multi-tick enemy columns hold.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -111,6 +111,6 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `vbd.runtime.json` | verify-before-done checks |
 | `doomforge/` | GraphForge pin and the four refuse laws |
 
-## Next experiment
+## v1
 
-FRAME_READOUT freeze hash sits next to RAY in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric in `logs/frame_parity.json`.
+7,192 LIF units. Teacher-matched pose, enemy, distances, and frames on the five-pose tape plus four extra ticks (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
