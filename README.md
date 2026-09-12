@@ -1,8 +1,8 @@
 # snn_doom
 
-A fruit fly was mapped. People taught the map to play Doom...but this is not that. 
+A fruit fly was mapped. People taught that map to play DOOM...but this is not that. This is *farrr* more cursed. 
 
-This repo doesn't showcase the fly brain playing doom. The fly brain *is* a Doom engine. Python injects four keys, steps the circuit, and decodes the color lines. That's it. Python does none of the heavy lifting, even thought it CAN run DOOM by itself. 
+This repo doesn't showcase the fly brain playing DOOM. The fly brain *is* a DOOM engine, each neuron is remapped with a sole function, to run DOOM. Python only injects four keys, steps the circuit, and decodes the color lines. That's it. It does none of the heavy lifting, even thought it CAN technically run DOOM by itself without a fly.
 
 All the technical bits: [docs/methodology.md](docs/methodology.md).
 
