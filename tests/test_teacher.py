@@ -9,6 +9,7 @@ from snn_doom.const import (
     COLOR_ENEMY,
     COLOR_WALL,
     COS,
+    DEATH_TICKS,
     FRAME_H,
     N_ANG,
     N_COLS,
@@ -113,6 +114,26 @@ def test_collide_sets_hit() -> None:
     s = spawn(px=24, py=24, ex=24, ey=24)
     r = tick(s, 0)
     assert r.state.player_hit == 1
+    assert r.state.enemy_alive == 0
+    assert r.state.death_left == DEATH_TICKS
+    assert r.columns[CENTER_COL].sprite == 0
+
+
+def test_death_freezes_pose_then_rearms() -> None:
+    s = spawn(px=24, py=24, ex=24, ey=24)
+    r0 = tick(s, 0)
+    held = r0.state.px
+    for i in range(DEATH_TICKS):
+        r = tick(r0.state if i == 0 else r.state, pack_input(0, 0, 1, 0))
+        assert r.state.px == held
+        assert r.state.enemy_alive == 0
+        if i < DEATH_TICKS - 1:
+            assert r.state.player_hit == 1
+        else:
+            assert r.state.player_hit == 0
+    live = tick(r.state, pack_input(0, 0, 1, 0))
+    assert live.state.player_hit == 0
+    assert live.state.px > held
 
 
 def test_ray_hits_east_wall() -> None:

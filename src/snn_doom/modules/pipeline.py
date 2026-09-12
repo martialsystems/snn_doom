@@ -13,6 +13,7 @@ import numpy as np
 from snn_doom.const import (
     CENTER_COL,
     COS,
+    DEATH_TICKS,
     FRAME_H,
     MARCH_LEN,
     MOVE_DIV,
@@ -31,6 +32,7 @@ from snn_doom.modules.ram import add_ram1
 from snn_doom.modules.readout import build_fixed_readout
 from snn_doom.snn.digital import (
     W_FORCE,
+    W_HOLD,
     W_INH,
     Rail,
     and2,
@@ -199,6 +201,8 @@ def build_doom_snn() -> DoomSNN:
 
     pose_busy = bistable(b, "pose_busy", "SEQUENCER")
     ray_busy = bistable(b, "ray_busy", "SEQUENCER")
+    death_pending = bistable(b, "death_pending", "SEQUENCER")
+    death_busy = bistable(b, "death_busy", "SEQUENCER")
     pose_gate = and2(b, beat, pose_busy.t, "pose_gate", "SEQUENCER")
     ray_gate = and2(b, beat, ray_busy.t, "ray_gate", "SEQUENCER")
     pose_ring = gated_ring(b, 5, pose_gate, "SEQUENCER_POSE")
@@ -384,9 +388,24 @@ def build_doom_snn() -> DoomSNN:
         b.wire(sprite_cols[c].f, ro["sprite_bits"][c].f, 1.2)
 
     # Pose captures at end of each pose state.
-    we_ang = _we(b, and2(b, pose_gate, pose_ring[0], "p_turn", "SEQUENCER"), "we_ang", bias)
-    we_xy = _we(b, and2(b, pose_gate, pose_ring[1], "p_move", "SEQUENCER"), "we_xy", bias)
-    we_e = _we(b, and2(b, pose_gate, pose_ring[2], "p_enemy", "SEQUENCER"), "we_e", bias)
+    we_ang = _we(
+        b,
+        and3(b, pose_gate, pose_ring[0], player_hit.f, "p_turn", "SEQUENCER"),
+        "we_ang",
+        bias,
+    )
+    we_xy = _we(
+        b,
+        and3(b, pose_gate, pose_ring[1], player_hit.f, "p_move", "SEQUENCER"),
+        "we_xy",
+        bias,
+    )
+    we_e = _we(
+        b,
+        and3(b, pose_gate, pose_ring[2], player_hit.f, "p_enemy", "SEQUENCER"),
+        "we_e",
+        bias,
+    )
     p_hit = and2(b, pose_gate, pose_ring[3], "p_hit", "SEQUENCER")
     p_load = and2(b, pose_gate, pose_ring[4], "p_load", "SEQUENCER")
     add_write(b, ang, we_ang, ang2, "w_ang", "REGISTER_FILE")
@@ -397,6 +416,10 @@ def build_doom_snn() -> DoomSNN:
     hs = and2(b, p_hit, hit_set, "hs", "SEQUENCER")
     b.wire(hs, player_hit.t, W_FORCE)
     b.wire(hs, player_hit.f, W_INH)
+    b.wire(hs, enemy_alive.f, W_FORCE)
+    b.wire(hs, enemy_alive.t, W_INH)
+    b.wire(hs, death_pending.t, W_FORCE)
+    b.wire(hs, death_pending.f, W_INH)
 
     we_load = _we(b, p_load, "we_load", bias)
     add_write(b, rx, we_load, px, "load_x", "RAY_COLUMN")
@@ -451,9 +474,36 @@ def build_doom_snn() -> DoomSNN:
 
     # Fire AND heading sprite. Kill on the last column's last march window (SETTLE long).
     shot = and2(b, fire.t, sprite_cols[CENTER_COL].t, "shot", "SEQUENCER")
-    kill = and3(b, col_ring[-1], march_ring[-1], shot, "kill", "SEQUENCER")
+    end_hold = and2(b, col_ring[-1], march_ring[-1], "end_hold", "SEQUENCER")
+    kill = and2(b, end_hold, shot, "kill", "SEQUENCER")
     b.wire(kill, enemy_alive.f, W_FORCE)
     b.wire(kill, enemy_alive.t, W_INH)
+
+    # Death: arm after the contact frame, then DEATH_TICKS freeze ticks, then re-arm.
+    ray_start = and3(b, ray_gate, march_ring[0], col_ring[0], "ray_start", "SEQUENCER")
+    death_adv = and2(b, ray_start, death_busy.t, "death_adv", "SEQUENCER")
+    death_cells = [b.alloc(f"death_{i}", "SEQUENCER") for i in range(DEATH_TICKS)]
+    for i, cell in enumerate(death_cells):
+        b.wire(cell, cell, W_HOLD)
+        step = and2(b, cell, death_adv, f"death_step{i}", "SEQUENCER")
+        b.wire(step, cell, W_INH)
+        if i + 1 < DEATH_TICKS:
+            b.wire(step, death_cells[i + 1], W_FORCE)
+        else:
+            b.wire(step, death_busy.f, W_FORCE)
+            b.wire(step, death_busy.t, W_INH)
+            b.wire(step, player_hit.f, W_FORCE)
+            b.wire(step, player_hit.t, W_INH)
+            for c in death_cells:
+                b.wire(step, c, W_INH)
+    arm = and2(b, end_hold, death_pending.t, "death_arm", "SEQUENCER")
+    b.wire(arm, death_busy.t, W_FORCE)
+    b.wire(arm, death_busy.f, W_INH)
+    b.wire(arm, death_pending.f, W_FORCE)
+    b.wire(arm, death_pending.t, W_INH)
+    b.wire(arm, death_cells[0], W_FORCE)
+    for cell in death_cells[1:]:
+        b.wire(arm, cell, W_INH)
 
     # gated_ring for pose used module SEQUENCER_POSE; retag by compiling then... keep both.
     # Relabel SEQUENCER_POSE -> we will treat it as SEQUENCER in zero_module tests by also zeroing it.

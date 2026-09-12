@@ -1,6 +1,6 @@
 {
-  "n_neurons": 7164,
-  "n_edges": 39612,
+  "n_neurons": 7180,
+  "n_edges": 39670,
   "steps_per_tick": 8352,
   "cap": 8000,
   "modules": [
@@ -21,6 +21,6 @@
     "RAM": 780,
     "RAY_COLUMN": 1669,
     "REGISTER_FILE": 348,
-    "SEQUENCER": 104
+    "SEQUENCER": 120
   }
 }

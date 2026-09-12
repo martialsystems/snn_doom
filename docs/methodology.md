@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,164 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells: dual-rail key, shot AND, kill AND.
+Running machine: 7,180 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -32,6 +32,8 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Center-column hitscan | heading ray sprite bit; teacher and net match |
 | 32-tick held-fwd tape | pose, dists, hitscan, frames (`logs/tick_tape.json`) |
 | Fire | fifth bit AND heading sprite; spawn miss, posed kill |
+| Held-fire corridor | 32 ticks fwd+fire from spawn: no shot, heading sprite 0 |
+| Death | `player_hit` freezes pose for 4 ticks, then re-arm |
 | Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
 | 166k scale-up | refused until extra units have a named job |
@@ -62,7 +64,7 @@ Inputs per LIF step: turn_left, turn_right, fwd, back, fire.
 | REGISTER_FILE | pose + enemy bits | |
 | ADDER_COMPARE | turn, move, enemy step, ray step | 8-bit add/compare |
 | RAM | 64 map cells | extra read ports |
-| SEQUENCER | pose / column / march rings | 5 / 16 / 15 |
+| SEQUENCER | pose / column / march rings | 5 / 16 / 15 plus death chain |
 | RAY_COLUMN | one marching ray, 16 dist latches | frozen dual-rail after five-pose 16-int match |
 | FRAME_READOUT | 16×16×4 color lines | frozen wta after five-pose argmax match |
 
@@ -116,4 +118,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## v1
 
-7,164 LIF units. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
+7,180 LIF units. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.

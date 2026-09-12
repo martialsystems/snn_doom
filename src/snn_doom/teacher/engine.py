@@ -6,11 +6,11 @@ Python in the demo path may not call these functions.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, COS, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
+from snn_doom.const import CENTER_COL, COS, DEATH_TICKS, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
 from snn_doom.teacher.render import Column, cast_frame, paint_frame
 from snn_doom.teacher.state import GameState, unpack_input
 
@@ -27,17 +27,7 @@ def apply_turn(state: GameState, turn_left: int, turn_right: int) -> GameState:
     if turn_left == turn_right:
         return state
     delta = -2 if turn_left else 2
-    ang = (state.ang + delta) % N_ANG
-    return GameState(
-        map_bits=state.map_bits,
-        px=state.px,
-        py=state.py,
-        ang=ang,
-        ex=state.ex,
-        ey=state.ey,
-        enemy_alive=state.enemy_alive,
-        player_hit=state.player_hit,
-    )
+    return replace(state, ang=(state.ang + delta) % N_ANG)
 
 
 def apply_move(state: GameState, fwd: int, back: int) -> GameState:
@@ -48,16 +38,7 @@ def apply_move(state: GameState, fwd: int, back: int) -> GameState:
     ny = _clip(state.py + sign * (SIN[state.ang] // MOVE_DIV))
     if state.wall_at_world(nx, ny):
         return state
-    return GameState(
-        map_bits=state.map_bits,
-        px=nx,
-        py=ny,
-        ang=state.ang,
-        ex=state.ex,
-        ey=state.ey,
-        enemy_alive=state.enemy_alive,
-        player_hit=state.player_hit,
-    )
+    return replace(state, px=nx, py=ny)
 
 
 def _try_enemy_axis(state: GameState, nx: int, ny: int) -> GameState | None:
@@ -65,16 +46,7 @@ def _try_enemy_axis(state: GameState, nx: int, ny: int) -> GameState | None:
     ny = _clip(ny)
     if state.wall_at_world(nx, ny):
         return None
-    return GameState(
-        map_bits=state.map_bits,
-        px=state.px,
-        py=state.py,
-        ang=state.ang,
-        ex=nx,
-        ey=ny,
-        enemy_alive=state.enemy_alive,
-        player_hit=state.player_hit,
-    )
+    return replace(state, ex=nx, ey=ny)
 
 
 def apply_enemy(state: GameState) -> GameState:
@@ -105,19 +77,7 @@ def apply_fire(state: GameState, fire: int, heading_sprite: int) -> tuple[GameSt
     shot = int(bool(fire and heading_sprite and state.enemy_alive))
     if not shot:
         return state, 0
-    return (
-        GameState(
-            map_bits=state.map_bits,
-            px=state.px,
-            py=state.py,
-            ang=state.ang,
-            ex=state.ex,
-            ey=state.ey,
-            enemy_alive=0,
-            player_hit=state.player_hit,
-        ),
-        1,
-    )
+    return replace(state, enemy_alive=0), 1
 
 
 def apply_collide(state: GameState) -> GameState:
@@ -126,16 +86,7 @@ def apply_collide(state: GameState) -> GameState:
     same = (state.px >> 4) == (state.ex >> 4) and (state.py >> 4) == (state.ey >> 4)
     if not same:
         return state
-    return GameState(
-        map_bits=state.map_bits,
-        px=state.px,
-        py=state.py,
-        ang=state.ang,
-        ex=state.ex,
-        ey=state.ey,
-        enemy_alive=1,
-        player_hit=1,
-    )
+    return replace(state, enemy_alive=0, player_hit=1, death_left=DEATH_TICKS)
 
 
 @dataclass(frozen=True, slots=True)
@@ -148,12 +99,25 @@ class TickResult:
 
 def tick(state: GameState, input_bits: int) -> TickResult:
     turn_l, turn_r, fwd, back, fire = unpack_input(input_bits)
+    if state.player_hit:
+        columns = cast_frame(state)
+        pixels = paint_frame(columns)
+        left = state.death_left - 1
+        s = replace(
+            state,
+            death_left=max(left, 0),
+            player_hit=1 if left > 0 else 0,
+            enemy_alive=0,
+        )
+        return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s = apply_turn(state, turn_l, turn_r)
     s = apply_move(s, fwd, back)
     s = apply_enemy(s)
     s = apply_collide(s)
     columns = cast_frame(s)
     pixels = paint_frame(columns)
+    if s.player_hit:
+        return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s, shot = apply_fire(s, fire, columns[CENTER_COL].sprite)
     return TickResult(state=s, columns=columns, pixels=pixels, shot=shot)
 

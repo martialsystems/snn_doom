@@ -36,7 +36,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 1. Turn: ±2 angle units, cancel if both or neither.
 2. Move: add `COS[ang]//2` (or minus if back). Stay if the destination cell is wall or out of world.
 3. Enemy: if alive, step 2 units on x toward the player, else on y. Stay if wall.
-4. Collide: same cell as the player sets `player_hit`.
+4. Collide: same cell as the player sets `player_hit`, clears `enemy_alive`, and starts `DEATH_TICKS` freeze ticks (pose held, dead frame, then re-arm).
 5. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
 6. Paint: 16x16 pixels, 2-bit color (sky, floor, wall, enemy). Height = `16-dist`.
 7. Fire: AND the fifth key with the heading column sprite. A hit clears `enemy_alive`. The painted frame is the shot you saw.

@@ -54,3 +54,17 @@ def test_tick_tape_artifact_when_logged() -> None:
     assert kill["teacher_shot"] == 1
     assert kill["teacher_pose"]["enemy_alive"] == 0
     assert kill["match"] is True
+    held_fire = data["held_fire"]
+    assert held_fire["match"] is True
+    assert len(held_fire["steps"]) == HELD_N
+    for step in held_fire["steps"]:
+        assert step["teacher_shot"] == 0
+        assert step["teacher_hitscan"] == 0
+        assert step["teacher_pose"]["enemy_alive"] == 1
+        assert step["match"] is True
+    death = data["death"]
+    assert death["match"] is True
+    assert death["steps"][0]["teacher_pose"]["player_hit"] == 1
+    assert death["steps"][0]["teacher_pose"]["enemy_alive"] == 0
+    assert death["steps"][-1]["teacher_pose"]["player_hit"] == 0
+    assert death["steps"][-1]["teacher_pose"]["px"] > death["steps"][0]["teacher_pose"]["px"]

@@ -103,3 +103,35 @@ def test_pipeline_fire_miss_then_kill() -> None:
     assert m.read_shot() == 1
     assert m.read_state()["enemy_alive"] == 0
     np.testing.assert_array_equal(pix, tr.pixels)
+
+
+def test_pipeline_death_freeze_then_rearm() -> None:
+    from snn_doom.const import DEATH_TICKS
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.state import pack_input
+
+    m = build_doom_snn()
+    s0 = spawn(px=24, py=24, ex=24, ey=24)
+    m.reset(s0)
+    fwd = pack_input(0, 0, 1, 0)
+    tr = tick(s0, 0)
+    pix = m.tick(0)
+    assert m.read_state()["player_hit"] == 1
+    assert m.read_state()["enemy_alive"] == 0
+    np.testing.assert_array_equal(pix, tr.pixels)
+    held = tr.state.px
+    s = tr.state
+    for _ in range(DEATH_TICKS):
+        tr = tick(s, fwd)
+        pix = m.tick(fwd)
+        st = m.read_state()
+        assert st["px"] == held
+        assert st["enemy_alive"] == 0
+        assert st["player_hit"] == tr.state.player_hit
+        np.testing.assert_array_equal(pix, tr.pixels)
+        s = tr.state
+    tr = tick(s, fwd)
+    pix = m.tick(fwd)
+    assert m.read_state()["player_hit"] == 0
+    assert m.read_state()["px"] > held
+    np.testing.assert_array_equal(pix, tr.pixels)

@@ -27,3 +27,11 @@ def test_readme_host_contract() -> None:
     assert "decode" in text.lower()
     assert "—" not in text
     assert "What it is not" not in text
+
+
+def test_headless_demo_does_not_inject_fire() -> None:
+    demo = (REPO / "scripts" / "run_demo.py").read_text(encoding="utf-8")
+    assert "pack_input(0, 0, int(args.fwd), 0)" in demo
+    view = (REPO / "src" / "snn_doom" / "demo" / "view.py").read_text(encoding="utf-8")
+    assert 'int("space" in pressed or "ctrl" in pressed or "f" in pressed)' in view
+    assert "pack_input(" in view

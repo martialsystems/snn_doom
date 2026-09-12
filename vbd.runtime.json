@@ -45,7 +45,7 @@
     {
       "id": "tick-tape",
       "argv": [".venv/bin/python", "scripts/tick_tape.py"],
-      "timeout_s": 300,
+      "timeout_s": 400,
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/tick_tape.py"]
     },
     {

@@ -89,6 +89,8 @@ SETTLE_STEPS: Final[int] = 32
 POSE_WINDOWS: Final[int] = 5
 MARCH_LEN: Final[int] = MAX_DIST + 1  # beat 0 loads; beats 1..15 add like the teacher
 STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN)
+# Freeze ticks after the contact tick. Contact also paints dead (alive already 0).
+DEATH_TICKS: Final[int] = 4
 
 # Bake-off scoring (architecture.md).
 SCORE_W_ACC: Final[float] = 0.35

@@ -38,6 +38,8 @@ Hitscan and held-fwd (2026-09-12): `CENTER_COL` is the heading ray. Teacher `hit
 
 Trigger (2026-09-12): fifth latched bit AND heading sprite. Kill writes `enemy_alive=0` on the last column's last march window. Tape is spawn+fire miss, then posed look-north+fire kill. Spawn held-fwd still never lights heading sprite. No extra march. Four extra cells (7,164). Extra units still undeclared.
 
+Death and held-fire (2026-09-12): contact drops `enemy_alive` before the ray, holds pose for `DEATH_TICKS` freeze ticks, then re-arms `player_hit` on the last freeze. Held-fire is 32 ticks of fwd+fire down the spawn-east corridor: shot 0, heading sprite 0, then the posed look still kills. Headless `--frames` injects fire=0. Interactive space/ctrl/f is a host key. Scale still blocked. Extra units undeclared.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

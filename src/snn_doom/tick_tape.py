@@ -8,7 +8,7 @@ from typing import Any
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, N_COLS
+from snn_doom.const import CENTER_COL, DEATH_TICKS, N_COLS
 from snn_doom.ray_parity import CASES, LOGS
 from snn_doom.snn.io import read_bit, read_int
 from snn_doom.teacher.engine import tick
@@ -19,6 +19,7 @@ TAPE_N = 4
 HELD_N = 32
 HELD_BITS = pack_input(0, 0, 1, 0)
 FIRE_BITS = pack_input(0, 0, 0, 0, 1)
+HELD_FIRE_BITS = pack_input(0, 0, 1, 0, 1)
 TAPE_BITS = (
     0,
     pack_input(0, 0, 1, 0),
@@ -27,6 +28,7 @@ TAPE_BITS = (
 )
 # Posed heading-on-enemy. Spawn looking east is the miss. Do not rotate spawn into a hit.
 LOOK = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+OVERLAP = spawn(px=24, py=24, ex=24, ey=24)
 
 
 def _pose_dict(state: GameState) -> dict[str, int]:
@@ -132,6 +134,29 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
     )
     trigger_ok = miss_ok and kill_ok
     all_match = all_match and trigger_ok
+    held_fire_steps = _run_bits(m, spawn(), [HELD_FIRE_BITS] * held_ticks)
+    held_fire_ok = all(
+        s["match"] and s["teacher_shot"] == 0 and s["teacher_hitscan"] == 0 and s["teacher_pose"]["enemy_alive"] == 1
+        for s in held_fire_steps
+    )
+    all_match = all_match and held_fire_ok
+    death_bits = [0] * (1 + DEATH_TICKS) + [HELD_BITS]
+    death_steps = _run_bits(m, OVERLAP, death_bits)
+    death_ok = all(s["match"] for s in death_steps)
+    contact = death_steps[0]
+    freeze = death_steps[1 : 1 + DEATH_TICKS]
+    live = death_steps[-1]
+    death_ok = (
+        death_ok
+        and contact["teacher_pose"]["player_hit"] == 1
+        and contact["teacher_pose"]["enemy_alive"] == 0
+        and all(s["teacher_pose"]["enemy_alive"] == 0 for s in freeze)
+        and all(s["teacher_pose"]["px"] == contact["teacher_pose"]["px"] for s in freeze)
+        and freeze[-1]["teacher_pose"]["player_hit"] == 0
+        and live["teacher_pose"]["player_hit"] == 0
+        and live["teacher_pose"]["px"] > contact["teacher_pose"]["px"]
+    )
+    all_match = all_match and death_ok
     payload = {
         "all_match": all_match,
         "extra_ticks": extra_ticks,
@@ -144,6 +169,8 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
             "miss": {"name": "trigger_miss", "match": miss_ok, "steps": miss_steps},
             "kill": {"name": "trigger_kill", "match": kill_ok, "steps": kill_steps},
         },
+        "held_fire": {"name": "held_fire_corridor", "match": held_fire_ok, "steps": held_fire_steps},
+        "death": {"name": "death_overlap", "match": death_ok, "steps": death_steps},
     }
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "tick_tape.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

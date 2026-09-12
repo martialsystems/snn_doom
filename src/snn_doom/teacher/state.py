@@ -43,6 +43,7 @@ class GameState:
     ey: int
     enemy_alive: int
     player_hit: int
+    death_left: int = 0  # sequencer-internal; not in the 104-bit pack
 
     def __post_init__(self) -> None:
         if self.map_bits < 0 or self.map_bits >= (1 << MAP_CELLS):
@@ -55,6 +56,8 @@ class GameState:
             raise ValueError(f"ang={self.ang} out of range")
         if self.enemy_alive not in (0, 1) or self.player_hit not in (0, 1):
             raise ValueError("flag bits must be 0 or 1")
+        if self.death_left < 0:
+            raise ValueError("death_left must be >= 0")
 
     def pack(self) -> int:
         packed = 0
