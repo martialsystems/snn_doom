@@ -9,8 +9,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from doomforge.gate import require_demo_path
 from snn_doom.demo.view import run_demo
 from snn_doom.teacher.state import pack_input
 
@@ -21,6 +23,7 @@ def main() -> None:
     p.add_argument("--out", type=Path, default=ROOT / "logs" / "demo_frame.png")
     p.add_argument("--fwd", action="store_true")
     args = p.parse_args()
+    require_demo_path()
     bits = pack_input(0, 0, int(args.fwd), 0)
     inputs = [bits] * max(args.frames, 1)
     stats = run_demo(frames=args.frames, out=args.out, inputs=inputs)

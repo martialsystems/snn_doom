@@ -32,9 +32,13 @@ Failed: column distances are neural but not bit-exact vs the teacher (idle pixel
 
 Next: lock RAY dist to the teacher march, then scale.
 
+## GraphForge pin (2026-09-12)
+
+Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.
+
 ## Phase 4: scale
 
-Not started. No 166k net until RAY distances match and the ablation table stays green.
+Refused. `scripts/scale_166k.py` raises LawBlockedError until `logs/ray_parity.json` all_match, RAY freeze, ablations isolate, and LATCH dies on a held key.
 
 ## Phase 5: demo (2026-09-12)
 

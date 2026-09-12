@@ -12,32 +12,38 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from doomforge.evidence import write_freeze_manifest
+from doomforge.gate import require_can_bakeoff
+from doomforge.graphs.module_freeze import ORDER
 from snn_doom.const import ROLES, SEED
+from snn_doom.modules.train import freeze_role
 from snn_doom.snn.bakeoff import write_bakeoff
+from snn_doom.ray_parity import run_parity
 
 
 def main() -> None:
+    require_can_bakeoff()
     bake = write_bakeoff(ROOT / "logs" / "bakeoff.json", ROOT / "docs" / "bakeoff.md")
+    parity = run_parity()
     ckpt_dir = ROOT / "checkpoints"
     ckpt_dir.mkdir(exist_ok=True)
     frozen = {}
-    for role in ROLES:
-        enc = bake["winners"][role]
-        row = next(r for r in bake["rows"] if r["role"] == role and r["encoding"] == enc) if enc != "none" else None
-        payload = {
-            "role": role,
-            "encoding": enc,
-            "seed": SEED,
-            "hand_wired": enc in ("dual_rail", "bistable", "oscillator", "wta"),
-            "row": row,
-            "frozen": enc != "none",
-        }
-        path = ckpt_dir / f"{role.lower()}.json"
-        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    ray_ok = bool(parity.get("all_match"))
+    for role in ORDER:
+        enc = bake["winners"].get(role, "none")
+        if role == "RAY_COLUMN" and not ray_ok:
+            enc = "none"
+        if role == "FRAME_READOUT" and not ray_ok:
+            print("skip FRAME_READOUT: RAY not frozen")
+            continue
+        row = next((r for r in bake["rows"] if r["role"] == role and r["encoding"] == enc), None)
+        freeze_role(role, enc, row)
         frozen[role] = enc
         print(f"freeze {role} -> {enc}")
+    write_freeze_manifest()
     bundle = ckpt_dir / "v1.json"
     bundle.write_text(json.dumps({"seed": SEED, "modules": frozen, "bakeoff": "logs/bakeoff.json"}, indent=2) + "\n")
     print("wrote", bundle)

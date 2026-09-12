@@ -1,0 +1,11 @@
+{
+  "engine": "graphforge",
+  "github": "martialsystems/graphforge",
+  "track": "main",
+  "remote": "origin",
+  "min_version": "0.6.0",
+  "policy": "report_only",
+  "local_candidates": ["~/graphforge"],
+  "require_product_laws": true,
+  "note": "snn_doom: teacher before bake-off; freeze before next train; demo host surface; 166k refused until RAY distances lock. VBD is evidence. Verify-before-done is the finish gate."
+}

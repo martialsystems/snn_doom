@@ -32,6 +32,7 @@ def main() -> None:
     bits = pack_input(0, 0, 1, 0)
     pix0 = base.tick(bits)
     st0 = base.read_state()
+    spawn_px = s0.px
     rows = []
     for name in MODULES:
         m = build_doom_snn()
@@ -48,8 +49,19 @@ def main() -> None:
             }
         )
         print(name, rows[-1]["pixel_l1"], rows[-1]["state_delta"])
+    by = {r["module"]: r for r in rows}
+    latch = by.get("BIT_LATCH") or {}
+    latch_held_key_dies = bool(st0["px"] != spawn_px) and bool(
+        (latch.get("state_delta") or {}).get("px")
+    )
+    payload = {
+        "baseline_state": st0,
+        "held_key": "fwd",
+        "latch_held_key_dies": latch_held_key_dies,
+        "rows": rows,
+    }
     out = ROOT / "logs" / "ablation.json"
-    out.write_text(json.dumps({"baseline_state": st0, "rows": rows}, indent=2) + "\n", encoding="utf-8")
+    out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print("wrote", out)
 
 

@@ -324,20 +324,7 @@ def build_doom_snn() -> DoomSNN:
 
     rx = add_reg(b, "rx", 8, "RAY_COLUMN")
     ry = add_reg(b, "ry", 8, "RAY_COLUMN")
-    rdx = add_reg(b, "rdx", 8, "RAY_COLUMN")
-    rdy = add_reg(b, "rdy", 8, "RAY_COLUMN")
     rhit = bistable(b, "rhit", "RAY_COLUMN")
-    cin5 = Rail(*b.alloc_pair("cin5", "ADDER_COMPARE"))
-    b.wire(bias, cin5.f, 1.2)
-    rxn, _ = add_adder(b, rx, rdx, cin5, "rxadd", "ADDER_COMPARE")
-    cin6 = Rail(*b.alloc_pair("cin6", "ADDER_COMPARE"))
-    b.wire(bias, cin6.f, 1.2)
-    ryn, _ = add_adder(b, ry, rdy, cin6, "ryadd", "ADDER_COMPARE")
-    addr_r = [rxn[4], rxn[5], rxn[6], ryn[4], ryn[5], ryn[6]]
-    dec_r = decoder_bits(b, addr_r, "dec_r", "RAM")
-    ram_r = or_n(b, [and2(b, dec_r[i], ram_cells[i].t, f"rrt{i}", "RAM") for i in range(len(ram_cells))], "ram_r", "RAM")
-    rwall = or_n(b, [ram_r, rxn[7].t, ryn[7].t], "rwall", "RAY_COLUMN")
-
     col_off = tuple((c - 8) % N_ANG for c in range(N_COLS))
     sel_dx = [Rail(*b.alloc_pair(f"sdx_{k}", "RAY_COLUMN")) for k in range(8)]
     sel_dy = [Rail(*b.alloc_pair(f"sdy_{k}", "RAY_COLUMN")) for k in range(8)]
@@ -351,6 +338,16 @@ def build_doom_snn() -> DoomSNN:
             b.wire(and2(b, col_ring[c], crc[k].f, f"cdxf{c}{k}", "RAY_COLUMN"), sel_dx[k].f, 1.2)
             b.wire(and2(b, col_ring[c], src[k].t, f"cdyt{c}{k}", "RAY_COLUMN"), sel_dy[k].t, 1.2)
             b.wire(and2(b, col_ring[c], src[k].f, f"cdyf{c}{k}", "RAY_COLUMN"), sel_dy[k].f, 1.2)
+    cin5 = Rail(*b.alloc_pair("cin5", "ADDER_COMPARE"))
+    b.wire(bias, cin5.f, 1.2)
+    rxn, _ = add_adder(b, rx, sel_dx, cin5, "rxadd", "ADDER_COMPARE")
+    cin6 = Rail(*b.alloc_pair("cin6", "ADDER_COMPARE"))
+    b.wire(bias, cin6.f, 1.2)
+    ryn, _ = add_adder(b, ry, sel_dy, cin6, "ryadd", "ADDER_COMPARE")
+    addr_r = [rxn[4], rxn[5], rxn[6], ryn[4], ryn[5], ryn[6]]
+    dec_r = decoder_bits(b, addr_r, "dec_r", "RAM")
+    ram_r = or_n(b, [and2(b, dec_r[i], ram_cells[i].t, f"rrt{i}", "RAM") for i in range(len(ram_cells))], "ram_r", "RAM")
+    rwall = or_n(b, [ram_r, rxn[7].t, ryn[7].t], "rwall", "RAY_COLUMN")
 
     dist_cols = [add_reg(b, f"dist{c}", 4, "RAY_COLUMN") for c in range(N_COLS)]
     sprite_cols = [Rail(*b.alloc_pair(f"sp{c}", "RAY_COLUMN")) for c in range(N_COLS)]
@@ -381,18 +378,14 @@ def build_doom_snn() -> DoomSNN:
     we_load = _we(b, p_load, "we_load", bias)
     add_write(b, rx, we_load, px, "load_x", "RAY_COLUMN")
     add_write(b, ry, we_load, py, "load_y", "RAY_COLUMN")
-    add_write(b, rdx, we_load, sel_dx, "load_dx", "RAY_COLUMN")
-    add_write(b, rdy, we_load, sel_dy, "load_dy", "RAY_COLUMN")
     b.wire(p_load, rhit.f, W_FORCE)
     b.wire(p_load, rhit.t, W_INH)
 
-    # New column: march[0] and ray beat reloads ray from pose and selected dir.
+    # New column: march[0] reloads pose into the ray latches. Direction is combinational.
     new_col = and2(b, ray_gate, march_ring[0], "new_col", "SEQUENCER")
     we_col = _we(b, new_col, "we_col", bias)
     add_write(b, rx, we_col, px, "col_x", "RAY_COLUMN")
     add_write(b, ry, we_col, py, "col_y", "RAY_COLUMN")
-    add_write(b, rdx, we_col, sel_dx, "col_dx", "RAY_COLUMN")
-    add_write(b, rdy, we_col, sel_dy, "col_dy", "RAY_COLUMN")
     b.wire(new_col, rhit.f, W_FORCE)
     b.wire(new_col, rhit.t, W_INH)
 

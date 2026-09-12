@@ -20,6 +20,16 @@ def test_zero_readout_kills_pixels() -> None:
     assert int((after == 2).sum()) < int((before == 2).sum()) or int(after.sum()) == 0
 
 
+def test_ablation_json_held_key_visible() -> None:
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "logs" / "ablation.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    assert data.get("held_key") == "fwd"
+    assert data.get("latch_held_key_dies") is True
+
+
 def test_zero_clock_freezes_sequencer() -> None:
     m = build_doom_snn()
     m.reset(spawn())

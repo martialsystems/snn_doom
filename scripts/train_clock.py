@@ -6,13 +6,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
+from doomforge.gate import require_can_train
 from snn_doom.modules.train import freeze_role
 from snn_doom.snn.bakeoff import run_bakeoff
 
+require_can_train("train_clock")
 data = run_bakeoff()
 role = "CLOCK"
 enc = data["winners"][role]
 row = next((r for r in data["rows"] if r["role"] == role and r["encoding"] == enc), None)
-freeze_role(role, enc, row, ROOT / "checkpoints" / "clock.json")
+freeze_role(role, enc, row)
 print(role, enc)

@@ -74,7 +74,9 @@ A module freezes before the next one trains. RAY has no freeze.
 Demo path must not call `teacher.tick` or `cast_ray`.
 166,700 neurons are refused until column distances match the teacher march and ablations stay green.
 
-Those four are process laws. Pytest is evidence. Do not report done on a scale-up that skips RAY lock. Phase log: [phase_log.md](phase_log.md).
+Those four are GraphForge laws in `doomforge/`. Pytest and the JSON under `logs/` are evidence the graph reads. Do not report done on a scale-up that skips RAY lock. Phase log: [phase_log.md](phase_log.md).
+
+Do not pin idle pixel L1 as a law. Pin the 16 column distances. L1 can still move after RAY is exact.
 
 ## Library split
 
@@ -107,6 +109,7 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `docs/phase_log.md` | what passed |
 | `docs/bakeoff.md` | encoding bake-off |
 | `vbd.runtime.json` | verify-before-done checks |
+| `doomforge/` | GraphForge pin and the four refuse laws |
 
 ## Next experiment
 

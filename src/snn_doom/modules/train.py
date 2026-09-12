@@ -6,8 +6,18 @@ from pathlib import Path
 
 from snn_doom.const import SEED
 
+try:
+    from doomforge.evidence import ROLE_FILES, write_freeze_manifest
+except ImportError:
+    ROLE_FILES = {}
+    write_freeze_manifest = None  # type: ignore[assignment]
 
-def freeze_role(role: str, encoding: str, row: dict | None, dest: Path) -> None:
+
+def freeze_role(role: str, encoding: str, row: dict | None, dest: Path | None = None) -> Path:
+    root = Path(__file__).resolve().parents[3]
+    if dest is None:
+        name = ROLE_FILES.get(role, role.lower() + ".json")
+        dest = root / "checkpoints" / name
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(
         json.dumps(
@@ -24,3 +34,6 @@ def freeze_role(role: str, encoding: str, row: dict | None, dest: Path) -> None:
         + "\n",
         encoding="utf-8",
     )
+    if write_freeze_manifest is not None:
+        write_freeze_manifest()
+    return dest

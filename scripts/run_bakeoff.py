@@ -6,12 +6,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from doomforge.gate import require_can_bakeoff
 from snn_doom.snn.bakeoff import write_bakeoff
 
 
 def main() -> None:
+    require_can_bakeoff()
     data = write_bakeoff(ROOT / "logs" / "bakeoff.json", ROOT / "docs" / "bakeoff.md")
     print("winners", data["winners"])
     failed = [r for r in data["rows"] if r.get("error")]

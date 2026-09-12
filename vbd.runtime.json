@@ -4,13 +4,43 @@
       "id": "unit-tests",
       "argv": [".venv/bin/python", "-m", "pytest", "tests/", "-q"],
       "timeout_s": 180,
-      "paths": ["src/**", "tests/**", "scripts/**", "docs/**", "README.md", "requirements.txt", "vbd.runtime.json"]
+      "paths": ["src/**", "tests/**", "scripts/**", "doomforge/**", "docs/**", "README.md", "requirements.txt", "vbd.runtime.json"]
+    },
+    {
+      "id": "teacher-suite",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_teacher.py", "-q"],
+      "timeout_s": 60,
+      "paths": ["src/snn_doom/teacher/**", "tests/test_teacher.py"]
+    },
+    {
+      "id": "host-surface",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_host_surface.py", "-q"],
+      "timeout_s": 30,
+      "paths": ["scripts/run_demo.py", "src/snn_doom/demo/**", "src/snn_doom/modules/pipeline.py"]
     },
     {
       "id": "readme-prose",
       "argv": [".venv/bin/python", "-m", "pytest", "tests/test_readme.py", "tests/test_host_surface.py", "-q"],
       "timeout_s": 30,
-      "paths": ["README.md", "docs/**", "scripts/run_demo.py", "src/snn_doom/demo/**"]
+      "paths": ["README.md", "docs/**"]
+    },
+    {
+      "id": "doomforge-sanity",
+      "argv": [".venv/bin/python", "doomforge/scripts/sanity_doomforge.py"],
+      "timeout_s": 60,
+      "paths": ["doomforge/**", "scripts/**", "checkpoints/**"]
+    },
+    {
+      "id": "ray-parity",
+      "argv": [".venv/bin/python", "scripts/ray_parity.py"],
+      "timeout_s": 120,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/ray_parity.py", "src/snn_doom/teacher/**"]
+    },
+    {
+      "id": "ablation",
+      "argv": [".venv/bin/python", "scripts/ablate.py"],
+      "timeout_s": 180,
+      "paths": ["src/snn_doom/modules/**", "scripts/ablate.py"]
     }
   ]
 }
