@@ -37,6 +37,12 @@
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/ray_parity.py", "src/snn_doom/teacher/**"]
     },
     {
+      "id": "frame-parity",
+      "argv": [".venv/bin/python", "scripts/frame_parity.py"],
+      "timeout_s": 120,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/frame_parity.py", "src/snn_doom/demo/**"]
+    },
+    {
       "id": "ablation",
       "argv": [".venv/bin/python", "scripts/ablate.py"],
       "timeout_s": 180,

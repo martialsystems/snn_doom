@@ -30,7 +30,7 @@ Passed: 7,217 LIF neurons, 38,722 edges, under the 8,000 cap. Pose/enemy match t
 
 Failed: isolated RAY bake-off still `none`. Stitch distances now match the teacher on five poses (`logs/ray_parity.json` all_match). Miss was carry-chain starve at SETTLE=12 plus capture one one-hot late, not the angle table.
 
-Next: readout freeze is a separate train edge. Do not start 166k because someone is curious.
+FRAME_READOUT frozen wta (`checkpoints/frame_readout.json`) after five-pose frames matched under argmax (`logs/frame_parity.json`, L1 0 as metric). RAY and READOUT ablations still split pixels vs pose. Idle LATCH stayed quiet. `--fwd` remains the LATCH witness.
 
 ## GraphForge pin (2026-09-12)
 

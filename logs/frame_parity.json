@@ -1,0 +1,30 @@
+{
+  "all_match": true,
+  "cases": [
+    {
+      "name": "idle",
+      "match": true,
+      "l1": 0
+    },
+    {
+      "name": "forward",
+      "match": true,
+      "l1": 0
+    },
+    {
+      "name": "turn",
+      "match": true,
+      "l1": 0
+    },
+    {
+      "name": "back",
+      "match": true,
+      "l1": 0
+    },
+    {
+      "name": "wall_graze",
+      "match": true,
+      "l1": 0
+    }
+  ]
+}

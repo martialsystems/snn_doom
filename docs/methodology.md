@@ -61,7 +61,7 @@ Inputs per LIF step: turn_left, turn_right, fwd, back.
 | RAM | 64 map cells | extra read ports |
 | SEQUENCER | pose / column / march rings | 5 / 16 / 15 |
 | RAY_COLUMN | one marching ray, 16 dist latches | frozen dual-rail after five-pose 16-int match |
-| FRAME_READOUT | 16×16×4 color lines | WTA / pop / dual-rail all hit 1.0 in bake-off |
+| FRAME_READOUT | 16×16×4 color lines | frozen wta after five-pose argmax match |
 
 Encodings that won the digital bake-off for CLOCK / LATCH / REG / ALU / RAM / SEQ: dual-rail, bistable, oscillator. RAY_COLUMN missed the 0.70 gate in every encoding. Shared LUT tagging once marked move COS ROM as RAY, so RAY ablation killed pose. Fixed. Do not do that again.
 
@@ -113,4 +113,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## Next experiment
 
-RAY is frozen on the five-pose 16-int fixture. FRAME_READOUT is still unfrozen. Do not open a 166k tree because the scale law's inputs are green. The law opening is not a start order.
+FRAME_READOUT freeze hash sits next to RAY in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric in `logs/frame_parity.json`.

@@ -8,7 +8,7 @@
     "RAM": "dual_rail",
     "SEQUENCER": "dual_rail",
     "RAY_COLUMN": "dual_rail",
-    "FRAME_READOUT": "population"
+    "FRAME_READOUT": "wta"
   },
   "bakeoff": "logs/bakeoff.json"
 }
