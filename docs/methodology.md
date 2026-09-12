@@ -6,7 +6,7 @@ v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the
 
 Teacher in `src/snn_doom/teacher/` is the spec: 104-bit state, integer march, one enemy, 16×16 paint.
 Stitched net in `src/snn_doom/modules/pipeline.py` is the engine.
-Host injects 5 key bits, runs 8,352 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
+Host injects 5 key bits, runs 7,569 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
 Same discrete update everywhere:
 
 ```
@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,180 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain.
+Running machine: 7,177 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. SETTLE is 29: isolated 127+1 breaks at 23; stitched held-fwd enemy chase breaks at 28.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -36,6 +36,7 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Death | `player_hit` freezes pose for 4 ticks, then re-arm |
 | Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
+| SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28 |
 | 166k scale-up | refused until extra units have a named job |
 
 Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. LATCH ablation is silent if no key is held.
@@ -118,4 +119,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## v1
 
-7,180 LIF units. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
+7,177 LIF units. SETTLE 29 (7,569 LIF steps/tick). Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.

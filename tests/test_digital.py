@@ -86,7 +86,8 @@ def test_eight_bit_add_settles_within_budget() -> None:
     cin = Rail(*b.alloc_pair("cin", "ADDER_COMPARE"))
     sums, _cout = adder_n(b, a, c, cin, "s", "ADDER_COMPARE")
     net = b.compile()
-    # 30+6 dropped bit 5 at SETTLE=12. 127+1 is the slow COS-range case.
+    # 30+6 dropped bit 5 at 11 steps. 127+1 is 0 at 23 steps, exact at 24.
+    assert SETTLE_STEPS >= 24
     for av, cv, want in ((30, 6, 36), (24, 6, 30), (127, 1, 128), (88, 250, 82)):
         net.reset()
         last = None
@@ -98,6 +99,16 @@ def test_eight_bit_add_settles_within_budget() -> None:
             last = net.step(cur)
         got = read_int(last, sums)
         assert got == want, f"{av}+{cv} got {got} want {want}"
+    # Floor: one step under the 127+1 first_ok is a miss.
+    net.reset()
+    last = None
+    for _ in range(23):
+        cur = zeros(net)
+        drive_int(cur, a, 127)
+        drive_int(cur, c, 1)
+        drive_bit(cur, cin, 0)
+        last = net.step(cur)
+    assert read_int(last, sums) != 128
 
 
 def test_bias_stays_on() -> None:

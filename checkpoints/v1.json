@@ -1,7 +1,7 @@
 {
   "seed": 0,
-  "n_neurons": 7180,
-  "steps_per_tick": 8352,
+  "n_neurons": 7177,
+  "steps_per_tick": 7569,
   "tick_tape": "logs/tick_tape.json",
   "modules": {
     "CLOCK": "dual_rail",

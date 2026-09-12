@@ -84,8 +84,9 @@ DIGITAL_TAU: Final[float] = 0.0
 DIGITAL_THRESH: Final[float] = 1.0
 ANALOG_TAU: Final[float] = 0.8
 ANALOG_THRESH: Final[float] = 1.0
-# 8-bit ripple 127+1 first matches at LIF 24. COS/SIN adds plus dir mux need headroom.
-SETTLE_STEPS: Final[int] = 32
+# Isolated 8-bit 127+1 first matches at LIF 24 (23 yields 0). 30+6 first matches at 12.
+# Stitched held-fwd enemy chase skips a step at 28 (px=64, ex stays 86). 29 is one notch above.
+SETTLE_STEPS: Final[int] = 29
 POSE_WINDOWS: Final[int] = 5
 MARCH_LEN: Final[int] = MAX_DIST + 1  # beat 0 loads; beats 1..15 add like the teacher
 STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN)

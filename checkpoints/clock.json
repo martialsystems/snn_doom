@@ -13,7 +13,9 @@
     "spikes_per_step": 1.0,
     "error": null,
     "score": 0.97830625,
-    "pass_gate": true
+    "pass_gate": true,
+    "settle_steps": 29,
+    "steps_per_tick": 7569
   },
   "frozen": true
 }

@@ -40,6 +40,8 @@ Trigger (2026-09-12): fifth latched bit AND heading sprite. Kill writes `enemy_a
 
 Death and held-fire (2026-09-12): contact drops `enemy_alive` before the ray, holds pose for `DEATH_TICKS` freeze ticks, then re-arms `player_hit` on the last freeze. Held-fire is 32 ticks of fwd+fire down the spawn-east corridor: shot 0, heading sprite 0, then the posed look still kills. Headless `--frames` injects fire=0. Interactive space/ctrl/f is a host key. Scale still blocked. Extra units undeclared.
 
+SPEED (2026-09-12): SETTLE 29. Isolated 127+1 is 0 at 23, exact at 24. 30+6 exact at 12. Stitched one-tick fwd is green at 24, but 32-tick held-fwd skips one enemy step at SETTLE 28 (px=64, snn ex=86 vs teacher 84). 29 is one notch above that break. CLOCK ring 29 (7,177 cells, minus 3 vs 32). STEPS_PER_TICK 7,569. RAY/READOUT freeze hashes unchanged. Scale still blocked: leftover cells have no named extra-units job.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

@@ -1,7 +1,7 @@
 {
-  "n_neurons": 7180,
-  "n_edges": 39670,
-  "steps_per_tick": 8352,
+  "n_neurons": 7177,
+  "n_edges": 39667,
+  "steps_per_tick": 7569,
   "cap": 8000,
   "modules": [
     "ADDER_COMPARE",
@@ -16,7 +16,7 @@
   "counts": {
     "ADDER_COMPARE": 2542,
     "BIT_LATCH": 24,
-    "CLOCK": 33,
+    "CLOCK": 30,
     "FRAME_READOUT": 1664,
     "RAM": 780,
     "RAY_COLUMN": 1669,

@@ -44,7 +44,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 ## Module graph
 
 ```
-CLOCK (SETTLE ring)
+CLOCK (SETTLE=29 ring)
   -> SEQUENCER (pose ring 5, march ring 15, column ring 16)
        -> BIT_LATCH (held keys)
        -> REGISTER_FILE (px,py,ang,ex,ey,flags)
