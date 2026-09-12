@@ -15,7 +15,7 @@ from snn_doom.const import (
     STATE_BITS,
     WORLD,
 )
-from snn_doom.teacher.engine import apply_enemy, apply_move, apply_turn, run, tick
+from snn_doom.teacher.engine import apply_enemy, apply_fire, apply_move, apply_turn, run, tick
 from snn_doom.teacher.maps import DEFAULT_ROWS, parse_map, rows_of, spawn
 from snn_doom.teacher.render import cast_ray, column_angle, frame_to_ascii, hitscan, paint_frame
 from snn_doom.teacher.state import GameState, pack_input, unpack_input
@@ -44,7 +44,9 @@ def test_map_parse_rows() -> None:
 
 def test_input_pack() -> None:
     assert pack_input(1, 0, 1, 0) == 0b0101
-    assert unpack_input(0b1100) == (0, 0, 1, 1)
+    assert unpack_input(0b1100) == (0, 0, 1, 1, 0)
+    assert pack_input(0, 0, 0, 0, 1) == 0b10000
+    assert unpack_input(0b10000) == (0, 0, 0, 0, 1)
     with pytest.raises(ValueError):
         pack_input(2, 0, 0, 0)
 
@@ -185,6 +187,33 @@ def test_hitscan_center_column_hits_enemy_when_facing_it() -> None:
     assert column_angle(r.state.ang, CENTER_COL) == r.state.ang
     assert hitscan(r.state) == 1
     assert r.columns[CENTER_COL].sprite == 1
+
+
+def test_fire_misses_when_heading_ray_is_empty() -> None:
+    s = spawn()
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.columns[CENTER_COL].sprite == 0
+    assert r.shot == 0
+    assert r.state.enemy_alive == 1
+    dead, shot = apply_fire(s, 1, 0)
+    assert shot == 0
+    assert dead.enemy_alive == 1
+
+
+def test_fire_kills_when_heading_ray_sees_enemy() -> None:
+    s = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+    idle = tick(s, 0)
+    assert idle.columns[CENTER_COL].sprite == 1
+    assert idle.state.enemy_alive == 1
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.columns[CENTER_COL].sprite == 1
+    assert r.shot == 1
+    assert r.state.enemy_alive == 0
+    assert hitscan(r.state) == 0
+    again = tick(r.state, pack_input(0, 0, 0, 0, 1))
+    assert again.shot == 0
+    assert again.state.enemy_alive == 0
+    assert again.columns[CENTER_COL].sprite == 0
 
 
 def test_sprite_paint_is_blob_not_wall_overwrite() -> None:

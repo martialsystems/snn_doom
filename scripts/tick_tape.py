@@ -21,6 +21,9 @@ def main() -> None:
         "tapes": {t["name"]: t["match"] for t in payload["tapes"]},
         "held": payload["held"]["match"],
         "held_hitscan": sum(s["teacher_hitscan"] for s in payload["held"]["steps"]),
+        "trigger": payload["trigger"]["match"],
+        "trigger_miss_alive": payload["trigger"]["miss"]["steps"][0]["teacher_pose"]["enemy_alive"],
+        "trigger_kill_alive": payload["trigger"]["kill"]["steps"][0]["teacher_pose"]["enemy_alive"],
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:
@@ -32,6 +35,8 @@ def main() -> None:
         if not payload["held"]["match"]:
             bad = [s["i"] for s in payload["held"]["steps"] if not s["match"]]
             print("held_fwd fail steps", bad)
+        if not payload["trigger"]["match"]:
+            print("trigger miss", payload["trigger"]["miss"]["match"], "kill", payload["trigger"]["kill"]["match"])
 
 
 if __name__ == "__main__":

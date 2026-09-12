@@ -10,7 +10,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from snn_doom.const import COS, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
+from snn_doom.const import CENTER_COL, COS, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
 from snn_doom.teacher.render import Column, cast_frame, paint_frame
 from snn_doom.teacher.state import GameState, unpack_input
 
@@ -100,6 +100,26 @@ def apply_enemy(state: GameState) -> GameState:
     return moved if moved is not None else state
 
 
+def apply_fire(state: GameState, fire: int, heading_sprite: int) -> tuple[GameState, int]:
+    """Kill if fire is held and the heading column saw a living enemy. Paint already ran."""
+    shot = int(bool(fire and heading_sprite and state.enemy_alive))
+    if not shot:
+        return state, 0
+    return (
+        GameState(
+            map_bits=state.map_bits,
+            px=state.px,
+            py=state.py,
+            ang=state.ang,
+            ex=state.ex,
+            ey=state.ey,
+            enemy_alive=0,
+            player_hit=state.player_hit,
+        ),
+        1,
+    )
+
+
 def apply_collide(state: GameState) -> GameState:
     if not state.enemy_alive:
         return state
@@ -123,17 +143,19 @@ class TickResult:
     state: GameState
     columns: tuple[Column, ...]
     pixels: np.ndarray
+    shot: int = 0
 
 
 def tick(state: GameState, input_bits: int) -> TickResult:
-    turn_l, turn_r, fwd, back = unpack_input(input_bits)
+    turn_l, turn_r, fwd, back, fire = unpack_input(input_bits)
     s = apply_turn(state, turn_l, turn_r)
     s = apply_move(s, fwd, back)
     s = apply_enemy(s)
     s = apply_collide(s)
     columns = cast_frame(s)
     pixels = paint_frame(columns)
-    return TickResult(state=s, columns=columns, pixels=pixels)
+    s, shot = apply_fire(s, fire, columns[CENTER_COL].sprite)
+    return TickResult(state=s, columns=columns, pixels=pixels, shot=shot)
 
 
 def run(state: GameState, inputs: list[int] | tuple[int, ...]) -> list[TickResult]:

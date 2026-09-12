@@ -28,13 +28,29 @@ def test_tick_tape_artifact_when_logged() -> None:
             assert step["dist_ok"] is True
             assert step["frame_ok"] is True
             assert step["hitscan_ok"] is True
+            assert step["shot_ok"] is True
             assert step["l1"] == 0
     held = data["held"]
     assert held["match"] is True
     assert len(held["steps"]) == HELD_N
     for step in held["steps"]:
         assert step["hitscan_ok"] is True
+        assert step["shot_ok"] is True
         assert step["pose_ok"] is True
         assert step["dist_ok"] is True
         assert step["frame_ok"] is True
         assert step["l1"] == 0
+        assert step["teacher_shot"] == 0
+        assert step["teacher_hitscan"] == 0
+    trig = data["trigger"]
+    assert trig["match"] is True
+    miss = trig["miss"]["steps"][0]
+    kill = trig["kill"]["steps"][0]
+    assert miss["teacher_hitscan"] == 0
+    assert miss["teacher_shot"] == 0
+    assert miss["teacher_pose"]["enemy_alive"] == 1
+    assert miss["match"] is True
+    assert kill["teacher_hitscan"] == 1
+    assert kill["teacher_shot"] == 1
+    assert kill["teacher_pose"]["enemy_alive"] == 0
+    assert kill["match"] is True

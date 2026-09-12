@@ -15,6 +15,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -72,6 +73,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -81,6 +84,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -138,6 +142,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -147,6 +153,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -204,6 +211,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -213,6 +222,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -270,6 +280,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -279,6 +291,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -336,6 +349,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         }
       ]
@@ -351,6 +366,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -408,6 +424,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -417,6 +435,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -474,6 +493,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -483,6 +504,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 32,
@@ -540,6 +562,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -549,6 +573,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 32,
@@ -606,6 +631,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -615,6 +642,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -672,6 +700,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         }
       ]
@@ -687,6 +717,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -744,6 +775,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -753,6 +786,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -810,6 +844,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -819,6 +855,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -876,6 +913,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -885,6 +924,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -942,6 +982,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -951,6 +993,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 25,
@@ -1008,6 +1051,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         }
       ]
@@ -1023,6 +1068,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1080,6 +1126,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1089,6 +1137,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1146,6 +1195,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1155,6 +1206,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -1212,6 +1264,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1221,6 +1275,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -1278,6 +1333,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1287,6 +1344,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1344,6 +1402,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         }
       ]
@@ -1359,6 +1419,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1416,6 +1477,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1425,6 +1488,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1482,6 +1546,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1491,6 +1557,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1548,6 +1615,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1557,6 +1626,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1614,6 +1684,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         },
         {
@@ -1623,6 +1695,7 @@
           "dist_ok": true,
           "frame_ok": true,
           "hitscan_ok": true,
+          "shot_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 51,
@@ -1680,6 +1753,8 @@
           ],
           "teacher_hitscan": 0,
           "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
           "l1": 0
         }
       ]
@@ -1696,6 +1771,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 28,
@@ -1753,6 +1829,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -1762,6 +1840,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 32,
@@ -1819,6 +1898,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -1828,6 +1909,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 36,
@@ -1885,6 +1967,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -1894,6 +1978,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 40,
@@ -1951,6 +2036,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -1960,6 +2047,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 44,
@@ -2017,6 +2105,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2026,6 +2116,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 48,
@@ -2083,6 +2174,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2092,6 +2185,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 52,
@@ -2149,6 +2243,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2158,6 +2254,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 56,
@@ -2215,6 +2312,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2224,6 +2323,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 60,
@@ -2281,6 +2381,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2290,6 +2392,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 64,
@@ -2347,6 +2450,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2356,6 +2461,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 68,
@@ -2413,6 +2519,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2422,6 +2530,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 72,
@@ -2479,6 +2588,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2488,6 +2599,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 76,
@@ -2545,6 +2657,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2554,6 +2668,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 80,
@@ -2611,6 +2726,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2620,6 +2737,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 84,
@@ -2677,6 +2795,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2686,6 +2806,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 88,
@@ -2743,6 +2864,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2752,6 +2875,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 92,
@@ -2809,6 +2933,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2818,6 +2944,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 96,
@@ -2875,6 +3002,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2884,6 +3013,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 100,
@@ -2941,6 +3071,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -2950,6 +3082,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 104,
@@ -3007,6 +3140,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3016,6 +3151,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3073,6 +3209,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3082,6 +3220,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3139,6 +3278,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3148,6 +3289,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3205,6 +3347,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3214,6 +3358,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3271,6 +3416,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3280,6 +3427,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3337,6 +3485,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3346,6 +3496,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3403,6 +3554,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3412,6 +3565,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3469,6 +3623,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3478,6 +3634,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3535,6 +3692,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3544,6 +3703,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3601,6 +3761,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3610,6 +3772,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3667,6 +3830,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3676,6 +3841,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3733,6 +3899,8 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       },
       {
@@ -3742,6 +3910,7 @@
         "dist_ok": true,
         "frame_ok": true,
         "hitscan_ok": true,
+        "shot_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3799,8 +3968,163 @@
         ],
         "teacher_hitscan": 0,
         "snn_hitscan": 0,
+        "teacher_shot": 0,
+        "snn_shot": 0,
         "l1": 0
       }
     ]
+  },
+  "trigger": {
+    "match": true,
+    "miss": {
+      "name": "trigger_miss",
+      "match": true,
+      "steps": [
+        {
+          "i": 0,
+          "bits": 16,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 24,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 24,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            7,
+            7,
+            13,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            7,
+            7,
+            13,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "l1": 0
+        }
+      ]
+    },
+    "kill": {
+      "name": "trigger_kill",
+      "match": true,
+      "steps": [
+        {
+          "i": 0,
+          "bits": 16,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 104,
+            "py": 88,
+            "ang": 48,
+            "ex": 104,
+            "ey": 42,
+            "enemy_alive": 0,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 104,
+            "py": 88,
+            "ang": 48,
+            "ex": 104,
+            "ey": 42,
+            "enemy_alive": 0,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            8,
+            4,
+            4,
+            3,
+            2,
+            2,
+            2
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            8,
+            4,
+            4,
+            3,
+            2,
+            2,
+            2
+          ],
+          "teacher_hitscan": 1,
+          "snn_hitscan": 1,
+          "teacher_shot": 1,
+          "snn_shot": 1,
+          "l1": 0
+        }
+      ]
+    }
   }
 }

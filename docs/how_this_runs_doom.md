@@ -4,7 +4,7 @@ The network is the engine. A game tick is a fixed number of LIF steps. Pose, the
 
 The host does four things:
 
-1. Inject four key bits as currents on input rails.
+1. Inject five key bits as currents on input rails.
 2. Call `net.step` `STEPS_PER_TICK` times.
 3. Argmax four color lines per pixel.
 4. Draw the 16x16 frame and log spikes/step.

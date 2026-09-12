@@ -12,18 +12,21 @@ from snn_doom.const import CENTER_COL, N_COLS
 from snn_doom.ray_parity import CASES, LOGS
 from snn_doom.snn.io import read_bit, read_int
 from snn_doom.teacher.engine import tick
-from snn_doom.teacher.render import hitscan
+from snn_doom.teacher.maps import spawn
 from snn_doom.teacher.state import GameState, pack_input
 
 TAPE_N = 4
 HELD_N = 32
 HELD_BITS = pack_input(0, 0, 1, 0)
+FIRE_BITS = pack_input(0, 0, 0, 0, 1)
 TAPE_BITS = (
     0,
     pack_input(0, 0, 1, 0),
     pack_input(0, 1, 0, 0),
     pack_input(0, 0, 0, 1),
 )
+# Posed heading-on-enemy. Spawn looking east is the miss. Do not rotate spawn into a hit.
+LOOK = spawn(px=104, py=88, ang=48, ex=104, ey=40)
 
 
 def _pose_dict(state: GameState) -> dict[str, int]:
@@ -52,13 +55,16 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
     dists = _snn_dists(machine)
     want_pose = _pose_dict(teacher)
     want_d = [c.dist for c in tr.columns]
-    want_hs = hitscan(teacher)
+    want_hs = tr.columns[CENTER_COL].sprite
     got_hs = _snn_hitscan(machine)
+    want_shot = tr.shot
+    got_shot = machine.read_shot()
     pose_ok = st == want_pose
     dist_ok = dists == want_d
     frame_ok = bool(np.array_equal(pix, tr.pixels))
     hitscan_ok = got_hs == want_hs
-    ok = pose_ok and dist_ok and frame_ok and hitscan_ok
+    shot_ok = got_shot == want_shot
+    ok = pose_ok and dist_ok and frame_ok and hitscan_ok and shot_ok
     return {
         "i": i,
         "bits": bits,
@@ -66,6 +72,7 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
         "dist_ok": dist_ok,
         "frame_ok": frame_ok,
         "hitscan_ok": hitscan_ok,
+        "shot_ok": shot_ok,
         "match": ok,
         "teacher_pose": want_pose,
         "snn_pose": st,
@@ -73,6 +80,8 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
         "snn_dist": dists,
         "teacher_hitscan": want_hs,
         "snn_hitscan": got_hs,
+        "teacher_shot": want_shot,
+        "snn_shot": got_shot,
         "l1": int(np.abs(pix.astype(int) - tr.pixels.astype(int)).sum()),
     }
 
@@ -91,7 +100,6 @@ def _run_bits(machine, start: GameState, bits_seq: list[int]) -> list[dict[str, 
 
 def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HELD_N) -> dict[str, Any]:
     from snn_doom.modules.pipeline import build_doom_snn
-    from snn_doom.teacher.maps import spawn
 
     m = machine or build_doom_snn()
     tapes = []
@@ -106,6 +114,24 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
     held_steps = _run_bits(m, spawn(), [HELD_BITS] * held_ticks)
     held_ok = all(s["match"] for s in held_steps)
     all_match = all_match and held_ok
+    miss_steps = _run_bits(m, spawn(), [FIRE_BITS])
+    kill_steps = _run_bits(m, LOOK, [FIRE_BITS])
+    miss = miss_steps[0]
+    kill = kill_steps[0]
+    miss_ok = (
+        miss["match"]
+        and miss["teacher_hitscan"] == 0
+        and miss["teacher_shot"] == 0
+        and miss["teacher_pose"]["enemy_alive"] == 1
+    )
+    kill_ok = (
+        kill["match"]
+        and kill["teacher_hitscan"] == 1
+        and kill["teacher_shot"] == 1
+        and kill["teacher_pose"]["enemy_alive"] == 0
+    )
+    trigger_ok = miss_ok and kill_ok
+    all_match = all_match and trigger_ok
     payload = {
         "all_match": all_match,
         "extra_ticks": extra_ticks,
@@ -113,6 +139,11 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         "held_key": "fwd",
         "tapes": tapes,
         "held": {"name": "held_fwd", "match": held_ok, "steps": held_steps},
+        "trigger": {
+            "match": trigger_ok,
+            "miss": {"name": "trigger_miss", "match": miss_ok, "steps": miss_steps},
+            "kill": {"name": "trigger_kill", "match": kill_ok, "steps": kill_steps},
+        },
     }
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "tick_tape.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

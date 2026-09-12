@@ -19,6 +19,7 @@ from snn_doom.const import (
     N_ANG,
     N_COLS,
     N_COLORS,
+    N_INPUT_BITS,
     SETTLE_STEPS,
     SIN,
     STEPS_PER_TICK,
@@ -108,6 +109,7 @@ class DoomSNN:
     dist_cols: list[list[Rail]]
     sprite_cols: list[Rail]
     pixels: list[list[list[int]]]
+    shot: int
     steps_per_tick: int
     kick: list[int]
     last_spikes_per_step: float = 0.0
@@ -139,11 +141,8 @@ class DoomSNN:
     def _input_current(self, input_bits: int) -> np.ndarray:
         cur = zeros(self.net)
         drive_index(cur, self.bias)
-        tl, tr, fwd, back = unpack_input(input_bits)
-        drive_bit(cur, self.in_rails[0], tl)
-        drive_bit(cur, self.in_rails[1], tr)
-        drive_bit(cur, self.in_rails[2], fwd)
-        drive_bit(cur, self.in_rails[3], back)
+        for rail, bit in zip(self.in_rails, unpack_input(input_bits)):
+            drive_bit(cur, rail, bit)
         return cur
 
     def tick(self, input_bits: int) -> np.ndarray:
@@ -165,8 +164,12 @@ class DoomSNN:
         return frame
 
     def read_hitscan(self) -> int:
-        """Center-column sprite latch. Same bit as teacher hitscan."""
+        """Center-column sprite latch. Same bit as the painted heading column."""
         return read_bit(self.net.spikes, self.sprite_cols[CENTER_COL])
+
+    def read_shot(self) -> int:
+        """Fire AND heading sprite. Host may copy this; kill already wrote enemy_alive."""
+        return int(self.net.spikes[self.shot] >= 1.0)
 
     def read_state(self) -> dict[str, int]:
         s = self.net.spikes
@@ -229,8 +232,8 @@ def build_doom_snn() -> DoomSNN:
     for i in range(1, N_COLS):
         b.wire(frame_end, col_ring[i], W_INH)
 
-    in_rails = [Rail(*b.alloc_pair(f"in_{i}", "BIT_LATCH")) for i in range(4)]
-    turn_l, turn_r, fwd, back = in_rails
+    in_rails = [Rail(*b.alloc_pair(f"in_{i}", "BIT_LATCH")) for i in range(N_INPUT_BITS)]
+    turn_l, turn_r, fwd, back, fire = in_rails
     left_only = and2(b, turn_l.t, turn_r.f, "left_only", "BIT_LATCH")
     right_only = and2(b, turn_r.t, turn_l.f, "right_only", "BIT_LATCH")
     fwd_only = and2(b, fwd.t, back.f, "fwd_only", "BIT_LATCH")
@@ -441,9 +444,16 @@ def build_doom_snn() -> DoomSNN:
         vis = and2(b, do_step, col_ring[c], f"vis{c}", "RAY_COLUMN")
         sprx = _cell_eq(b, rxn, ex, f"sprx{c}")
         spry = _cell_eq(b, ryn, ey, f"spry{c}")
-        spr = and2(b, vis, and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN"), f"spr{c}", "RAY_COLUMN")
+        sxy = and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN")
+        spr = and3(b, vis, sxy, enemy_alive.t, f"spr{c}", "RAY_COLUMN")
         b.wire(spr, sprite_cols[c].t, W_FORCE)
         b.wire(spr, sprite_cols[c].f, W_INH)
+
+    # Fire AND heading sprite. Kill on the last column's last march window (SETTLE long).
+    shot = and2(b, fire.t, sprite_cols[CENTER_COL].t, "shot", "SEQUENCER")
+    kill = and3(b, col_ring[-1], march_ring[-1], shot, "kill", "SEQUENCER")
+    b.wire(kill, enemy_alive.f, W_FORCE)
+    b.wire(kill, enemy_alive.t, W_INH)
 
     # gated_ring for pose used module SEQUENCER_POSE; retag by compiling then... keep both.
     # Relabel SEQUENCER_POSE -> we will treat it as SEQUENCER in zero_module tests by also zeroing it.
@@ -468,6 +478,7 @@ def build_doom_snn() -> DoomSNN:
         dist_cols=dist_cols,
         sprite_cols=sprite_cols,
         pixels=ro["pixels"],
+        shot=shot,
         steps_per_tick=STEPS_PER_TICK,
         kick=[clk[0], bias, pose_busy.t, pose_ring[0], march_ring[0], col_ring[0], ray_busy.f],
         pose_ring=pose_ring,

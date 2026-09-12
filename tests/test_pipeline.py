@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from snn_doom.const import FRAME_H, N_COLS, V1_NEURON_CAP
+from snn_doom.const import CENTER_COL, FRAME_H, N_COLS, V1_NEURON_CAP
 from snn_doom.modules.pipeline import build_doom_snn
 from snn_doom.teacher.maps import spawn
 
@@ -74,3 +74,32 @@ def test_pipeline_hitscan_center_column() -> None:
     tr = tick(look, 0)
     assert hitscan(tr.state) == 1
     assert m.read_hitscan() == 1
+
+
+def test_pipeline_fire_miss_then_kill() -> None:
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.state import pack_input
+
+    fire = pack_input(0, 0, 0, 0, 1)
+    m = build_doom_snn()
+    miss = spawn()
+    m.reset(miss)
+    pix = m.tick(fire)
+    tr = tick(miss, fire)
+    assert tr.shot == 0
+    assert tr.state.enemy_alive == 1
+    assert m.read_shot() == 0
+    assert m.read_state()["enemy_alive"] == 1
+    assert m.read_hitscan() == 0
+    np.testing.assert_array_equal(pix, tr.pixels)
+    look = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+    m.reset(look)
+    pix = m.tick(fire)
+    tr = tick(look, fire)
+    assert tr.columns[CENTER_COL].sprite == 1
+    assert tr.shot == 1
+    assert tr.state.enemy_alive == 0
+    assert m.read_hitscan() == 1
+    assert m.read_shot() == 1
+    assert m.read_state()["enemy_alive"] == 0
+    np.testing.assert_array_equal(pix, tr.pixels)

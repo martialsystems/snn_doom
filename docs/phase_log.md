@@ -36,6 +36,8 @@ Multi-tick tape (`logs/tick_tape.json`): five poses, then idle/fwd/turn/back. Se
 
 Hitscan and held-fwd (2026-09-12): `CENTER_COL` is the heading ray. Teacher `hitscan` and `DoomSNN.read_hitscan` match on spawn-east (0) and facing the enemy (1). 32 held-fwd ticks match pose, 16 distances, hitscan, and frames. Step 6 was L1 2 with those three already matching: column 0 sprite at dist 10. Readout had been sprite AND wall. Teacher paints `is_enemy_row` (abs from mid ≤ max(1, half//2)). Isolated WTA readout now matches `paint_column`. v1 is 7,160 neurons.
 
+Trigger (2026-09-12): fifth latched bit AND heading sprite. Kill writes `enemy_alive=0` on the last column's last march window. Tape is spawn+fire miss, then posed look-north+fire kill. Spawn held-fwd still never lights heading sprite. No extra march. Four extra cells (7,164). Extra units still undeclared.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

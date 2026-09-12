@@ -31,8 +31,9 @@ IN_TURN_L: Final[int] = 0
 IN_TURN_R: Final[int] = 1
 IN_FWD: Final[int] = 2
 IN_BACK: Final[int] = 3
-N_INPUT_BITS: Final[int] = 4
-INPUT_NAMES: Final[tuple[str, ...]] = ("turn_left", "turn_right", "fwd", "back")
+IN_FIRE: Final[int] = 4
+N_INPUT_BITS: Final[int] = 5
+INPUT_NAMES: Final[tuple[str, ...]] = ("turn_left", "turn_right", "fwd", "back", "fire")
 
 # Persistent game state (sequencer/clock live in the net, not here).
 STATE_FIELDS: Final[tuple[tuple[str, int], ...]] = (

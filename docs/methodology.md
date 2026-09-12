@@ -6,7 +6,7 @@ v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the
 
 Teacher in `src/snn_doom/teacher/` is the spec: 104-bit state, integer march, one enemy, 16×16 paint.
 Stitched net in `src/snn_doom/modules/pipeline.py` is the engine.
-Host injects 4 key bits, runs 8,352 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
+Host injects 5 key bits, runs 8,352 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
 Same discrete update everywhere:
 
 ```
@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,160 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab.
+Running machine: 7,164 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells: dual-rail key, shot AND, kill AND.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -31,6 +31,7 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | 16 column distances bit-exact | yes (five poses in `logs/ray_parity.json`) |
 | Center-column hitscan | heading ray sprite bit; teacher and net match |
 | 32-tick held-fwd tape | pose, dists, hitscan, frames (`logs/tick_tape.json`) |
+| Fire | fifth bit AND heading sprite; spawn miss, posed kill |
 | Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
 | 166k scale-up | refused until extra units have a named job |
@@ -50,7 +51,7 @@ Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and 
 
 World: 8×8 cells, 16 subcells/cell (4.4 fixed point). Angle: 64 ticks = 360°. Map bit 1 is wall. Frame: 16×16, 2-bit color {sky, floor, wall, enemy}. Rays: 16 columns, angles ang-8 to ang+7, march 8 units/step, max 15. Height: 16 - dist.
 
-Inputs per LIF step: turn_left, turn_right, fwd, back.
+Inputs per LIF step: turn_left, turn_right, fwd, back, fire.
 
 ## Modules
 
@@ -115,4 +116,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## v1
 
-7,160 LIF units. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
+7,164 LIF units. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
