@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 train = ["torch>=2.2"]
+play = ["numba>=0.59", "pillow>=10"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

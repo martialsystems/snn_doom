@@ -7,7 +7,7 @@ This repo doesn't showcase the fly brain playing DOOM. The fly brain *is* a DOOM
 ## Play
 
 ```bash
-python -m venv .venv && .venv/bin/pip install -e .
+python -m venv .venv && .venv/bin/pip install -e ".[play]"
 .venv/bin/python -m snn_doom.play
 # WASD / arrows  move
 # space / f      fire
