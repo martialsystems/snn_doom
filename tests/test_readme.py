@@ -46,6 +46,11 @@ def test_architecture_stitch_matches_export() -> None:
     assert f"{int(v1['n_edges']):,}" in arch
     assert f"{int(v1['steps_per_tick']):,}" in arch
     assert "7,217 neurons, 38,722 edges" not in arch
+    assert "REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo)" in arch
+    assert "e1 or e2" in arch
+    assert "ammo is greater than 0" in arch
+    assert "heading ray visited" in arch
+    assert "AND the fifth key with the heading column sprite" not in arch
 
 
 def test_methodology_7217_is_museum_not_live() -> None:

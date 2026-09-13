@@ -39,11 +39,11 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 
 1. Turn: ±2 angle units, cancel if both or neither.
 2. Move: add `COS[ang]//2` (or minus if back). Stay if the destination cell is wall or out of world.
-3. Enemy: if alive, step 2 units on x toward the player, else on y. Stay if wall.
-4. Collide: same cell as the player sets `player_hit`, clears `enemy_alive`, and starts `DEATH_TICKS` freeze ticks (pose held, dead frame, then re-arm).
+3. Enemy: e1, if alive, steps 2 units on x toward the player, else on y. Stay if wall. e2 is stationary at cell (2,2).
+4. Collide: same cell as e1 or e2 sets `player_hit`, clears that enemy, and starts `DEATH_TICKS` freeze ticks (pose held, dead frame, then re-arm).
 5. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
 6. Paint: 16x18 pixels, 2-bit color (sky, floor, wall, enemy). Height = `18-dist`.
-7. Fire: AND the fifth key with the heading column sprite. A hit clears `enemy_alive`. The painted frame is the shot you saw.
+7. Fire: if ammo is greater than 0, consume one. Kill whoever the heading ray visited (e1 and/or e2). Sprite AND is the shot flag. Ammo 0 cannot kill.
 8. Door: after paint, the sixth key toggles occupancy of cell (4,5) through `we_ram`. Next pose sees the new bit.
 
 ## Module graph
@@ -52,7 +52,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 CLOCK (SETTLE=29 ring)
   -> SEQUENCER (pose ring 5, march ring 16, column ring 16, door window 1)
        -> BIT_LATCH (held keys, including door)
-       -> REGISTER_FILE (px,py,ang,ex,ey,flags)
+       -> REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo)
        -> ADDER_COMPARE (turn, move, enemy, ray step)
        -> RAM (64 map cells, extra read ports)
        -> DOOR (2-step we_ram pulse on cell (4,5) after last march)
