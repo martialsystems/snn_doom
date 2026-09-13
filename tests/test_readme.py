@@ -1,6 +1,7 @@
 # Copyright (c) 2026 Martial Systems LLC
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -35,3 +36,13 @@ def test_readme_and_docs_prose() -> None:
     how = (REPO / "docs" / "how_this_runs_doom.md").read_text(encoding="utf-8")
     assert "ViZDoom" in how
     assert "cast_ray" in how
+
+
+def test_architecture_stitch_matches_export() -> None:
+    """Graph doc must track the freeze stitch, not the Phase 3 7,217 line."""
+    v1 = json.loads((REPO / "checkpoints" / "snn_doom_v1.json").read_text(encoding="utf-8"))
+    arch = (REPO / "docs" / "architecture.md").read_text(encoding="utf-8")
+    assert f"{int(v1['n_neurons']):,}" in arch
+    assert f"{int(v1['n_edges']):,}" in arch
+    assert f"{int(v1['steps_per_tick']):,}" in arch
+    assert "7,217 neurons, 38,722 edges" not in arch

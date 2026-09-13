@@ -46,11 +46,12 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 
 ```
 CLOCK (SETTLE=29 ring)
-  -> SEQUENCER (pose ring 5, march ring 15, column ring 16)
-       -> BIT_LATCH (held keys)
+  -> SEQUENCER (pose ring 5, march ring 16, column ring 16, door window 1)
+       -> BIT_LATCH (held keys, including door)
        -> REGISTER_FILE (px,py,ang,ex,ey,flags)
        -> ADDER_COMPARE (turn, move, enemy, ray step)
        -> RAM (64 map cells, extra read ports)
+       -> DOOR (2-step we_ram pulse on cell (4,5) after last march)
        -> RAY_COLUMN (rx,ry,dx,dy, per-column dist)
        -> FRAME_READOUT (fixed 16x16x4 WTA)
 ```
@@ -73,7 +74,7 @@ Fly cell-type names are not features. MaleCNS is a Phase 4 sparse init, not v1 t
 
 ## Neuron budget
 
-v1 cap: 8,000. Measured stitch: 7,217 neurons, 38,722 edges. Fly-scale 166,700 is Phase 4, after RAY distances match the teacher and ablations stay green.
+v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json` at DOOR freeze): 7,187 neurons, 39,694 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
 
 ## Curriculum (stitch)
 
@@ -84,4 +85,4 @@ v1 cap: 8,000. Measured stitch: 7,217 neurons, 38,722 edges. Fly-scale 166,700 i
 
 ## Ablation law
 
-Zeroing a module's edges must kill that function: CLOCK stops the rings, RAM drops walls, ALU freezes pose, RAY blanks columns, READOUT drops wall pixels.
+Zeroing a module's edges must kill that function: CLOCK stops the rings, RAM drops walls, ALU freezes pose, RAY blanks columns, READOUT drops wall pixels, DOOR leaves occupancy unflipped.
