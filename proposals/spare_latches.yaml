@@ -1,0 +1,13 @@
+name: spare_latches
+claimed_job: "add spare latches for capacity for later"
+claimed_qol: "headroom insurance"
+new_state_bits: [spare0, spare1]
+new_modules_or_edges: ["REGISTER_FILE.spare"]
+estimated_new_neurons: 20
+estimated_new_edges: 40
+teacher_delta: "hidden bits that never reach VIEW or collision"
+view_delta: "none"
+ablation_target: module tag SPARE
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - spend leftover units on a named job (est. 27 neurons)

@@ -53,6 +53,12 @@
       "argv": [".venv/bin/python", "scripts/ablate.py"],
       "timeout_s": 180,
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "scripts/ablate.py"]
+    },
+    {
+      "id": "qol-audit",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_qol_audit.py", "-q"],
+      "timeout_s": 30,
+      "paths": ["src/snn_doom/qol/**", "scripts/audit_qol.py", "proposals/**", "tests/test_qol_audit.py"]
     }
   ]
 }

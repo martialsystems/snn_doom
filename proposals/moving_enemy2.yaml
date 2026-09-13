@@ -1,0 +1,14 @@
+name: moving_second_sprite
+claimed_job: "second enemy steps toward player each pose ring, same ENEMY_STEP as e1"
+claimed_qol: "two active threats; player must choose angle and ammo"
+new_state_bits: [ex2_step_enable]
+new_modules_or_edges: ["ADDER_COMPARE.enemy2", "SEQUENCER.enemy2_ring"]
+estimated_new_neurons: 86
+estimated_new_edges: 240
+teacher_delta: "apply_enemy also marches (ex2,ey2) unless dead"
+view_delta: "COLOR_ENEMY can occupy a second column blob"
+ablation_target: module tag ENEMY2
+must_not_break: [ray_parity, held_fwd_tape, door, ammo_zero_cannot_kill]
+alternatives:
+  - host-side second sprite overlay (0 neurons, illegal on demo path if it fakes engine work)
+  - reuse existing enemy ALU with a muxed register (est. 40 neurons)

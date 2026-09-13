@@ -111,6 +111,8 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 .venv/bin/python -m snn_doom.play
 .venv/bin/python scripts/run_demo.py --play --lab
 .venv/bin/python scripts/ablate.py
+.venv/bin/python scripts/audit_qol.py proposals/moving_enemy2.yaml
+.venv/bin/python scripts/audit_qol.py --scan proposals/
 ```
 
 ## Layout
@@ -130,6 +132,7 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `docs/bakeoff.md` | encoding bake-off |
 | `vbd.runtime.json` | verify-before-done checks |
 | `doomforge/` | GraphForge pin and the four refuse laws |
+| `proposals/` | neuron QoL asks; `scripts/audit_qol.py` judges them against the frozen stitch |
 
 ## v1
 

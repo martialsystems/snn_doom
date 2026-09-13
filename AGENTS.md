@@ -4,7 +4,7 @@ MIT. GraphForge pin in `doomforge/`: teacher suite before bake-off; module i fro
 
 The teacher is the spec. The demo path must not call `teacher.tick`, `cast_ray`, `apply_move`, `apply_enemy`, or `paint_frame`. Host: inject bits, step LIF, decode pixels, display, log.
 
-Do not train a ViZDoom agent. Do not preserve fly cell types as features. MaleCNS is Phase 4 sparse init only. Do not grow to 166,700 neurons until `logs/ray_parity.json` `all_match` is true, ablations isolate, and LATCH dies on a held key.
+Do not train a ViZDoom agent. Do not preserve fly cell types as features. MaleCNS is Phase 4 sparse init only. Do not grow to 166,700 neurons until `logs/ray_parity.json` `all_match` is true, ablations isolate, and LATCH dies on a held key. Do not spend leftover neurons unless `scripts/audit_qol.py` verdict is ACCEPT or ACCEPT_WITH_CAP.
 
 Verify:
 

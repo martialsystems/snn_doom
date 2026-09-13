@@ -1,0 +1,14 @@
+name: muxed_second_sprite
+claimed_job: "reuse e1 ALU through a mux so e2 takes one extra pose window"
+claimed_qol: "two active threats without a second adder tree"
+new_state_bits: []
+new_modules_or_edges: ["SEQUENCER.pose_ring6", "ADDER_COMPARE.enemy_mux"]
+estimated_new_neurons: 40
+estimated_new_edges: 90
+teacher_delta: "apply_enemy2 marches (ex2,ey2) unless dead; tick calls it after apply_enemy"
+view_delta: "COLOR_ENEMY can occupy a second moving column blob"
+ablation_target: module tag ENEMY2
+must_not_break: [ray_parity, held_fwd_tape, door, ammo_zero_cannot_kill]
+alternatives:
+  - host-side second sprite overlay (0 neurons, illegal on demo path if it fakes engine work)
+  - duplicate enemy ALU (est. 86 neurons)

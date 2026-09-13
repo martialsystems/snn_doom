@@ -1,0 +1,51 @@
+[
+  {
+    "name": "analog_tau_demo",
+    "verdict": "REJECT_BREAKS_LAW",
+    "score": 0.35,
+    "headroom": 27,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/analog_tau_demo.json"
+  },
+  {
+    "name": "fly_scale_init",
+    "verdict": "REJECT_BREAKS_LAW",
+    "score": 0.425,
+    "headroom": -158700,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/fly_scale_init.json"
+  },
+  {
+    "name": "host_palette",
+    "verdict": "REJECT_WASTE",
+    "score": 0.5,
+    "headroom": 27,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/host_palette.json"
+  },
+  {
+    "name": "moving_second_sprite",
+    "verdict": "ACCEPT_WITH_CAP",
+    "score": 0.83,
+    "headroom": -59,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/moving_second_sprite.json"
+  },
+  {
+    "name": "muxed_second_sprite",
+    "verdict": "ACCEPT_WITH_CAP",
+    "score": 0.905,
+    "headroom": -13,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/muxed_second_sprite.json"
+  },
+  {
+    "name": "settle_padding",
+    "verdict": "REJECT_WASTE",
+    "score": 0.48,
+    "headroom": 24,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/settle_padding.json"
+  },
+  {
+    "name": "spare_latches",
+    "verdict": "REJECT_WASTE",
+    "score": 0.6,
+    "headroom": 7,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/spare_latches.json"
+  }
+]

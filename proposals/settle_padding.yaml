@@ -1,0 +1,13 @@
+name: settle_padding
+claimed_job: "pad SETTLE from 29 to 32 just in case carry chains starve"
+claimed_qol: "smoother rays"
+new_state_bits: []
+new_modules_or_edges: ["CLOCK.ring32"]
+estimated_new_neurons: 3
+estimated_new_edges: 6
+teacher_delta: "none; teacher tick is unchanged"
+view_delta: "decoded 16x18x4 frame identical if SETTLE already matched"
+ablation_target: module tag CLOCKPAD
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - keep SETTLE 29 (0 neurons)

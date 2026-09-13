@@ -1,0 +1,89 @@
+{
+  "proposal": {
+    "name": "fly_scale_init",
+    "claimed_job": "sparse-init 166700 MaleCNS leftover cells so the net is more Doom",
+    "claimed_qol": "fly-scale presence",
+    "path": "proposals/fly_166k.yaml"
+  },
+  "baseline_neurons": 7973,
+  "baseline_edges": 41811,
+  "estimated_new_neurons": 158727,
+  "estimated_new_edges": 400000,
+  "headroom": -158700,
+  "fly_scale_refused": true,
+  "named_job_ok": {
+    "ok": true,
+    "reason": "cluster FLYSPARE: sparse-init 166700 MaleCNS leftover cells so the net is more Doom",
+    "ablation_target": "FLYSPARE"
+  },
+  "teacher_specifiable": {
+    "ok": false,
+    "reason": "fly cell types are not features"
+  },
+  "observable_deltas": [
+    {
+      "channel": "none",
+      "before": "no player-visible delta",
+      "after": "internal only",
+      "player_actionable": false
+    }
+  ],
+  "parity_risk": [
+    {
+      "tape": "tick_tape",
+      "why": "frame_ok is on every tape step",
+      "live_green": true,
+      "listed": true
+    }
+  ],
+  "ablation_contract": "zeroing FLYSPARE must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
+  "cost_per_observable": null,
+  "cheaper_alternative": {
+    "text": "named leftover job under the 8000 cap (est. 27 neurons)",
+    "neurons": 27,
+    "legal": true,
+    "reason": "27 < 158727"
+  },
+  "bakeoff_need": false,
+  "score": 0.425,
+  "score_parts": {
+    "observable": 0.0,
+    "named_job_ablation": 1.0,
+    "parity": 1.0,
+    "cost": 0.5,
+    "cap_named": 0.0,
+    "spec_not_waste": 0.0
+  },
+  "score_weights": {
+    "observable": 0.3,
+    "named_job_ablation": 0.2,
+    "parity": 0.15,
+    "cost": 0.15,
+    "cap_named": 0.1,
+    "spec_not_waste": 0.1
+  },
+  "verdict": "REJECT_BREAKS_LAW",
+  "reasons": [
+    "Fly-scale 166,700 is refused until extra units have a named job.",
+    "Estimated 158727 neurons plus baseline 7973 exceeds cap 8000 (headroom -158700).",
+    "fly cell types are not features",
+    "Text matches a waste pattern and there is no player-actionable observable.",
+    "Cheaper legal alternative: named leftover job under the 8000 cap (est. 27 neurons) (27 neurons).",
+    "cluster FLYSPARE: sparse-init 166700 MaleCNS leftover cells so the net is more Doom",
+    "fly cell types are not features",
+    "zeroing FLYSPARE must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
+  ],
+  "gates_failed": [
+    "doom.scale_166k",
+    "doom.v1_cap",
+    "doom.teacher_specifiable",
+    "doom.host_cosmetics"
+  ],
+  "live_logs": {
+    "ray_parity": true,
+    "tick_tape": true,
+    "latch_held_key_dies": true,
+    "settle_24": false
+  },
+  "pipeline_mentions_enemy2_alu": true
+}

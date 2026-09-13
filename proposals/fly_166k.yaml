@@ -1,0 +1,13 @@
+name: fly_scale_init
+claimed_job: "sparse-init 166700 MaleCNS leftover cells so the net is more Doom"
+claimed_qol: "fly-scale presence"
+new_state_bits: []
+new_modules_or_edges: ["MALE_CNS.spare"]
+estimated_new_neurons: 158727
+estimated_new_edges: 400000
+teacher_delta: "none; fly cell types are not features"
+view_delta: "16x18x4 paint unchanged until leftover units have jobs"
+ablation_target: module tag FLYSPARE
+must_not_break: [ray_parity]
+alternatives:
+  - named leftover job under the 8000 cap (est. 27 neurons)

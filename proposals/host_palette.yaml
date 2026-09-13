@@ -1,0 +1,13 @@
+name: host_palette
+claimed_job: "Python blit a warmer wall palette and a bigger HUD font"
+claimed_qol: "looks more like Doom"
+new_state_bits: []
+new_modules_or_edges: []
+estimated_new_neurons: 0
+estimated_new_edges: 0
+teacher_delta: "none; host cosmetics"
+view_delta: "matplotlib palette only; decoded 16x18x4 indices unchanged"
+ablation_target: module tag HOSTPAL
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - leave PALETTE in demo/view.py (0 neurons)

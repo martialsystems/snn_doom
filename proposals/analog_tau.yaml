@@ -1,0 +1,13 @@
+name: analog_tau_demo
+claimed_job: "switch demo LIF to analog tau=0.8 BPTT for smoother motion"
+claimed_qol: "less digital flicker"
+new_state_bits: []
+new_modules_or_edges: ["LIF.analog"]
+estimated_new_neurons: 0
+estimated_new_edges: 0
+teacher_delta: "none; analog net is not the integer teacher"
+view_delta: "pixels may drift; not a new teacher color"
+ablation_target: module tag ANALOG
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - digital tau=0 (0 neurons)
