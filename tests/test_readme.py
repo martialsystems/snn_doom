@@ -46,3 +46,16 @@ def test_architecture_stitch_matches_export() -> None:
     assert f"{int(v1['n_edges']):,}" in arch
     assert f"{int(v1['steps_per_tick']):,}" in arch
     assert "7,217 neurons, 38,722 edges" not in arch
+
+
+def test_methodology_7217_is_museum_not_live() -> None:
+    """7,217 is a Phase 3 history pin. Cleanup must not treat it as the running machine."""
+    v1 = json.loads((REPO / "checkpoints" / "snn_doom_v1.json").read_text(encoding="utf-8"))
+    method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
+    live = f"{int(v1['n_neurons']):,}"
+    assert f"Running machine: {live}" in method
+    idx = method.find("7,217")
+    assert idx >= 0
+    window = method[max(0, idx - 100) : idx + 80]
+    assert "museum" in window.lower()
+    assert "not the running machine" in window.lower()

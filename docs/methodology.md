@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,187 LIF neurons. v1 budget cap is 8,000. Sprite latches were added after the 7,217 stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. Door is a 2-step `we_ram` pulse on cell (4,5) after last march. SETTLE is 29.
+Running machine: 7,187 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. Door is a 2-step `we_ram` pulse on cell (4,5) after last march. SETTLE is 29.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
