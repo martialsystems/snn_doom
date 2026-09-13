@@ -57,3 +57,5 @@ Refused. `scripts/scale_166k.py` raises LawBlockedError until `logs/ray_parity.j
 ## Phase 5: demo (2026-09-12)
 
 Passed: `scripts/run_demo.py --frames 1` writes `logs/demo_frame.png` (~1.6 ticks/sec on this host). Host path does not call `tick`/`cast_ray`.
+
+Live console (2026-09-13): `scripts/run_demo.py --play` injects WASD/arrows, space/f fire, e/q door, steps the LIF budget, and blits FRAME_READOUT plus live RAM (e1, e2, door cell, facing). `--tty` is the same host loop without a window. Headless `--frames` still injects fire=0 and door=0. Matplotlib q/s/f keymap is cleared so those keys stay door/back/fire.

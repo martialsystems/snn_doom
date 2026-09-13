@@ -37,3 +37,14 @@ def test_headless_demo_does_not_inject_fire() -> None:
     assert 'int("e" in pressed or "q" in pressed)' in view
     assert "pack_input(" in view
     assert "pack_input(0, 0, int(args.fwd), 0)" in demo
+
+
+def test_play_flag_is_live_console() -> None:
+    demo = (REPO / "scripts" / "run_demo.py").read_text(encoding="utf-8")
+    assert "--play" in demo
+    assert "--tty" in demo
+    assert "run_console" in demo
+    console = (REPO / "src" / "snn_doom" / "demo" / "console.py").read_text(encoding="utf-8")
+    assert "host_frame" in console
+    assert "keys_to_bits" in console
+    assert "_silence_mpl_keys" in console

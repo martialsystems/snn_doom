@@ -27,6 +27,8 @@ def test_readme_and_docs_prose() -> None:
     assert "inject" in readme.lower()
     assert "decode" in readme.lower()
     assert "docs/methodology.md" in readme
+    assert "--play" in readme
+    assert "six keys" in readme
     method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
     assert "7,217" in method
     assert "124-bit" in method

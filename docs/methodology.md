@@ -6,7 +6,7 @@ v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the
 
 Teacher in `src/snn_doom/teacher/` is the spec: 124-bit state, integer march, two enemies, 16×18 paint.
 Stitched net in `src/snn_doom/modules/pipeline.py` is the engine.
-Host injects 6 key bits, runs 7,598 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
+Host injects 6 key bits, runs 7,598 LIF updates, argmaxes 16×18×4 color lines, draws, logs.
 Same discrete update everywhere:
 
 ```
@@ -104,6 +104,7 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 .venv/bin/python scripts/run_bakeoff.py
 .venv/bin/python scripts/train_all.py
 .venv/bin/python scripts/run_demo.py --frames 1 --fwd
+.venv/bin/python scripts/run_demo.py --play
 .venv/bin/python scripts/ablate.py
 ```
 
@@ -114,7 +115,7 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `src/snn_doom/teacher/` | integer spec tick |
 | `src/snn_doom/snn/` | LIF, encodings, bake-off, analog train |
 | `src/snn_doom/modules/` | frozen modules + stitch |
-| `src/snn_doom/demo/` | host display |
+| `src/snn_doom/demo/` | host display: headless PNG, `--play` window, `--tty` |
 | `checkpoints/` | frozen winners |
 | `logs/bakeoff.json` | encoding table |
 | `logs/ablation.json` | lesion results |

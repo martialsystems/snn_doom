@@ -45,6 +45,7 @@ def test_pipeline_pose_matches_teacher() -> None:
     m.tick(0)
     st = m.read_state()
     tr = tick(s0, 0)
+    assert m.read_map_bits() == s0.map_bits
     assert st["px"] == tr.state.px
     assert st["py"] == tr.state.py
     assert st["ang"] == tr.state.ang

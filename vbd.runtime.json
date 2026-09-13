@@ -14,9 +14,9 @@
     },
     {
       "id": "host-surface",
-      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_host_surface.py", "-q"],
-      "timeout_s": 30,
-      "paths": ["scripts/run_demo.py", "src/snn_doom/demo/**", "src/snn_doom/modules/pipeline.py"]
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/test_host_surface.py", "tests/test_console.py", "-q"],
+      "timeout_s": 60,
+      "paths": ["scripts/run_demo.py", "src/snn_doom/demo/**", "src/snn_doom/modules/pipeline.py", "tests/test_console.py"]
     },
     {
       "id": "readme-prose",

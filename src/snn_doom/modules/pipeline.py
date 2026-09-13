@@ -6,6 +6,7 @@ The datapath (REG, ALU, RAM, RAY, READOUT) computes the teacher tick.
 """
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -159,13 +160,28 @@ class DoomSNN:
             drive_bit(cur, rail, bit)
         return cur
 
-    def tick(self, input_bits: int) -> np.ndarray:
+    def tick(
+        self,
+        input_bits: int,
+        on_chunk: Callable[[int, int], None] | None = None,
+        chunk: int = 512,
+    ) -> np.ndarray:
         cur = self._input_current(input_bits)
         acc = 0.0
-        for _ in range(self.steps_per_tick):
-            s = self.net.step(cur)
-            acc += float(s.sum())
-        self.last_spikes_per_step = acc / max(self.steps_per_tick, 1)
+        n = self.steps_per_tick
+        if on_chunk is None:
+            for _ in range(n):
+                s = self.net.step(cur)
+                acc += float(s.sum())
+        else:
+            step_n = max(int(chunk), 1)
+            for i in range(n):
+                s = self.net.step(cur)
+                acc += float(s.sum())
+                done = i + 1
+                if done % step_n == 0 or done == n:
+                    on_chunk(done, n)
+        self.last_spikes_per_step = acc / max(n, 1)
         return self.decode_pixels()
 
     def decode_pixels(self) -> np.ndarray:
@@ -204,6 +220,15 @@ class DoomSNN:
             "enemy2_alive": read_bit(s, self.enemy2_alive),
             "ammo": read_int(s, self.ammo),
         }
+
+    def read_map_bits(self) -> int:
+        """Occupancy word from RAM bistables. Host decode of the map, not a second copy."""
+        s = self.net.spikes
+        bits = 0
+        for i, cell in enumerate(self.ram_cells):
+            if read_bit(s, cell):
+                bits |= 1 << i
+        return bits
 
     def raster(self) -> dict[str, np.ndarray]:
         return {name: self.net.module_spikes(name).copy() for name in sorted(set(self.net.module))}
