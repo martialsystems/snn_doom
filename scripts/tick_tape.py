@@ -33,6 +33,7 @@ def main() -> None:
         "door_close": payload["door"]["close"]["match"],
         "second": payload["second"]["match"],
         "ammo_dry": payload["ammo_dry"]["match"],
+        "pickup": payload["pickup"]["match"],
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:

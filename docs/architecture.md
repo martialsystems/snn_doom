@@ -14,7 +14,7 @@ v <- v * (1 - s)
 
 Digital modules use `tau=0` (v=I, a McCulloch-Pitts gate on LIF hardware). Analog bake-off nets use `tau=0.8`. JAX is unused: one autodiff stack, and this house already pins torch on sibling products.
 
-## State bits (124)
+## State bits (127)
 
 | Field | Width | Offset |
 |-------|------:|-------:|
@@ -30,6 +30,8 @@ Digital modules use `tau=0` (v=I, a McCulloch-Pitts gate on LIF hardware). Analo
 | ey2 | 8 | 112 |
 | enemy2_alive | 1 | 120 |
 | ammo | 3 | 121 |
+| hp | 2 | 124 |
+| pickup_alive | 1 | 126 |
 
 World is 8x8 cells, 16 subcells per cell (4.4 fixed point). Angle is 64 ticks of 5.625 degrees. Map bit=1 is wall. Sequencer and clock are network-internal, not packed state.
 
@@ -39,12 +41,13 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 
 1. Turn: ±2 angle units, cancel if both or neither.
 2. Move: add `COS[ang]//2` (or minus if back). Stay if the destination cell is wall or out of world.
-3. Enemy: e1, if alive, steps 2 units on x toward the player, else on y. Stay if wall. e2 is stationary at cell (2,2).
-4. Collide: same cell as e1 or e2 sets `player_hit`, clears that enemy, and starts `DEATH_TICKS` freeze ticks (pose held, dead frame, then re-arm).
-5. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
-6. Paint: 16x18 pixels, 2-bit color (sky, floor, wall, enemy). Height = `18-dist`.
-7. Fire: if ammo is greater than 0, consume one. Kill whoever the heading ray visited (e1 and/or e2). Sprite AND is the shot flag. Ammo 0 cannot kill.
-8. Door: after paint, the sixth key toggles occupancy of cell (4,5) through `we_ram`. Next pose sees the new bit.
+3. Enemy: e1, if alive, steps 2 units on x toward the player, else on y. Stay if wall. e2 is stationary at cell (2,2). Walking e2 is specified as `apply_enemy2` and stays out of `tick`: a second chase ALU does not fit the 8,000 cap.
+4. Pickup: standing on cell (3,6) writes ammo to 7 and clears `pickup_alive`.
+5. Collide: same cell as e1 or e2 decrements 2-bit HP and clears that enemy. HP 0 sets `player_hit` sticky (pose held). HP 1 to 3 still moves.
+6. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
+7. Paint: 16x18 pixels, 2-bit color (sky, floor, wall, enemy). Height = `18-dist`. Host overlay shades wall columns by dist and marks the heading column.
+8. Fire: if ammo is greater than 0, consume one. Kill whoever the heading ray visited (e1 and/or e2). Sprite AND is the shot flag. Ammo 0 cannot kill.
+9. Door: after paint, the sixth key toggles occupancy of cell (4,5) through `we_ram`. Next pose sees the new bit. The held-fwd fixture map leaves (4,5) open. `--play --map door` closes it at spawn.
 
 ## Module graph
 
@@ -52,7 +55,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 CLOCK (SETTLE=29 ring)
   -> SEQUENCER (pose ring 5, march ring 16, column ring 16, door window 1)
        -> BIT_LATCH (held keys, including door)
-       -> REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo)
+       -> REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo,hp,pickup)
        -> ADDER_COMPARE (turn, move, enemy, ray step)
        -> RAM (64 map cells, extra read ports)
        -> DOOR (2-step we_ram pulse on cell (4,5) after last march)
@@ -78,7 +81,7 @@ Fly cell-type names are not features. MaleCNS is a Phase 4 sparse init, not v1 t
 
 ## Neuron budget
 
-v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,958 neurons, 41,779 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
+v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,973 neurons, 41,811 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
 
 ## Curriculum (stitch)
 

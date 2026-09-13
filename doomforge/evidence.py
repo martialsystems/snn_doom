@@ -36,6 +36,7 @@ BANNED_DEMO_TOKENS = (
 
 DEMO_SCAN_PATHS = (
     REPO / "scripts" / "run_demo.py",
+    REPO / "src" / "snn_doom" / "play.py",
     *(REPO / "src" / "snn_doom" / "demo").rglob("*.py"),
     REPO / "src" / "snn_doom" / "modules" / "pipeline.py",
 )

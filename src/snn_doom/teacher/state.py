@@ -11,6 +11,7 @@ from snn_doom.const import (
     DEFAULT_EX2,
     DEFAULT_EY,
     DEFAULT_EY2,
+    DEFAULT_HP,
     DEFAULT_PX,
     DEFAULT_PY,
     MAP_CELLS,
@@ -50,7 +51,8 @@ class GameState:
     ey2: int = DEFAULT_EY2
     enemy2_alive: int = 1
     ammo: int = DEFAULT_AMMO
-    death_left: int = 0  # sequencer-internal; not packed
+    hp: int = DEFAULT_HP
+    pickup_alive: int = 1
 
     def __post_init__(self) -> None:
         if self.map_bits < 0 or self.map_bits >= (1 << MAP_CELLS):
@@ -67,8 +69,10 @@ class GameState:
             raise ValueError("flag bits must be 0 or 1")
         if self.ammo < 0 or self.ammo > 7:
             raise ValueError("ammo must fit in 3 bits")
-        if self.death_left < 0:
-            raise ValueError("death_left must be >= 0")
+        if self.hp < 0 or self.hp > 3:
+            raise ValueError("hp must fit in 2 bits")
+        if self.pickup_alive not in (0, 1):
+            raise ValueError("flag bits must be 0 or 1")
 
     def pack(self) -> int:
         packed = 0
@@ -84,6 +88,8 @@ class GameState:
         packed = _set(packed, "ey2", self.ey2)
         packed = _set(packed, "enemy2_alive", self.enemy2_alive)
         packed = _set(packed, "ammo", self.ammo)
+        packed = _set(packed, "hp", self.hp)
+        packed = _set(packed, "pickup_alive", self.pickup_alive)
         return packed
 
     @classmethod
@@ -103,6 +109,8 @@ class GameState:
             ey2=_get(packed, "ey2"),
             enemy2_alive=_get(packed, "enemy2_alive"),
             ammo=_get(packed, "ammo"),
+            hp=_get(packed, "hp"),
+            pickup_alive=_get(packed, "pickup_alive"),
         )
 
     def cell_wall(self, cx: int, cy: int) -> bool:

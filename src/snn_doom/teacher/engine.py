@@ -10,7 +10,19 @@ from dataclasses import dataclass, replace
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, COS, DEATH_TICKS, DOOR_IDX, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
+from snn_doom.const import (
+    CENTER_COL,
+    COS,
+    DOOR_IDX,
+    ENEMY_STEP,
+    MOVE_DIV,
+    N_ANG,
+    PICKUP_AMMO,
+    PICKUP_X,
+    PICKUP_Y,
+    SIN,
+    WORLD,
+)
 from snn_doom.teacher.render import Column, cast_frame, paint_frame
 from snn_doom.teacher.state import GameState, unpack_input
 
@@ -70,6 +82,48 @@ def apply_enemy(state: GameState) -> GameState:
     if moved is None and dy != 0:
         moved = _try_enemy_axis(state, state.ex, state.ey + dy)
     return moved if moved is not None else state
+
+
+def apply_enemy2(state: GameState) -> GameState:
+    """Second walker. Same X-then-Y chase on (ex2,ey2)."""
+    if not state.enemy2_alive:
+        return state
+
+    def _try(nx: int, ny: int) -> GameState | None:
+        nx = _clip(nx)
+        ny = _clip(ny)
+        if state.wall_at_world(nx, ny):
+            return None
+        return replace(state, ex2=nx, ey2=ny)
+
+    dx = 0
+    if state.px > state.ex2:
+        dx = ENEMY_STEP
+    elif state.px < state.ex2:
+        dx = -ENEMY_STEP
+    dy = 0
+    if state.py > state.ey2:
+        dy = ENEMY_STEP
+    elif state.py < state.ey2:
+        dy = -ENEMY_STEP
+    moved = None
+    if dx != 0:
+        moved = _try(state.ex2 + dx, state.ey2)
+    if moved is None and dy != 0:
+        moved = _try(state.ex2, state.ey2 + dy)
+    return moved if moved is not None else state
+
+
+def apply_pickup(state: GameState) -> GameState:
+    if not state.pickup_alive:
+        return state
+    if (state.px >> 4, state.py >> 4) != (PICKUP_X, PICKUP_Y):
+        return state
+    return replace(
+        state,
+        ammo=PICKUP_AMMO,
+        pickup_alive=0,
+    )
 
 
 def _heading_enemy_hits(state: GameState) -> tuple[int, int]:
@@ -134,12 +188,13 @@ def apply_collide(state: GameState) -> GameState:
     )
     if not same1 and not same2:
         return state
+    hp = max(state.hp - 1, 0)
     return replace(
         state,
         enemy_alive=0 if same1 else state.enemy_alive,
         enemy2_alive=0 if same2 else state.enemy2_alive,
-        player_hit=1,
-        death_left=DEATH_TICKS,
+        hp=hp,
+        player_hit=1 if hp == 0 else 0,
     )
 
 
@@ -156,17 +211,11 @@ def tick(state: GameState, input_bits: int) -> TickResult:
     if state.player_hit:
         columns = cast_frame(state)
         pixels = paint_frame(columns)
-        left = state.death_left - 1
-        s = replace(
-            state,
-            death_left=max(left, 0),
-            player_hit=1 if left > 0 else 0,
-            enemy_alive=0,
-        )
-        s = apply_door(s, door)
+        s = apply_door(state, door)
         return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s = apply_turn(state, turn_l, turn_r)
     s = apply_move(s, fwd, back)
+    s = apply_pickup(s)
     s = apply_enemy(s)
     s = apply_collide(s)
     columns = cast_frame(s)

@@ -28,10 +28,14 @@ def test_readme_and_docs_prose() -> None:
     assert "decode" in readme.lower()
     assert "docs/methodology.md" in readme
     assert "--play" in readme
+    assert "python -m snn_doom.play" in readme
+    assert "--scale" in readme
+    assert (REPO / "docs" / "play.gif").is_file()
+    assert (REPO / "docs" / "tty.png").is_file()
     assert "six keys" in readme
     method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
     assert "7,217" in method
-    assert "124-bit" in method
+    assert "127-bit" in method
     assert "ray_parity.json" in method
     assert "teacher.tick" in method
     assert "cast_ray" in method
@@ -48,7 +52,7 @@ def test_architecture_stitch_matches_export() -> None:
     assert f"{int(v1['n_edges']):,}" in arch
     assert f"{int(v1['steps_per_tick']):,}" in arch
     assert "7,217 neurons, 38,722 edges" not in arch
-    assert "REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo)" in arch
+    assert "REGISTER_FILE (px,py,ang,ex,ey,ex2,ey2,flags,ammo,hp,pickup)" in arch
     assert "e1 or e2" in arch
     assert "ammo is greater than 0" in arch
     assert "heading ray visited" in arch

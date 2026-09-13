@@ -11,7 +11,9 @@
       "ex2": 40,
       "ey2": 40,
       "enemy2_alive": 1,
-      "ammo": 7
+      "ammo": 7,
+      "hp": 3,
+      "pickup_alive": 1
     },
     "rows": [
       {
@@ -28,7 +30,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -46,7 +50,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 196
       },
@@ -64,7 +70,9 @@
           "ex2": 1,
           "ey2": 1,
           "enemy2_alive": 1,
-          "ammo": 1
+          "ammo": 1,
+          "hp": 1,
+          "pickup_alive": 1
         },
         "pixels_nonzero": 0
       },
@@ -82,7 +90,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -100,7 +110,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 117
       },
@@ -118,7 +130,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -136,7 +150,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -154,7 +170,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -172,7 +190,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 196
       }
@@ -190,7 +210,9 @@
       "ex2": 40,
       "ey2": 40,
       "enemy2_alive": 1,
-      "ammo": 7
+      "ammo": 7,
+      "hp": 3,
+      "pickup_alive": 1
     },
     "rows": [
       {
@@ -207,7 +229,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -225,7 +249,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 196
       },
@@ -243,7 +269,9 @@
           "ex2": 1,
           "ey2": 1,
           "enemy2_alive": 1,
-          "ammo": 1
+          "ammo": 1,
+          "hp": 1,
+          "pickup_alive": 1
         },
         "pixels_nonzero": 0
       },
@@ -261,7 +289,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -279,7 +309,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 117
       },
@@ -297,7 +329,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -315,7 +349,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -333,7 +369,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 0
       },
@@ -351,7 +389,9 @@
           "ex2": 0,
           "ey2": 0,
           "enemy2_alive": 0,
-          "ammo": 0
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
         },
         "pixels_nonzero": 197
       }
@@ -368,7 +408,9 @@
     "ex2": 40,
     "ey2": 40,
     "enemy2_alive": 1,
-    "ammo": 7
+    "ammo": 7,
+    "hp": 3,
+    "pickup_alive": 1
   },
   "held_key": "fwd",
   "latch_held_key_dies": true,
@@ -387,7 +429,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 0
     },
@@ -405,7 +449,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 196
     },
@@ -423,7 +469,9 @@
         "ex2": 1,
         "ey2": 1,
         "enemy2_alive": 1,
-        "ammo": 1
+        "ammo": 1,
+        "hp": 1,
+        "pickup_alive": 1
       },
       "pixels_nonzero": 0
     },
@@ -441,7 +489,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 0
     },
@@ -459,7 +509,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 117
     },
@@ -477,7 +529,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 0
     },
@@ -495,7 +549,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 0
     },
@@ -513,7 +569,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 0
     },
@@ -531,7 +589,9 @@
         "ex2": 0,
         "ey2": 0,
         "enemy2_alive": 0,
-        "ammo": 0
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
       },
       "pixels_nonzero": 197
     }

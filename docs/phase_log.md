@@ -58,4 +58,6 @@ Refused. `scripts/scale_166k.py` raises LawBlockedError until `logs/ray_parity.j
 
 Passed: `scripts/run_demo.py --frames 1` writes `logs/demo_frame.png` (~1.6 ticks/sec on this host). Host path does not call `tick`/`cast_ray`.
 
-Live console (2026-09-13): `scripts/run_demo.py --play` injects WASD/arrows, space/f fire, e/q door, steps the LIF budget, and blits FRAME_READOUT plus live RAM (e1, e2, door cell, facing). `--tty` is the same host loop without a window. Headless `--frames` still injects fire=0 and door=0. Matplotlib q/s/f keymap is cleared so those keys stay door/back/fire.
+Live console (2026-09-13): `python -m snn_doom.play` is the front door. Default `--play` fullscreen VIEW, raster hidden unless `--lab`. Input latch one-shots fire/door. HUD flash on keydown. Host clicks for fire/wall/kill/door. Round: score is kills, survive 64 ticks or clear both sprites, HP 0 loses. `--map corridor|arena|door`. `--scale 32`. `--fast`. Tapes: `logs/runs/*.bits` plus ghost overlay. Held-fwd fixture map stays open so the 32-tick tape still passes; play spawn closes door (4,5).
+
+HP / pickup (2026-09-13): contact decrements 2-bit HP instead of a 4-tick freeze. Pickup cell (3,6) fills ammo to 7. e2 stays a statue: a second chase ALU does not fit the 8,000 cap. SETTLE stays 29: the 32-tick held-fwd tape fails at 24 (`logs/settle_probe.json`). CSR Numba LIF on this host is about 6 to 8 game ticks/sec for the 7,973-unit net (was ~1.6 before vectorization). Target 10 to 20 is still open.

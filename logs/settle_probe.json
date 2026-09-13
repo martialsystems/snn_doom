@@ -1,0 +1,241 @@
+{
+  "candidate": 24,
+  "baseline": 29,
+  "held_ticks": 32,
+  "match": false,
+  "adopted": false,
+  "n_neurons": 7968,
+  "steps": [
+    {
+      "i": 0,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 28,
+        "py": 88,
+        "ang": 0,
+        "ex": 102,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 28,
+        "py": 88,
+        "ang": 0,
+        "ex": 102,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 1,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 32,
+        "py": 88,
+        "ang": 0,
+        "ex": 100,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 32,
+        "py": 88,
+        "ang": 0,
+        "ex": 100,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 2,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 36,
+        "py": 88,
+        "ang": 0,
+        "ex": 98,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 36,
+        "py": 88,
+        "ang": 0,
+        "ex": 98,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 3,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 40,
+        "py": 88,
+        "ang": 0,
+        "ex": 96,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 40,
+        "py": 88,
+        "ang": 0,
+        "ex": 96,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 4,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 44,
+        "py": 88,
+        "ang": 0,
+        "ex": 94,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 44,
+        "py": 88,
+        "ang": 0,
+        "ex": 94,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 5,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 48,
+        "py": 88,
+        "ang": 0,
+        "ex": 92,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 48,
+        "py": 88,
+        "ang": 0,
+        "ex": 92,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 6,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 52,
+        "py": 88,
+        "ang": 0,
+        "ex": 90,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 52,
+        "py": 88,
+        "ang": 0,
+        "ex": 90,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 7,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 56,
+        "py": 88,
+        "ang": 0,
+        "ex": 88,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 56,
+        "py": 88,
+        "ang": 0,
+        "ex": 88,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 8,
+      "pose_ok": true,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": true,
+      "teacher": {
+        "px": 60,
+        "py": 88,
+        "ang": 0,
+        "ex": 86,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 60,
+        "py": 88,
+        "ang": 0,
+        "ex": 86,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    },
+    {
+      "i": 9,
+      "pose_ok": false,
+      "dist_ok": true,
+      "hitscan_ok": true,
+      "match": false,
+      "teacher": {
+        "px": 64,
+        "py": 88,
+        "ang": 0,
+        "ex": 84,
+        "ey": 40,
+        "enemy_alive": 1
+      },
+      "snn": {
+        "px": 64,
+        "py": 88,
+        "ang": 0,
+        "ex": 86,
+        "ey": 40,
+        "enemy_alive": 1
+      }
+    }
+  ],
+  "note": "29 stays unless this tape is green"
+}

@@ -8,7 +8,7 @@ from typing import Any
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, DEATH_TICKS, DOOR_X, N_COLS
+from snn_doom.const import CENTER_COL, DOOR_X, N_COLS
 from snn_doom.ray_parity import CASES, LOGS
 from snn_doom.snn.io import read_bit, read_int
 from snn_doom.teacher.engine import tick
@@ -47,6 +47,8 @@ def _pose_dict(state: GameState) -> dict[str, int]:
         "ey2": state.ey2,
         "enemy2_alive": state.enemy2_alive,
         "ammo": state.ammo,
+        "hp": state.hp,
+        "pickup_alive": state.pickup_alive,
     }
 
 
@@ -153,21 +155,24 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         for s in held_fire_steps
     )
     all_match = all_match and held_fire_ok
-    death_bits = [0] * (1 + DEATH_TICKS) + [HELD_BITS]
-    death_steps = _run_bits(m, OVERLAP, death_bits)
-    death_ok = all(s["match"] for s in death_steps)
-    contact = death_steps[0]
-    freeze = death_steps[1 : 1 + DEATH_TICKS]
-    live = death_steps[-1]
+    hurt_start = spawn(px=24, py=24, ex=24, ey=24, hp=3)
+    hurt_steps = _run_bits(m, hurt_start, [0, HELD_BITS])
+    hurt_ok = (
+        all(s["match"] for s in hurt_steps)
+        and hurt_steps[0]["teacher_pose"]["hp"] == 2
+        and hurt_steps[0]["teacher_pose"]["player_hit"] == 0
+        and hurt_steps[0]["teacher_pose"]["enemy_alive"] == 0
+        and hurt_steps[1]["teacher_pose"]["px"] > hurt_steps[0]["teacher_pose"]["px"]
+    )
+    dead_start = spawn(px=24, py=24, ex=24, ey=24, hp=1)
+    dead_steps = _run_bits(m, dead_start, [0, HELD_BITS])
     death_ok = (
-        death_ok
-        and contact["teacher_pose"]["player_hit"] == 1
-        and contact["teacher_pose"]["enemy_alive"] == 0
-        and all(s["teacher_pose"]["enemy_alive"] == 0 for s in freeze)
-        and all(s["teacher_pose"]["px"] == contact["teacher_pose"]["px"] for s in freeze)
-        and freeze[-1]["teacher_pose"]["player_hit"] == 0
-        and live["teacher_pose"]["player_hit"] == 0
-        and live["teacher_pose"]["px"] > contact["teacher_pose"]["px"]
+        hurt_ok
+        and all(s["match"] for s in dead_steps)
+        and dead_steps[0]["teacher_pose"]["hp"] == 0
+        and dead_steps[0]["teacher_pose"]["player_hit"] == 1
+        and dead_steps[1]["teacher_pose"]["px"] == dead_steps[0]["teacher_pose"]["px"]
+        and dead_steps[1]["teacher_pose"]["player_hit"] == 1
     )
     all_match = all_match and death_ok
     closed_start = with_door(spawn(), 1)
@@ -213,6 +218,16 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         and dry_steps[0]["teacher_pose"]["ammo"] == 0
     )
     all_match = all_match and e2_ok and dry_ok
+    from snn_doom.const import PICKUP_X, PICKUP_Y
+
+    pk_start = spawn(px=PICKUP_X * 16 + 8, py=PICKUP_Y * 16 + 8, ammo=1)
+    pk_steps = _run_bits(m, pk_start, [0])
+    pickup_ok = (
+        pk_steps[0]["match"]
+        and pk_steps[0]["teacher_pose"]["ammo"] == 7
+        and pk_steps[0]["teacher_pose"]["pickup_alive"] == 0
+    )
+    all_match = all_match and pickup_ok
     payload = {
         "all_match": all_match,
         "extra_ticks": extra_ticks,
@@ -226,7 +241,11 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
             "kill": {"name": "trigger_kill", "match": kill_ok, "steps": kill_steps},
         },
         "held_fire": {"name": "held_fire_corridor", "match": held_fire_ok, "steps": held_fire_steps},
-        "death": {"name": "death_overlap", "match": death_ok, "steps": death_steps},
+        "death": {
+            "match": death_ok,
+            "hurt": {"name": "hp_hurt_move", "match": hurt_ok, "steps": hurt_steps},
+            "dead": {"name": "hp_zero_dead", "match": death_ok and dead_steps[0]["match"], "steps": dead_steps},
+        },
         "door": {
             "match": door_ok,
             "block": {"name": "door_closed_block", "match": door_block_ok, "steps": block_steps},
@@ -235,6 +254,7 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         },
         "second": {"name": "second_sprite_kill", "match": e2_ok, "steps": e2_steps},
         "ammo_dry": {"name": "ammo_zero_no_kill", "match": dry_ok, "steps": dry_steps},
+        "pickup": {"name": "pickup_fill_ammo", "match": pickup_ok, "steps": pk_steps},
     }
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "tick_tape.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

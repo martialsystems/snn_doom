@@ -14,7 +14,11 @@ from typing import Any
 
 import numpy as np
 
-from snn_doom.const import DOOR_X, DOOR_Y, FRAME_H, N_COLS, STEPS_PER_TICK
+from snn_doom.const import CENTER_COL, DOOR_X, DOOR_Y, FRAME_H, N_COLS, STEPS_PER_TICK
+from snn_doom.demo.audio import play as play_sfx
+from snn_doom.demo.latch import InputLatch
+from snn_doom.demo.round import ROUND_TICKS, RoundState
+from snn_doom.demo.tapes import load_ghost, save_run
 from snn_doom.demo.view import (
     CANON_KEYS,
     PALETTE,
@@ -24,10 +28,11 @@ from snn_doom.demo.view import (
     ingest_key,
     keys_to_bits,
     make_console_figure,
+    make_play_figure,
     update_console_figure,
 )
 from snn_doom.modules.pipeline import DoomSNN, build_doom_snn
-from snn_doom.teacher.maps import rows_of, spawn
+from snn_doom.teacher.maps import MAPS, rows_of, spawn
 
 
 def render_tty(
@@ -117,21 +122,19 @@ def _silence_mpl_keys() -> None:
             mpl.rcParams[key] = []
 
 
-def _bind_keys(fig, pressed: set[str], stop: dict[str, bool]) -> None:
+def _bind_keys(fig, latch: InputLatch, stop: dict[str, bool]) -> None:
     def on_press(event) -> None:
         tokens = ingest_key(getattr(event, "key", None))
         if any(t in QUIT_KEYS for t in tokens):
             stop["q"] = True
             return
         if "c" in tokens:
-            pressed.clear()
+            latch.held.clear()
             return
-        pressed.update(t for t in tokens if t in CANON_KEYS)
+        latch.press(tokens)
 
     def on_release(event) -> None:
-        for t in ingest_key(getattr(event, "key", None)):
-            if t in CANON_KEYS:
-                pressed.discard(t)
+        latch.release(ingest_key(getattr(event, "key", None)))
 
     fig.canvas.mpl_connect("key_press_event", on_press)
     fig.canvas.mpl_connect("key_release_event", on_release)
@@ -153,6 +156,15 @@ def run_console(
     tty: bool = False,
     pressed: set[str] | None = None,
     out: Path | None = None,
+    lab: bool = False,
+    scale: int = 32,
+    map_name: str = "default",
+    door_closed: bool = False,
+    fwd_lock: bool = False,
+    record: bool = True,
+    ghost: list[int] | Path | None = None,
+    round_limit: int = ROUND_TICKS,
+    sound: bool = True,
 ) -> dict[str, Any]:
     """Live host. ticks=0 runs until quit when a surface is open; headless defaults to 1."""
     if tty:
@@ -160,41 +172,35 @@ def run_console(
     if ticks <= 0 and not display and not tty:
         ticks = 1
     m = machine or build_doom_snn()
-    state0 = spawn()
+    rows = MAPS.get(map_name, MAPS["default"])
+    state0 = spawn(rows=rows, door_closed=1 if (door_closed or map_name == "door") else 0)
     m.reset(state0)
-    held: set[str] = set() if pressed is None else pressed
+    latch = InputLatch(fwd_lock=fwd_lock)
+    if pressed:
+        latch.held |= set(pressed)
     stop = {"q": False}
     fig = None
     artists: dict[str, Any] | None = None
     color_tty = bool(tty and sys.stdout.isatty())
+    rnd = RoundState(limit=round_limit if round_limit else 10**9)
+    tape: list[int] = []
+    poses: list[dict[str, int]] = []
+    ghost_poses: list[dict[str, int]] = []
+    if ghost:
+        if isinstance(ghost, (str, Path)):
+            _, ghost_poses = load_ghost(Path(ghost))
+        else:
+            from snn_doom.demo.tapes import replay_poses
+
+            ghost_poses = replay_poses(list(ghost))
 
     if display:
         import matplotlib.pyplot as plt
 
         _silence_mpl_keys()
-        fig, artists = make_console_figure()
-        _bind_keys(fig, held, stop)
+        fig, artists = make_console_figure() if lab else make_play_figure(scale=scale)
+        _bind_keys(fig, latch, stop)
         plt.show(block=False)
-
-    def pump(done: int, total: int) -> None:
-        # Flush often so keyup/keydown land on the next tick. Full redraws every 2048 LIF steps.
-        if fig is None:
-            return
-        if artists is not None and (done == total or done % 2048 == 0):
-            artists["hud"].set_text(
-                hud_text(
-                    last["state"],
-                    tps=0.0,
-                    n_neurons=last["n_neurons"],
-                    spikes_per_step=last["spikes_per_step"],
-                    pressed=held,
-                    door=last["door"],
-                    lif_step=done,
-                    lif_total=total,
-                )
-            )
-            fig.canvas.draw_idle()
-        fig.canvas.flush_events()
 
     t0 = time.perf_counter()
     n = 0
@@ -223,7 +229,7 @@ def run_console(
                 tps=0.0,
                 n_neurons=last["n_neurons"],
                 spikes_per_step=0.0,
-                pressed=held,
+                pressed=latch.held,
                 door=last["door"],
                 lif_total=STEPS_PER_TICK,
             ),
@@ -253,12 +259,53 @@ def run_console(
                     break
                 fig.canvas.flush_events()
             if tty and fd is not None:
-                if not _poll_tty(held, stop, fd):
+                if not _poll_tty(latch, stop, fd):
                     break
-            bits = keys_to_bits(held)
-            on_chunk = pump if display else None
-            last = host_frame(m, bits, on_chunk=on_chunk, chunk=256 if display else 512)
+            bits, flash, shown = latch.consume()
+            tape.append(bits)
+            prev = last["state"]
+            ghost_st = ghost_poses[n] if ghost_poses and n < len(ghost_poses) else None
+            if sound:
+                if flash.get("muzzle"):
+                    play_sfx("fire")
+                if flash.get("door"):
+                    play_sfx("door")
+            if artists is not None and fig is not None and flash:
+                update_console_figure(
+                    fig,
+                    artists,
+                    pixels=last["pixels"],
+                    map_bits=last["map_bits"],
+                    st=last["state"],
+                    raster=last["raster"] if lab else {},
+                    text=hud_text(
+                        last["state"],
+                        tps=n / max(time.perf_counter() - t0, 1e-6),
+                        n_neurons=last["n_neurons"],
+                        spikes_per_step=last["spikes_per_step"],
+                        pressed=shown,
+                        door=last["door"],
+                        shot=last["shot"],
+                        hitscan=last["hitscan"],
+                        lif_total=STEPS_PER_TICK,
+                    ),
+                    flash=flash,
+                    dist=m.read_dists(),
+                    heading_col=CENTER_COL,
+                    ghost=ghost_st,
+                )
+                fig.canvas.flush_events()
+            last = host_frame(m, bits, raster=lab)
+            last["state"]["score"] = rnd.score
+            poses.append(dict(last["state"]))
             n += 1
+            if sound:
+                if last["shot"]:
+                    play_sfx("kill")
+                moved = last["state"]["px"] != prev["px"] or last["state"]["py"] != prev["py"]
+                if (bits & 12) in (4, 8) and not moved:
+                    play_sfx("wall")
+            outcome = rnd.observe(last["state"])
             elapsed = time.perf_counter() - t0
             tps = n / max(elapsed, 1e-6)
             text = hud_text(
@@ -266,22 +313,29 @@ def run_console(
                 tps=tps,
                 n_neurons=last["n_neurons"],
                 spikes_per_step=last["spikes_per_step"],
-                pressed=held,
+                pressed=shown,
                 door=last["door"],
                 shot=last["shot"],
                 hitscan=last["hitscan"],
                 lif_step=last["steps_per_tick"],
                 lif_total=last["steps_per_tick"],
             )
+            if outcome != "play":
+                text += f"\n{outcome.upper()}  score {rnd.score}"
             if artists is not None and fig is not None:
+                dists = m.read_dists()
                 update_console_figure(
                     fig,
                     artists,
                     pixels=last["pixels"],
                     map_bits=last["map_bits"],
                     st=last["state"],
-                    raster=last["raster"],
+                    raster=last["raster"] if lab else {},
                     text=text,
+                    flash=None,
+                    dist=dists,
+                    heading_col=CENTER_COL,
+                    ghost=ghost_st,
                 )
                 fig.canvas.flush_events()
             if tty:
@@ -289,7 +343,7 @@ def run_console(
                     last["pixels"],
                     last["state"],
                     last["map_bits"],
-                    pressed=held,
+                    pressed=shown,
                     tps=tps,
                     n_neurons=last["n_neurons"],
                     spikes_per_step=last["spikes_per_step"],
@@ -304,8 +358,8 @@ def run_console(
                     sys.stdout.write("\x1b[2J\x1b[H")
                 sys.stdout.write(body + "\n")
                 sys.stdout.flush()
-                held.discard("space")
-                held.discard("e")
+            if outcome != "play":
+                break
     finally:
         if fd is not None and old_term is not None:
             import termios
@@ -316,6 +370,8 @@ def run_console(
             import matplotlib.pyplot as plt
 
             plt.close(fig)
+        if record and tape:
+            save_run(tape, poses)
 
     elapsed = time.perf_counter() - t0
     tps = max(n, 1) / max(elapsed, 1e-6)
@@ -330,10 +386,13 @@ def run_console(
         "shot": last["shot"],
         "hitscan": last["hitscan"],
         "ticks": n,
+        "score": rnd.score,
+        "outcome": rnd.outcome,
+        "tape": tape,
     }
 
 
-def _poll_tty(pressed: set[str], stop: dict[str, bool], fd: int) -> bool:
+def _poll_tty(latch: InputLatch, stop: dict[str, bool], fd: int) -> bool:
     while True:
         ready, _, _ = select.select([fd], [], [], 0)
         if not ready:
@@ -348,13 +407,13 @@ def _poll_tty(pressed: set[str], stop: dict[str, bool], fd: int) -> bool:
                 token = arrows.get(rest)
                 if token:
                     for k in ("up", "down", "left", "right"):
-                        pressed.discard(k)
-                    pressed.add(token)
+                        latch.held.discard(k)
+                    latch.press((token,))
                     continue
             stop["q"] = True
             return False
         if ch in ("x", "X"):
-            pressed.clear()
+            latch.held.clear()
             continue
         tokens = ingest_key(ch)
         if any(t in QUIT_KEYS for t in tokens):
@@ -362,5 +421,5 @@ def _poll_tty(pressed: set[str], stop: dict[str, bool], fd: int) -> bool:
             return False
         if ch in ("w", "a", "s", "d"):
             for k in ("up", "down", "left", "right"):
-                pressed.discard(k)
-        pressed.update(t for t in tokens if t in CANON_KEYS)
+                latch.held.discard(k)
+        latch.press(tokens)

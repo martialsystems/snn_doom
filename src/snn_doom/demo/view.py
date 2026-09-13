@@ -73,9 +73,40 @@ QUIT_KEYS = frozenset({"escape", "esc"})
 CANON_KEYS = frozenset({"left", "right", "up", "down", "space", "e"})
 
 
-def frame_rgb(pixels: np.ndarray, scale: int = 16) -> np.ndarray:
-    rgb = PALETTE[pixels.clip(0, 3)]
-    return np.repeat(np.repeat(rgb, scale, axis=0), scale, axis=1)
+def frame_rgb(
+    pixels: np.ndarray,
+    scale: int = 16,
+    *,
+    heading_col: int | None = None,
+    flash: dict[str, bool] | None = None,
+    dist: list[int] | None = None,
+) -> np.ndarray:
+    pix = pixels.clip(0, 3)
+    rgb = PALETTE[pix]
+    if dist is not None and len(dist) == pix.shape[1]:
+        for c, d in enumerate(dist):
+            if d <= 0:
+                continue
+            shade = max(0.45, 1.0 - 0.04 * int(d))
+            col = rgb[:, c].astype(np.float32)
+            wall = pix[:, c] == 2
+            col[wall] *= shade
+            rgb[:, c] = col.clip(0, 255).astype(np.uint8)
+    out = np.repeat(np.repeat(rgb, scale, axis=0), scale, axis=1)
+    if heading_col is not None and 0 <= heading_col < pix.shape[1]:
+        x0 = heading_col * scale
+        out[:, x0 : x0 + max(scale // 8, 1)] = (255, 220, 80)
+    flash = flash or {}
+    h, w = out.shape[:2]
+    if flash.get("muzzle"):
+        out[h - max(scale, 2) :, :] = (255, 240, 180)
+    if flash.get("door"):
+        out[:, : max(scale // 2, 1)] = (255, 200, 80)
+        out[:, w - max(scale // 2, 1) :] = (255, 200, 80)
+    if flash.get("face") and heading_col is not None:
+        y0 = h // 2
+        out[y0 : y0 + 2, heading_col * scale : (heading_col + 1) * scale] = (255, 255, 255)
+    return out
 
 
 def _stamp(img: np.ndarray, wx: int, wy: int, color: tuple[int, int, int], scale: int, r: int) -> None:
@@ -97,6 +128,7 @@ def map_rgb(
     ex2: int = 0,
     ey2: int = 0,
     enemy2_alive: int = 0,
+    pickup_alive: int = 0,
     scale: int = 16,
 ) -> np.ndarray:
     rows = rows_of(map_bits)
@@ -108,6 +140,10 @@ def map_rgb(
     y0, x0 = DOOR_Y * scale, DOOR_X * scale
     door_color = COLOR_DOOR_CLOSED if (map_bits >> DOOR_IDX) & 1 else COLOR_DOOR_OPEN
     img[y0 : y0 + scale, x0 : x0 + scale] = door_color
+    if pickup_alive:
+        from snn_doom.const import PICKUP_X, PICKUP_Y
+
+        img[PICKUP_Y * scale : (PICKUP_Y + 1) * scale, PICKUP_X * scale : (PICKUP_X + 1) * scale] = (80, 180, 255)
     if enemy2_alive:
         _stamp(img, ex2, ey2, COLOR_E2, scale, r=2)
     if enemy_alive:
@@ -187,7 +223,7 @@ def hud_text(
         f"px {st['px']} py {st['py']} ang {st['ang']}\n"
         f"e1 {st['ex']},{st['ey']} alive {st['enemy_alive']}\n"
         f"e2 {st['ex2']},{st['ey2']} alive {st['enemy2_alive']}\n"
-        f"ammo {st['ammo']} hit {st['player_hit']} door {door} shot {shot} hs {hitscan}\n"
+        f"ammo {st['ammo']} hp {st.get('hp', 3)} score {st.get('score', 0)} hit {st['player_hit']} door {door} shot {shot} hs {hitscan}\n"
         f"keys {keys}\n"
         f"WASD/arrows move  space/f fire  e/q door  Esc quit\n"
         f"this is the ALU / this is RAM"
@@ -206,6 +242,7 @@ def map_from_state(map_bits: int, st: dict[str, int], scale: int = 16) -> np.nda
         ex2=st["ex2"],
         ey2=st["ey2"],
         enemy2_alive=st["enemy2_alive"],
+        pickup_alive=st.get("pickup_alive", 0),
         scale=scale,
     )
 
@@ -251,7 +288,63 @@ def make_console_figure():
         "im_map": None,
         "im_frame": None,
         "im_ras": None,
+        "lab": True,
+        "scale": 16,
     }
+
+
+def make_play_figure(scale: int = 32):
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(1, 1, figsize=(8, 9))
+    fig.patch.set_facecolor("#000000")
+    try:
+        fig.canvas.manager.set_window_title("snn_doom")
+    except (AttributeError, TypeError):
+        pass
+    ax.set_facecolor("#000000")
+    ax.set_title("FRAME_READOUT", color="#c8d0c8", fontsize=10, fontfamily="monospace")
+    ax.axis("off")
+    hud = ax.text(
+        0.02,
+        0.02,
+        "",
+        family="monospace",
+        fontsize=9,
+        color="#e8e8e8",
+        transform=ax.transAxes,
+        va="bottom",
+    )
+    fig.tight_layout()
+    try:
+        fig.canvas.manager.full_screen_toggle()
+    except (AttributeError, TypeError):
+        pass
+    return fig, {
+        "ax_map": None,
+        "ax_frame": ax,
+        "ax_ras": None,
+        "ax_hud": ax,
+        "hud": hud,
+        "im_map": None,
+        "im_frame": None,
+        "im_ras": None,
+        "lab": False,
+        "scale": scale,
+    }
+
+
+def _paste_minimap(
+    rgb_frame: np.ndarray,
+    map_bits: int,
+    st: dict[str, int],
+    ghost: dict[str, int] | None = None,
+) -> None:
+    mini = map_from_state(map_bits, st, scale=8)
+    if ghost:
+        _stamp(mini, int(ghost.get("px", 0)), int(ghost.get("py", 0)), (180, 180, 255), 8, r=2)
+    h, w = mini.shape[:2]
+    rgb_frame[4 : 4 + h, rgb_frame.shape[1] - w - 4 : rgb_frame.shape[1] - 4] = mini
 
 
 def update_console_figure(
@@ -263,18 +356,40 @@ def update_console_figure(
     st: dict[str, int],
     raster: dict[str, np.ndarray],
     text: str,
+    flash: dict[str, bool] | None = None,
+    dist: list[int] | None = None,
+    heading_col: int | None = 8,
+    ghost: dict[str, int] | None = None,
 ) -> None:
-    rgb_frame = frame_rgb(pixels)
-    rgb_map = map_from_state(map_bits, st)
-    rgb_ras = raster_image(raster)
-    if artists["im_frame"] is None:
-        artists["im_map"] = artists["ax_map"].imshow(rgb_map)
-        artists["im_frame"] = artists["ax_frame"].imshow(rgb_frame)
-        artists["im_ras"] = artists["ax_ras"].imshow(rgb_ras)
+    from snn_doom.const import CENTER_COL
+
+    scale = int(artists.get("scale") or 16)
+    rgb_frame = frame_rgb(
+        pixels,
+        scale=scale,
+        heading_col=CENTER_COL if heading_col is None else heading_col,
+        flash=flash,
+        dist=dist,
+    )
+    if artists.get("lab"):
+        rgb_map = map_from_state(map_bits, st)
+        if ghost:
+            _stamp(rgb_map, int(ghost.get("px", 0)), int(ghost.get("py", 0)), (180, 180, 255), 16, r=2)
+        rgb_ras = raster_image(raster)
+        if artists["im_frame"] is None:
+            artists["im_map"] = artists["ax_map"].imshow(rgb_map)
+            artists["im_frame"] = artists["ax_frame"].imshow(rgb_frame)
+            artists["im_ras"] = artists["ax_ras"].imshow(rgb_ras)
+        else:
+            artists["im_map"].set_data(rgb_map)
+            artists["im_frame"].set_data(rgb_frame)
+            artists["im_ras"].set_data(rgb_ras)
     else:
-        artists["im_map"].set_data(rgb_map)
-        artists["im_frame"].set_data(rgb_frame)
-        artists["im_ras"].set_data(rgb_ras)
+        _paste_minimap(rgb_frame, map_bits, st, ghost)
+        if artists["im_frame"] is None:
+            artists["im_frame"] = artists["ax_frame"].imshow(rgb_frame)
+        else:
+            artists["im_frame"].set_data(rgb_frame)
     artists["hud"].set_text(text)
     fig.canvas.draw_idle()
 
@@ -284,6 +399,8 @@ def host_frame(
     bits: int,
     on_chunk=None,
     chunk: int = 512,
+    *,
+    raster: bool = False,
 ) -> dict[str, Any]:
     """One game tick on the host path: inject, step LIF, decode."""
     pixels = machine.tick(bits, on_chunk=on_chunk, chunk=chunk)
@@ -292,7 +409,7 @@ def host_frame(
         "pixels": pixels,
         "state": st,
         "map_bits": machine.read_map_bits(),
-        "raster": machine.raster(),
+        "raster": machine.raster() if raster else {},
         "shot": machine.read_shot(),
         "door": machine.read_door(),
         "hitscan": machine.read_hitscan(),
@@ -336,7 +453,7 @@ def run_demo(
     history_inputs = inputs or []
     for i in range(n_run):
         bits = history_inputs[i] if i < len(history_inputs) else 0
-        last = host_frame(m, bits)
+        last = host_frame(m, bits, raster=True)
     elapsed = time.perf_counter() - t0
     tps = n_run / max(elapsed, 1e-6)
     st = last["state"]

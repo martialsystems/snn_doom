@@ -43,8 +43,17 @@ def test_play_flag_is_live_console() -> None:
     demo = (REPO / "scripts" / "run_demo.py").read_text(encoding="utf-8")
     assert "--play" in demo
     assert "--tty" in demo
+    assert "--lab" in demo
+    assert "--scale" in demo
+    assert "--fast" in demo
+    assert "--map" in demo
     assert "run_console" in demo
     console = (REPO / "src" / "snn_doom" / "demo" / "console.py").read_text(encoding="utf-8")
     assert "host_frame" in console
     assert "keys_to_bits" in console
     assert "_silence_mpl_keys" in console
+    play = (REPO / "src" / "snn_doom" / "play.py").read_text(encoding="utf-8")
+    assert "run_console" in play
+    assert "--lab" in play
+    assert "--scale" in play
+    assert "--fast" in play

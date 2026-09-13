@@ -68,10 +68,13 @@ def spawn(
     ey2: int | None = None,
     enemy2_alive: int = 1,
     ammo: int | None = None,
+    hp: int | None = None,
+    pickup_alive: int = 1,
+    door_closed: int | None = None,
 ) -> GameState:
-    from snn_doom.const import DEFAULT_AMMO, DEFAULT_EX2, DEFAULT_EY2
+    from snn_doom.const import DEFAULT_AMMO, DEFAULT_EX2, DEFAULT_EY2, DEFAULT_HP
 
-    return GameState(
+    s = GameState(
         map_bits=parse_map(rows),
         px=px,
         py=py,
@@ -84,7 +87,12 @@ def spawn(
         ey2=DEFAULT_EY2 if ey2 is None else ey2,
         enemy2_alive=enemy2_alive,
         ammo=DEFAULT_AMMO if ammo is None else ammo,
+        hp=DEFAULT_HP if hp is None else hp,
+        pickup_alive=pickup_alive,
     )
+    if door_closed:
+        s = with_door(s, 1)
+    return s
 
 
 def door_closed(state: GameState) -> int:
@@ -101,3 +109,24 @@ def with_door(state: GameState, closed: int) -> GameState:
 
 
 DEFAULT_MAP_BITS: int = parse_map(DEFAULT_ROWS)
+
+# RAM-init only. Same net. Door map closes cell (4,5) at spawn.
+ARENA_ROWS: tuple[str, ...] = (
+    "########",
+    "#......#",
+    "#......#",
+    "#......#",
+    "#......#",
+    "#......#",
+    "#......#",
+    "########",
+)
+CORRIDOR_ROWS: tuple[str, ...] = HALLWAY_ROWS
+DOOR_ROWS: tuple[str, ...] = DEFAULT_ROWS
+
+MAPS: dict[str, tuple[str, ...]] = {
+    "default": DEFAULT_ROWS,
+    "corridor": CORRIDOR_ROWS,
+    "arena": ARENA_ROWS,
+    "door": DOOR_ROWS,
+}

@@ -64,10 +64,18 @@ def test_tick_tape_artifact_when_logged() -> None:
         assert step["match"] is True
     death = data["death"]
     assert death["match"] is True
-    assert death["steps"][0]["teacher_pose"]["player_hit"] == 1
-    assert death["steps"][0]["teacher_pose"]["enemy_alive"] == 0
-    assert death["steps"][-1]["teacher_pose"]["player_hit"] == 0
-    assert death["steps"][-1]["teacher_pose"]["px"] > death["steps"][0]["teacher_pose"]["px"]
+    hurt = death["hurt"]
+    dead = death["dead"]
+    assert hurt["match"] is True
+    assert dead["match"] is True
+    assert hurt["steps"][0]["teacher_pose"]["hp"] == 2
+    assert hurt["steps"][0]["teacher_pose"]["player_hit"] == 0
+    assert hurt["steps"][1]["teacher_pose"]["px"] > hurt["steps"][0]["teacher_pose"]["px"]
+    assert dead["steps"][0]["teacher_pose"]["hp"] == 0
+    assert dead["steps"][0]["teacher_pose"]["player_hit"] == 1
+    assert dead["steps"][1]["teacher_pose"]["px"] == dead["steps"][0]["teacher_pose"]["px"]
+    assert data["pickup"]["match"] is True
+    assert data["pickup"]["steps"][0]["teacher_pose"]["ammo"] == 7
     door = data["door"]
     assert door["match"] is True
     assert door["block"]["match"] is True

@@ -54,6 +54,8 @@ STATE_FIELDS: Final[tuple[tuple[str, int], ...]] = (
     ("ey2", 8),
     ("enemy2_alive", 1),
     ("ammo", 3),
+    ("hp", 2),
+    ("pickup_alive", 1),
 )
 
 
@@ -88,6 +90,12 @@ DEFAULT_EX2: Final[int] = 2 * CELL + CELL // 2
 DEFAULT_EY2: Final[int] = 2 * CELL + CELL // 2
 AMMO_BITS: Final[int] = 3
 DEFAULT_AMMO: Final[int] = 7
+HP_BITS: Final[int] = 2
+DEFAULT_HP: Final[int] = 3
+PICKUP_X: Final[int] = 3
+PICKUP_Y: Final[int] = 6
+PICKUP_IDX: Final[int] = PICKUP_Y * MAP_W + PICKUP_X
+PICKUP_AMMO: Final[int] = 7
 
 SEED: Final[int] = 0
 FLIES_BUDGET: Final[int] = 166_700

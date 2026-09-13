@@ -125,7 +125,7 @@ def test_silence_mpl_keys_drops_game_collisions() -> None:
 
 
 def test_console_host_fwd_tick() -> None:
-    stats = run_console(display=False, tty=False, ticks=1, pressed={"up"})
+    stats = run_console(display=False, tty=False, ticks=1, pressed={"up"}, record=False, sound=False)
     assert stats["ticks"] == 1
     assert stats["state"]["px"] == 28
     assert stats["state"]["py"] == 88

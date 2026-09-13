@@ -56,6 +56,7 @@ def test_pipeline_pose_matches_teacher() -> None:
     st = m.read_state()
     tr = tick(s0, pack_input(0, 0, 1, 0))
     assert st["px"] == tr.state.px
+    assert st["ammo"] == 7
     pix = m.decode_pixels()
     assert (pix == 2).any()
 
@@ -107,35 +108,62 @@ def test_pipeline_fire_miss_then_kill() -> None:
     np.testing.assert_array_equal(pix, tr.pixels)
 
 
-def test_pipeline_death_freeze_then_rearm() -> None:
-    from snn_doom.const import DEATH_TICKS
+def test_pipeline_hp_hurt_then_move() -> None:
     from snn_doom.teacher.engine import tick
     from snn_doom.teacher.state import pack_input
 
     m = build_doom_snn()
-    s0 = spawn(px=24, py=24, ex=24, ey=24)
+    s0 = spawn(px=24, py=24, ex=24, ey=24, hp=3)
     m.reset(s0)
-    fwd = pack_input(0, 0, 1, 0)
     tr = tick(s0, 0)
     pix = m.tick(0)
+    st = m.read_state()
+    assert st["hp"] == 2
+    assert st["player_hit"] == 0
+    assert st["enemy_alive"] == 0
+    np.testing.assert_array_equal(pix, tr.pixels)
+    fwd = pack_input(0, 0, 1, 0)
+    tr2 = tick(tr.state, fwd)
+    pix2 = m.tick(fwd)
+    assert m.read_state()["px"] == tr2.state.px
+    assert m.read_state()["px"] > st["px"]
+    np.testing.assert_array_equal(pix2, tr2.pixels)
+
+
+def test_pipeline_hp_zero_freezes() -> None:
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.state import pack_input
+
+    m = build_doom_snn()
+    s0 = spawn(px=24, py=24, ex=24, ey=24, hp=1)
+    m.reset(s0)
+    tr = tick(s0, 0)
+    pix = m.tick(0)
+    assert m.read_state()["hp"] == 0
     assert m.read_state()["player_hit"] == 1
-    assert m.read_state()["enemy_alive"] == 0
     np.testing.assert_array_equal(pix, tr.pixels)
     held = tr.state.px
-    s = tr.state
-    for _ in range(DEATH_TICKS):
-        tr = tick(s, fwd)
-        pix = m.tick(fwd)
-        st = m.read_state()
-        assert st["px"] == held
-        assert st["enemy_alive"] == 0
-        assert st["player_hit"] == tr.state.player_hit
-        np.testing.assert_array_equal(pix, tr.pixels)
-        s = tr.state
-    tr = tick(s, fwd)
-    pix = m.tick(fwd)
-    assert m.read_state()["player_hit"] == 0
-    assert m.read_state()["px"] > held
+    fwd = pack_input(0, 0, 1, 0)
+    tr2 = tick(tr.state, fwd)
+    pix2 = m.tick(fwd)
+    assert m.read_state()["px"] == held
+    assert tr2.state.px == held
+    np.testing.assert_array_equal(pix2, tr2.pixels)
+
+
+def test_pipeline_pickup_fills_ammo() -> None:
+    from snn_doom.const import PICKUP_X, PICKUP_Y
+    from snn_doom.teacher.engine import tick
+
+    m = build_doom_snn()
+    s0 = spawn(px=PICKUP_X * 16 + 8, py=PICKUP_Y * 16 + 8, ammo=1)
+    m.reset(s0)
+    tr = tick(s0, 0)
+    pix = m.tick(0)
+    st = m.read_state()
+    assert st["ammo"] == 7
+    assert st["pickup_alive"] == 0
+    assert tr.state.ammo == 7
     np.testing.assert_array_equal(pix, tr.pixels)
 
 

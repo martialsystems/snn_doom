@@ -4,7 +4,7 @@ v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the
 
 ## Contract
 
-Teacher in `src/snn_doom/teacher/` is the spec: 124-bit state, integer march, two enemies, 16×18 paint.
+Teacher in `src/snn_doom/teacher/` is the spec: 127-bit state, integer march, two enemies, 16×18 paint.
 Stitched net in `src/snn_doom/modules/pipeline.py` is the engine.
 Host injects 6 key bits, runs 7,598 LIF updates, argmaxes 16×18×4 color lines, draws, logs.
 Same discrete update everywhere:
@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,958 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. Door is a 2-step `we_ram` pulse on cell (4,5) after last march. VIEW is 16×18. Second sprite is a stationary enemy at (2,2). Ammo is a 3-bit register. SETTLE is 29.
+Running machine: 7,973 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. HP is a 2-bit register (contact decrements). Door is a 2-step `we_ram` pulse on cell (4,5) after last march. VIEW is 16×18. Second sprite is a stationary enemy at (2,2). Ammo is a 3-bit register. Pickup at (3,6) fills it. SETTLE is 29.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -36,16 +36,18 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | 32-tick held-fwd tape | pose, dists, hitscan, frames (`logs/tick_tape.json`) |
 | Fire | fifth bit AND heading sprite; spawn miss, posed kill |
 | Held-fire corridor | 32 ticks fwd+fire from spawn: no shot, heading sprite 0 |
-| Death | `player_hit` freezes pose for 4 ticks, then re-arm |
+| Death | 2-bit HP; contact decrements; HP 0 sets sticky `player_hit` |
+| Pickup | cell (3,6) fills ammo to 7 |
+| Play maps | `corridor`, `arena`, `door` (RAM init only) |
 | Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
-| SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28 |
+| SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28; SETTLE 24 held-fwd still fails (`logs/settle_probe.json`) |
 | Door | cell (4,5); sixth bit toggles occupancy after paint |
 | 166k scale-up | refused until extra units have a named job |
 
 Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. LATCH ablation is silent if no key is held.
 
-## State (124 bits)
+## State (127 bits)
 
 | Field | Bits | Offset |
 |-------|-----:|-------:|
@@ -58,6 +60,8 @@ Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and 
 | ex2, ey2 | 8, 8 | 104, 112 |
 | enemy2_alive | 1 | 120 |
 | ammo | 3 | 121 |
+| hp | 2 | 124 |
+| pickup_alive | 1 | 126 |
 
 World: 8×8 cells, 16 subcells/cell (4.4 fixed point). Angle: 64 ticks = 360°. Map bit 1 is wall. Frame: 16×18, 2-bit color {sky, floor, wall, enemy}. Rays: 16 columns, angles ang-8 to ang+7, march 8 units/step, max 15. Height: 18 - dist.
 
@@ -94,7 +98,7 @@ Do not pin idle pixel L1 as a law. Pin the 16 column distances. L1 can still mov
 
 ## Library split
 
-**NumPy LIF**, sparse COO: the machine that runs.
+**NumPy LIF**, sparse CSR (`I = W @ s`): the machine that runs. Optional Numba kernel, same discrete equation.
 **PyTorch** analog BPTT: encoding experiments only.
 One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
@@ -104,7 +108,8 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 .venv/bin/python scripts/run_bakeoff.py
 .venv/bin/python scripts/train_all.py
 .venv/bin/python scripts/run_demo.py --frames 1 --fwd
-.venv/bin/python scripts/run_demo.py --play
+.venv/bin/python -m snn_doom.play
+.venv/bin/python scripts/run_demo.py --play --lab
 .venv/bin/python scripts/ablate.py
 ```
 
@@ -128,4 +133,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## v1
 
-7,958 LIF units. SETTLE 29 (7,598 LIF steps/tick). 16×18 VIEW, stationary second sprite at (2,2), 3-bit ammo. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm. Door: closed blocks, toggle opens a pass, toggle closes a block (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
+7,973 LIF units. SETTLE 29 (7,598 LIF steps/tick). 16×18 VIEW, stationary second sprite at (2,2), 3-bit ammo, 2-bit HP, pickup at (3,6). Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Contact decrements HP; HP 0 is sticky dead. Door: closed blocks, toggle opens a pass, toggle closes a block (`logs/tick_tape.json`). SETTLE 24 stays off until that held-fwd tape is green. Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.

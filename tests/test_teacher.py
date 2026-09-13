@@ -9,7 +9,6 @@ from snn_doom.const import (
     COLOR_ENEMY,
     COLOR_WALL,
     COS,
-    DEATH_TICKS,
     DOOR_X,
     DOOR_Y,
     FRAME_H,
@@ -18,14 +17,24 @@ from snn_doom.const import (
     STATE_BITS,
     WORLD,
 )
-from snn_doom.teacher.engine import apply_door, apply_enemy, apply_fire, apply_move, apply_turn, run, tick
+from snn_doom.teacher.engine import (
+    apply_door,
+    apply_enemy,
+    apply_enemy2,
+    apply_fire,
+    apply_move,
+    apply_pickup,
+    apply_turn,
+    run,
+    tick,
+)
 from snn_doom.teacher.maps import DEFAULT_ROWS, door_closed, parse_map, rows_of, spawn, with_door
 from snn_doom.teacher.render import cast_ray, column_angle, frame_to_ascii, hitscan, paint_frame
 from snn_doom.teacher.state import GameState, pack_input, unpack_input
 
 
 def test_state_bits_under_budget() -> None:
-    assert STATE_BITS == 124
+    assert STATE_BITS == 127
     assert STATE_BITS < 256
 
 
@@ -114,30 +123,25 @@ def test_enemy_does_not_walk_through_walls() -> None:
     assert not nxt.wall_at_world(nxt.ex, nxt.ey)
 
 
-def test_collide_sets_hit() -> None:
-    s = spawn(px=24, py=24, ex=24, ey=24)
+def test_collide_hurts_not_pauses() -> None:
+    s = spawn(px=24, py=24, ex=24, ey=24, hp=3)
     r = tick(s, 0)
-    assert r.state.player_hit == 1
+    assert r.state.hp == 2
+    assert r.state.player_hit == 0
     assert r.state.enemy_alive == 0
-    assert r.state.death_left == DEATH_TICKS
-    assert r.columns[CENTER_COL].sprite == 0
-
-
-def test_death_freezes_pose_then_rearms() -> None:
-    s = spawn(px=24, py=24, ex=24, ey=24)
-    r0 = tick(s, 0)
-    held = r0.state.px
-    for i in range(DEATH_TICKS):
-        r = tick(r0.state if i == 0 else r.state, pack_input(0, 0, 1, 0))
-        assert r.state.px == held
-        assert r.state.enemy_alive == 0
-        if i < DEATH_TICKS - 1:
-            assert r.state.player_hit == 1
-        else:
-            assert r.state.player_hit == 0
     live = tick(r.state, pack_input(0, 0, 1, 0))
-    assert live.state.player_hit == 0
-    assert live.state.px > held
+    assert live.state.px > r.state.px
+
+
+def test_hp_zero_is_dead() -> None:
+    s = spawn(px=24, py=24, ex=24, ey=24, hp=1)
+    r0 = tick(s, 0)
+    assert r0.state.hp == 0
+    assert r0.state.player_hit == 1
+    held = r0.state.px
+    r = tick(r0.state, pack_input(0, 0, 1, 0))
+    assert r.state.px == held
+    assert r.state.player_hit == 1
 
 
 def test_ray_hits_east_wall() -> None:
@@ -370,3 +374,31 @@ def test_fire_miss_still_consumes_ammo() -> None:
     assert r.shot == 0
     assert r.state.enemy_alive == 1
     assert r.state.ammo == 2
+
+
+def test_pickup_adds_ammo() -> None:
+    from snn_doom.const import PICKUP_AMMO, PICKUP_X, PICKUP_Y
+
+    s = spawn(px=PICKUP_X * 16 + 8, py=PICKUP_Y * 16 + 8, ammo=1)
+    r = tick(s, 0)
+    assert r.state.pickup_alive == 0
+    assert r.state.ammo == 7
+
+
+def test_enemy2_chase_spec_not_in_tick() -> None:
+    s = spawn()
+    nxt = apply_enemy2(s)
+    assert nxt.ex2 != s.ex2 or nxt.ey2 != s.ey2
+    idle = tick(s, 0)
+    assert idle.state.ex2 == s.ex2
+    assert idle.state.ey2 == s.ey2
+
+
+def test_play_maps_parse() -> None:
+    from snn_doom.teacher.maps import MAPS, spawn as sp
+
+    for name, rows in MAPS.items():
+        bits = parse_map(rows)
+        assert rows_of(bits) == rows
+    closed = sp(rows=MAPS["door"], door_closed=1)
+    assert door_closed(closed) == 1

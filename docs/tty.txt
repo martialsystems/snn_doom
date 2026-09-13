@@ -1,0 +1,40 @@
+snn_doom console  inject / LIF / decode
+................
+................
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWW
+################
+
+########
+#......#
+#.2...1#
+#..##..#
+#......#
+#...d.P#
+#......#
+########
+
+snn_doom console
+ticks/sec 0.000
+neurons 7973
+spikes/step 2144.7
+px 108 py 88 ang 0
+e1 108,44 alive 1
+e2 40,40 alive 1
+ammo 7 hp 3 score 0 hit 0 door 0 shot 0 hs 0
+keys up
+WASD/arrows move  space/f fire  e/q door  Esc quit
+this is the ALU / this is RAM
