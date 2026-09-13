@@ -22,6 +22,7 @@ def test_pipeline_builds_under_cap() -> None:
         "SEQUENCER",
         "RAY_COLUMN",
         "FRAME_READOUT",
+        "DOOR",
     ):
         assert name in mods, mods
 
@@ -135,3 +136,50 @@ def test_pipeline_death_freeze_then_rearm() -> None:
     assert m.read_state()["player_hit"] == 0
     assert m.read_state()["px"] > held
     np.testing.assert_array_equal(pix, tr.pixels)
+
+
+def test_pipeline_door_block_toggle_pass() -> None:
+    from snn_doom.const import DOOR_X
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.maps import with_door
+    from snn_doom.teacher.state import pack_input
+
+    m = build_doom_snn()
+    fwd = pack_input(0, 0, 1, 0)
+    door = pack_input(0, 0, 0, 0, 0, 1)
+    closed = with_door(spawn(), 1)
+    m.reset(closed)
+    last_px = closed.px
+    blocked = False
+    s = closed
+    for _ in range(12):
+        tr = tick(s, fwd)
+        pix = m.tick(fwd)
+        st = m.read_state()
+        assert st["px"] == tr.state.px
+        np.testing.assert_array_equal(pix, tr.pixels)
+        assert m.read_door() == 1
+        if tr.state.px == last_px:
+            blocked = True
+            break
+        last_px = tr.state.px
+        s = tr.state
+    assert blocked
+    m.reset(closed)
+    tr = tick(closed, door)
+    pix = m.tick(door)
+    assert tr.state.px == closed.px
+    assert m.read_door() == 0
+    np.testing.assert_array_equal(pix, tr.pixels)
+    s = tr.state
+    passed = False
+    for _ in range(12):
+        tr = tick(s, fwd)
+        pix = m.tick(fwd)
+        assert m.read_state()["px"] == tr.state.px
+        np.testing.assert_array_equal(pix, tr.pixels)
+        s = tr.state
+        if s.px >> 4 >= DOOR_X:
+            passed = True
+            break
+    assert passed

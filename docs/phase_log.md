@@ -42,6 +42,8 @@ Death and held-fire (2026-09-12): contact drops `enemy_alive` before the ray, ho
 
 SPEED (2026-09-12): SETTLE 29. Isolated 127+1 is 0 at 23, exact at 24. 30+6 exact at 12. Stitched one-tick fwd is green at 24, but 32-tick held-fwd skips one enemy step at SETTLE 28 (px=64, snn ex=86 vs teacher 84). 29 is one notch above that break. CLOCK ring 29 (7,177 cells, minus 3 vs 32). STEPS_PER_TICK 7,569. RAY/READOUT freeze hashes unchanged. Scale still blocked: leftover cells have no named extra-units job.
 
+Door (2026-09-12): cell (4,5), sixth host bit. Default map open so held-fwd still passes. Write is a 2-step `we_ram` pulse on that RAM bistable after last march (`door_busy` window, `clk[2]|clk[3]`). Pose re-arm is `door_end` on the door-window beat. Teacher tests first. Isolated RAM set-bit reads back at SETTLE 29. Toggle data is the opposite rail; pulse width 2 so it does not oscillate. Headless `--frames` injects door=0. Interactive e/q is host-only. Scale still blocked. Extra units undeclared.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

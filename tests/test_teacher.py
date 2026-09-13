@@ -10,14 +10,16 @@ from snn_doom.const import (
     COLOR_WALL,
     COS,
     DEATH_TICKS,
+    DOOR_X,
+    DOOR_Y,
     FRAME_H,
     N_ANG,
     N_COLS,
     STATE_BITS,
     WORLD,
 )
-from snn_doom.teacher.engine import apply_enemy, apply_fire, apply_move, apply_turn, run, tick
-from snn_doom.teacher.maps import DEFAULT_ROWS, parse_map, rows_of, spawn
+from snn_doom.teacher.engine import apply_door, apply_enemy, apply_fire, apply_move, apply_turn, run, tick
+from snn_doom.teacher.maps import DEFAULT_ROWS, door_closed, parse_map, rows_of, spawn, with_door
 from snn_doom.teacher.render import cast_ray, column_angle, frame_to_ascii, hitscan, paint_frame
 from snn_doom.teacher.state import GameState, pack_input, unpack_input
 
@@ -45,9 +47,11 @@ def test_map_parse_rows() -> None:
 
 def test_input_pack() -> None:
     assert pack_input(1, 0, 1, 0) == 0b0101
-    assert unpack_input(0b1100) == (0, 0, 1, 1, 0)
+    assert unpack_input(0b1100) == (0, 0, 1, 1, 0, 0)
     assert pack_input(0, 0, 0, 0, 1) == 0b10000
-    assert unpack_input(0b10000) == (0, 0, 0, 0, 1)
+    assert unpack_input(0b10000) == (0, 0, 0, 0, 1, 0)
+    assert pack_input(0, 0, 0, 0, 0, 1) == 0b100000
+    assert unpack_input(0b100000) == (0, 0, 0, 0, 0, 1)
     with pytest.raises(ValueError):
         pack_input(2, 0, 0, 0)
 
@@ -252,3 +256,65 @@ def test_sprite_paint_is_blob_not_wall_overwrite() -> None:
     assert is_enemy_row(mid, 10)
     assert is_wall_row(mid - 2, 10)
     assert not is_enemy_row(mid - 2, 10)
+
+
+def test_default_door_is_open() -> None:
+    s = spawn()
+    assert DOOR_X == 4 and DOOR_Y == 5
+    assert door_closed(s) == 0
+    assert not s.cell_wall(DOOR_X, DOOR_Y)
+
+
+def test_closed_door_blocks_east_walk() -> None:
+    s = with_door(spawn(), 1)
+    assert door_closed(s) == 1
+    fwd = pack_input(0, 0, 1, 0)
+    last = s
+    blocked = False
+    for _ in range(16):
+        r = tick(last, fwd)
+        if r.state.px == last.px:
+            blocked = True
+            break
+        last = r.state
+    assert blocked
+    assert last.px < DOOR_X * 16
+
+
+def test_door_toggle_opens_then_pass() -> None:
+    s = with_door(spawn(), 1)
+    r = tick(s, pack_input(0, 0, 0, 0, 0, 1))
+    assert door_closed(r.state) == 0
+    assert r.state.px == s.px
+    fwd = pack_input(0, 0, 1, 0)
+    last = r.state
+    for _ in range(16):
+        nxt = tick(last, fwd).state
+        if nxt.px == last.px:
+            raise AssertionError("open door still blocked")
+        last = nxt
+        if last.px >> 4 >= DOOR_X:
+            break
+    assert last.px >> 4 >= DOOR_X
+
+
+def test_door_toggle_closes_in_front_and_blocks() -> None:
+    s = spawn()
+    assert door_closed(s) == 0
+    fwd = pack_input(0, 0, 1, 0)
+    last = s
+    while (last.px + 4) >> 4 < DOOR_X:
+        last = tick(last, fwd).state
+    assert (last.px + 4) >> 4 == DOOR_X
+    closed = tick(last, pack_input(0, 0, 0, 0, 0, 1)).state
+    assert door_closed(closed) == 1
+    blocked = tick(closed, fwd)
+    assert blocked.state.px == closed.px
+
+
+def test_apply_door_is_after_paint() -> None:
+    s = with_door(spawn(), 1)
+    r = tick(s, pack_input(0, 0, 0, 0, 0, 1))
+    # This tick still marched a closed door; occupancy flips after paint.
+    assert door_closed(r.state) == 0
+    assert apply_door(s, 1).map_bits != s.map_bits

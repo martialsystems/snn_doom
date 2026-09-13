@@ -22,6 +22,7 @@ MODULES = (
     "SEQUENCER",
     "RAY_COLUMN",
     "FRAME_READOUT",
+    "DOOR",
 )
 
 
@@ -57,6 +58,27 @@ def main() -> None:
     latch_held_key_dies = bool(fwd["baseline_state"]["px"] != fwd["spawn_px"]) and bool(
         (latch.get("state_delta") or {}).get("px")
     )
+    from snn_doom.const import DOOR_X
+    from snn_doom.teacher.maps import with_door
+
+    door_bits = pack_input(0, 0, 0, 0, 0, 1)
+    fwd_bits = pack_input(0, 0, 1, 0)
+    closed = with_door(spawn(), 1)
+
+    def _walk_after_toggle(zero_door: bool) -> tuple[int, int]:
+        m = build_doom_snn()
+        m.reset(closed)
+        if zero_door:
+            m.zero_module("DOOR")
+        m.tick(door_bits)
+        for _ in range(12):
+            m.tick(fwd_bits)
+        st = m.read_state()
+        return st["px"], m.read_door()
+
+    px_ok, d_ok = _walk_after_toggle(False)
+    px_dead, d_dead = _walk_after_toggle(True)
+    door_write_dies = bool(d_ok == 0 and d_dead == 1 and px_ok > px_dead)
     payload = {
         "idle": {k: v for k, v in idle.items() if k != "spawn_px"},
         "fwd": {k: v for k, v in fwd.items() if k != "spawn_px"},
@@ -64,6 +86,14 @@ def main() -> None:
         "held_key": "fwd",
         "latch_held_key_dies": latch_held_key_dies,
         "rows": fwd["rows"],
+        "door_write_dies": door_write_dies,
+        "door_ablate": {
+            "open_px": px_ok,
+            "open_door": d_ok,
+            "ablate_px": px_dead,
+            "ablate_door": d_dead,
+            "passed_cell": int(px_ok >> 4 >= DOOR_X),
+        },
     }
     out = ROOT / "logs" / "ablation.json"
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

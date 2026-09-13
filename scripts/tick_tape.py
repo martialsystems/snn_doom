@@ -27,6 +27,10 @@ def main() -> None:
         "held_fire": payload["held_fire"]["match"],
         "held_fire_kills": sum(s["teacher_shot"] for s in payload["held_fire"]["steps"]),
         "death": payload["death"]["match"],
+        "door": payload["door"]["match"],
+        "door_block": payload["door"]["block"]["match"],
+        "door_open": payload["door"]["open"]["match"],
+        "door_close": payload["door"]["close"]["match"],
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:
@@ -45,6 +49,11 @@ def main() -> None:
             print("held_fire fail steps", bad)
         if not payload["death"]["match"]:
             print("death fail", [s["i"] for s in payload["death"]["steps"] if not s["match"]])
+        if not payload["door"]["match"]:
+            for name in ("block", "open", "close"):
+                part = payload["door"][name]
+                if not part["match"]:
+                    print("door", name, [s["i"] for s in part["steps"] if not s["match"]])
 
 
 if __name__ == "__main__":

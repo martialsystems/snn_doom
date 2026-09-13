@@ -76,6 +76,7 @@ def keys_to_bits(pressed: set[str]) -> int:
         int("up" in pressed or "w" in pressed),
         int("down" in pressed or "s" in pressed),
         int("space" in pressed or "ctrl" in pressed or "f" in pressed),
+        int("e" in pressed or "q" in pressed),
     )
 
 

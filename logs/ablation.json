@@ -121,6 +121,20 @@
           "player_hit": 0
         },
         "pixels_nonzero": 0
+      },
+      {
+        "module": "DOOR",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 164
       }
     ]
   },
@@ -246,6 +260,20 @@
           "player_hit": 0
         },
         "pixels_nonzero": 0
+      },
+      {
+        "module": "DOOR",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0
+        },
+        "pixels_nonzero": 165
       }
     ]
   },
@@ -372,6 +400,28 @@
         "player_hit": 0
       },
       "pixels_nonzero": 0
+    },
+    {
+      "module": "DOOR",
+      "pixel_l1": 0,
+      "state_delta": {
+        "px": 0,
+        "py": 0,
+        "ang": 0,
+        "ex": 0,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0
+      },
+      "pixels_nonzero": 165
     }
-  ]
+  ],
+  "door_write_dies": true,
+  "door_ablate": {
+    "open_px": 72,
+    "open_door": 0,
+    "ablate_px": 60,
+    "ablate_door": 1,
+    "passed_cell": 1
+  }
 }

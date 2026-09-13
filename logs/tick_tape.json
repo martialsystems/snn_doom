@@ -16,6 +16,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -75,6 +76,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -85,6 +88,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -144,6 +148,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -154,6 +160,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -213,6 +220,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -223,6 +232,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -282,6 +292,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -292,6 +304,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -351,6 +364,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -367,6 +382,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -426,6 +442,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -436,6 +454,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -495,6 +514,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -505,6 +526,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 32,
@@ -564,6 +586,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -574,6 +598,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 32,
@@ -633,6 +658,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -643,6 +670,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -702,6 +730,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -718,6 +748,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -777,6 +808,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -787,6 +820,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -846,6 +880,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -856,6 +892,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -915,6 +952,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -925,6 +964,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 28,
@@ -984,6 +1024,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -994,6 +1036,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 25,
@@ -1053,6 +1096,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -1069,6 +1114,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1128,6 +1174,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1138,6 +1186,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1197,6 +1246,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1207,6 +1258,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -1266,6 +1318,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1276,6 +1330,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -1335,6 +1390,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1345,6 +1402,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 20,
@@ -1404,6 +1462,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -1420,6 +1480,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1479,6 +1540,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1489,6 +1552,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1548,6 +1612,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1558,6 +1624,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1617,6 +1684,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1627,6 +1696,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 52,
@@ -1686,6 +1756,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         },
         {
@@ -1696,6 +1768,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 51,
@@ -1755,6 +1828,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -1772,6 +1847,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 28,
@@ -1831,6 +1907,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -1841,6 +1919,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 32,
@@ -1900,6 +1979,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -1910,6 +1991,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 36,
@@ -1969,6 +2051,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -1979,6 +2063,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 40,
@@ -2038,6 +2123,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2048,6 +2135,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 44,
@@ -2107,6 +2195,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2117,6 +2207,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 48,
@@ -2176,6 +2267,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2186,6 +2279,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 52,
@@ -2245,6 +2339,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2255,6 +2351,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 56,
@@ -2314,6 +2411,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2324,6 +2423,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 60,
@@ -2383,6 +2483,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2393,6 +2495,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 64,
@@ -2452,6 +2555,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2462,6 +2567,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 68,
@@ -2521,6 +2627,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2531,6 +2639,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 72,
@@ -2590,6 +2699,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2600,6 +2711,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 76,
@@ -2659,6 +2771,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2669,6 +2783,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 80,
@@ -2728,6 +2843,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2738,6 +2855,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 84,
@@ -2797,6 +2915,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2807,6 +2927,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 88,
@@ -2866,6 +2987,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2876,6 +2999,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 92,
@@ -2935,6 +3059,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -2945,6 +3071,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 96,
@@ -3004,6 +3131,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3014,6 +3143,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 100,
@@ -3073,6 +3203,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3083,6 +3215,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 104,
@@ -3142,6 +3275,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3152,6 +3287,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3211,6 +3347,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3221,6 +3359,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3280,6 +3419,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3290,6 +3431,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3349,6 +3491,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3359,6 +3503,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3418,6 +3563,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3428,6 +3575,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3487,6 +3635,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3497,6 +3647,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3556,6 +3707,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3566,6 +3719,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3625,6 +3779,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3635,6 +3791,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3694,6 +3851,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3704,6 +3863,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3763,6 +3923,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3773,6 +3935,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3832,6 +3995,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3842,6 +4007,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3901,6 +4067,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -3911,6 +4079,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -3970,6 +4139,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       }
     ]
@@ -3988,6 +4159,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 24,
@@ -4047,6 +4219,8 @@
           "snn_hitscan": 0,
           "teacher_shot": 0,
           "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -4063,6 +4237,7 @@
           "frame_ok": true,
           "hitscan_ok": true,
           "shot_ok": true,
+          "door_ok": true,
           "match": true,
           "teacher_pose": {
             "px": 104,
@@ -4122,6 +4297,8 @@
           "snn_hitscan": 1,
           "teacher_shot": 1,
           "snn_shot": 1,
+          "teacher_door": 0,
+          "snn_door": 0,
           "l1": 0
         }
       ]
@@ -4139,6 +4316,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 28,
@@ -4198,6 +4376,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4208,6 +4388,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 32,
@@ -4267,6 +4448,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4277,6 +4460,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 36,
@@ -4336,6 +4520,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4346,6 +4532,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 40,
@@ -4405,6 +4592,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4415,6 +4604,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 44,
@@ -4474,6 +4664,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4484,6 +4676,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 48,
@@ -4543,6 +4736,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4553,6 +4748,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 52,
@@ -4612,6 +4808,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4622,6 +4820,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 56,
@@ -4681,6 +4880,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4691,6 +4892,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 60,
@@ -4750,6 +4952,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4760,6 +4964,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 64,
@@ -4819,6 +5024,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4829,6 +5036,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 68,
@@ -4888,6 +5096,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4898,6 +5108,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 72,
@@ -4957,6 +5168,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -4967,6 +5180,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 76,
@@ -5026,6 +5240,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5036,6 +5252,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 80,
@@ -5095,6 +5312,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5105,6 +5324,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 84,
@@ -5164,6 +5384,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5174,6 +5396,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 88,
@@ -5233,6 +5456,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5243,6 +5468,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 92,
@@ -5302,6 +5528,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5312,6 +5540,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 96,
@@ -5371,6 +5600,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5381,6 +5612,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 100,
@@ -5440,6 +5672,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5450,6 +5684,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 104,
@@ -5509,6 +5744,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5519,6 +5756,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5578,6 +5816,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5588,6 +5828,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5647,6 +5888,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5657,6 +5900,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5716,6 +5960,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5726,6 +5972,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5785,6 +6032,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5795,6 +6044,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5854,6 +6104,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5864,6 +6116,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5923,6 +6176,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -5933,6 +6188,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -5992,6 +6248,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6002,6 +6260,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -6061,6 +6320,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6071,6 +6332,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -6130,6 +6392,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6140,6 +6404,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -6199,6 +6464,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6209,6 +6476,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -6268,6 +6536,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6278,6 +6548,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 108,
@@ -6337,6 +6608,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       }
     ]
@@ -6353,6 +6626,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 24,
@@ -6412,6 +6686,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6422,6 +6698,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 24,
@@ -6481,6 +6758,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6491,6 +6770,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 24,
@@ -6550,6 +6830,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6560,6 +6842,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 24,
@@ -6619,6 +6902,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6629,6 +6914,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 24,
@@ -6688,6 +6974,8 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       },
       {
@@ -6698,6 +6986,7 @@
         "frame_ok": true,
         "hitscan_ok": true,
         "shot_ok": true,
+        "door_ok": true,
         "match": true,
         "teacher_pose": {
           "px": 28,
@@ -6757,8 +7046,2623 @@
         "snn_hitscan": 0,
         "teacher_shot": 0,
         "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
         "l1": 0
       }
     ]
+  },
+  "door": {
+    "match": true,
+    "block": {
+      "name": "door_closed_block",
+      "match": true,
+      "steps": [
+        {
+          "i": 0,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            5,
+            5,
+            5,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            5,
+            5,
+            5,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 1,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            4,
+            4,
+            4,
+            4,
+            4,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            4,
+            4,
+            4,
+            4,
+            4,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 2,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            4,
+            4,
+            4,
+            4,
+            4,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            4,
+            4,
+            4,
+            4,
+            4,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 3,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 4,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 5,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 6,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 7,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 8,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "snn_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 9,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "snn_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 10,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "snn_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 11,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 80,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 80,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "snn_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        }
+      ]
+    },
+    "open": {
+      "name": "door_toggle_open_pass",
+      "match": true,
+      "steps": [
+        {
+          "i": 0,
+          "bits": 32,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 24,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 24,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            7,
+            7,
+            13,
+            11,
+            11,
+            5,
+            5,
+            5,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            7,
+            7,
+            13,
+            11,
+            11,
+            5,
+            5,
+            5,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 1,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 2,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 3,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 4,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 5,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 6,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 7,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            9,
+            9,
+            9,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            9,
+            9,
+            9,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 8,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 9,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 10,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 64,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 64,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            8,
+            8,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            7,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            8,
+            8,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            7,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 11,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 68,
+            "py": 88,
+            "ang": 0,
+            "ex": 80,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 68,
+            "py": 88,
+            "ang": 0,
+            "ex": 80,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            8,
+            8,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            7,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            8,
+            8,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            7,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 12,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 72,
+            "py": 88,
+            "ang": 0,
+            "ex": 78,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 72,
+            "py": 88,
+            "ang": 0,
+            "ex": 78,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            7,
+            7,
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            7,
+            7,
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        }
+      ]
+    },
+    "close": {
+      "name": "door_toggle_close_block",
+      "match": true,
+      "steps": [
+        {
+          "i": 0,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 28,
+            "py": 88,
+            "ang": 0,
+            "ex": 102,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            7,
+            7,
+            12,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 1,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 32,
+            "py": 88,
+            "ang": 0,
+            "ex": 100,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            12,
+            12,
+            12,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 2,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 36,
+            "py": 88,
+            "ang": 0,
+            "ex": 98,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 3,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 40,
+            "py": 88,
+            "ang": 0,
+            "ex": 96,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            11,
+            11,
+            11,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 4,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 44,
+            "py": 88,
+            "ang": 0,
+            "ex": 94,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 5,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 48,
+            "py": 88,
+            "ang": 0,
+            "ex": 92,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            5,
+            5,
+            10,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 6,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 52,
+            "py": 88,
+            "ang": 0,
+            "ex": 90,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            9,
+            9,
+            9,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            9,
+            9,
+            9,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 7,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 56,
+            "py": 88,
+            "ang": 0,
+            "ex": 88,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            10,
+            10,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            10,
+            10,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 8,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 86,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 0,
+          "snn_door": 0,
+          "l1": 0
+        },
+        {
+          "i": 9,
+          "bits": 32,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 84,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "snn_dist": [
+            9,
+            9,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            6,
+            6,
+            5
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        },
+        {
+          "i": 10,
+          "bits": 4,
+          "pose_ok": true,
+          "dist_ok": true,
+          "frame_ok": true,
+          "hitscan_ok": true,
+          "shot_ok": true,
+          "door_ok": true,
+          "match": true,
+          "teacher_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "snn_pose": {
+            "px": 60,
+            "py": 88,
+            "ang": 0,
+            "ex": 82,
+            "ey": 40,
+            "enemy_alive": 1,
+            "player_hit": 0
+          },
+          "teacher_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "snn_dist": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "teacher_hitscan": 0,
+          "snn_hitscan": 0,
+          "teacher_shot": 0,
+          "snn_shot": 0,
+          "teacher_door": 1,
+          "snn_door": 1,
+          "l1": 0
+        }
+      ]
+    }
   }
 }

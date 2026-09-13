@@ -10,7 +10,7 @@ from dataclasses import dataclass, replace
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, COS, DEATH_TICKS, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
+from snn_doom.const import CENTER_COL, COS, DEATH_TICKS, DOOR_IDX, ENEMY_STEP, MOVE_DIV, N_ANG, SIN, WORLD
 from snn_doom.teacher.render import Column, cast_frame, paint_frame
 from snn_doom.teacher.state import GameState, unpack_input
 
@@ -80,6 +80,13 @@ def apply_fire(state: GameState, fire: int, heading_sprite: int) -> tuple[GameSt
     return replace(state, enemy_alive=0), 1
 
 
+def apply_door(state: GameState, door: int) -> GameState:
+    """Flip the door occupancy after paint. Next pose sees the new bit."""
+    if not door:
+        return state
+    return replace(state, map_bits=state.map_bits ^ (1 << DOOR_IDX))
+
+
 def apply_collide(state: GameState) -> GameState:
     if not state.enemy_alive:
         return state
@@ -98,7 +105,7 @@ class TickResult:
 
 
 def tick(state: GameState, input_bits: int) -> TickResult:
-    turn_l, turn_r, fwd, back, fire = unpack_input(input_bits)
+    turn_l, turn_r, fwd, back, fire, door = unpack_input(input_bits)
     if state.player_hit:
         columns = cast_frame(state)
         pixels = paint_frame(columns)
@@ -109,6 +116,7 @@ def tick(state: GameState, input_bits: int) -> TickResult:
             player_hit=1 if left > 0 else 0,
             enemy_alive=0,
         )
+        s = apply_door(s, door)
         return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s = apply_turn(state, turn_l, turn_r)
     s = apply_move(s, fwd, back)
@@ -117,8 +125,10 @@ def tick(state: GameState, input_bits: int) -> TickResult:
     columns = cast_frame(s)
     pixels = paint_frame(columns)
     if s.player_hit:
+        s = apply_door(s, door)
         return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s, shot = apply_fire(s, fire, columns[CENTER_COL].sprite)
+    s = apply_door(s, door)
     return TickResult(state=s, columns=columns, pixels=pixels, shot=shot)
 
 

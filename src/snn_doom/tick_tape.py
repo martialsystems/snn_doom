@@ -8,11 +8,11 @@ from typing import Any
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, DEATH_TICKS, N_COLS
+from snn_doom.const import CENTER_COL, DEATH_TICKS, DOOR_X, N_COLS
 from snn_doom.ray_parity import CASES, LOGS
 from snn_doom.snn.io import read_bit, read_int
 from snn_doom.teacher.engine import tick
-from snn_doom.teacher.maps import spawn
+from snn_doom.teacher.maps import door_closed, spawn, with_door
 from snn_doom.teacher.state import GameState, pack_input
 
 TAPE_N = 4
@@ -20,6 +20,7 @@ HELD_N = 32
 HELD_BITS = pack_input(0, 0, 1, 0)
 FIRE_BITS = pack_input(0, 0, 0, 0, 1)
 HELD_FIRE_BITS = pack_input(0, 0, 1, 0, 1)
+DOOR_BITS = pack_input(0, 0, 0, 0, 0, 1)
 TAPE_BITS = (
     0,
     pack_input(0, 0, 1, 0),
@@ -61,12 +62,15 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
     got_hs = _snn_hitscan(machine)
     want_shot = tr.shot
     got_shot = machine.read_shot()
+    want_door = door_closed(teacher)
+    got_door = machine.read_door()
     pose_ok = st == want_pose
     dist_ok = dists == want_d
     frame_ok = bool(np.array_equal(pix, tr.pixels))
     hitscan_ok = got_hs == want_hs
     shot_ok = got_shot == want_shot
-    ok = pose_ok and dist_ok and frame_ok and hitscan_ok and shot_ok
+    door_ok = got_door == want_door
+    ok = pose_ok and dist_ok and frame_ok and hitscan_ok and shot_ok and door_ok
     return {
         "i": i,
         "bits": bits,
@@ -75,6 +79,7 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
         "frame_ok": frame_ok,
         "hitscan_ok": hitscan_ok,
         "shot_ok": shot_ok,
+        "door_ok": door_ok,
         "match": ok,
         "teacher_pose": want_pose,
         "snn_pose": st,
@@ -84,6 +89,8 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
         "snn_hitscan": got_hs,
         "teacher_shot": want_shot,
         "snn_shot": got_shot,
+        "teacher_door": want_door,
+        "snn_door": got_door,
         "l1": int(np.abs(pix.astype(int) - tr.pixels.astype(int)).sum()),
     }
 
@@ -157,6 +164,34 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         and live["teacher_pose"]["px"] > contact["teacher_pose"]["px"]
     )
     all_match = all_match and death_ok
+    closed_start = with_door(spawn(), 1)
+    block_steps = _run_bits(m, closed_start, [HELD_BITS] * 12)
+    pxs = [s["teacher_pose"]["px"] for s in block_steps]
+    door_block_ok = (
+        all(s["match"] for s in block_steps)
+        and all(s["teacher_door"] == 1 for s in block_steps)
+        and any(pxs[i] == pxs[i - 1] for i in range(1, len(pxs)))
+        and block_steps[-1]["teacher_pose"]["px"] < DOOR_X * 16
+    )
+    open_steps = _run_bits(m, closed_start, [DOOR_BITS] + [HELD_BITS] * 12)
+    door_open_ok = (
+        all(s["match"] for s in open_steps)
+        and open_steps[0]["teacher_door"] == 0
+        and any(s["teacher_pose"]["px"] >> 4 >= DOOR_X for s in open_steps)
+    )
+    approach = spawn()
+    n_front = 0
+    while (approach.px + 4) >> 4 < DOOR_X:
+        approach = tick(approach, HELD_BITS).state
+        n_front += 1
+    close_steps = _run_bits(m, spawn(), [HELD_BITS] * n_front + [DOOR_BITS, HELD_BITS])
+    door_close_ok = (
+        all(s["match"] for s in close_steps)
+        and close_steps[-2]["teacher_door"] == 1
+        and close_steps[-1]["teacher_pose"]["px"] == close_steps[-2]["teacher_pose"]["px"]
+    )
+    door_ok = door_block_ok and door_open_ok and door_close_ok
+    all_match = all_match and door_ok
     payload = {
         "all_match": all_match,
         "extra_ticks": extra_ticks,
@@ -171,6 +206,12 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
         },
         "held_fire": {"name": "held_fire_corridor", "match": held_fire_ok, "steps": held_fire_steps},
         "death": {"name": "death_overlap", "match": death_ok, "steps": death_steps},
+        "door": {
+            "match": door_ok,
+            "block": {"name": "door_closed_block", "match": door_block_ok, "steps": block_steps},
+            "open": {"name": "door_toggle_open_pass", "match": door_open_ok, "steps": open_steps},
+            "close": {"name": "door_toggle_close_block", "match": door_close_ok, "steps": close_steps},
+        },
     }
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "tick_tape.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

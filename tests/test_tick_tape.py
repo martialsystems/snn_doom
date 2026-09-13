@@ -68,3 +68,10 @@ def test_tick_tape_artifact_when_logged() -> None:
     assert death["steps"][0]["teacher_pose"]["enemy_alive"] == 0
     assert death["steps"][-1]["teacher_pose"]["player_hit"] == 0
     assert death["steps"][-1]["teacher_pose"]["px"] > death["steps"][0]["teacher_pose"]["px"]
+    door = data["door"]
+    assert door["match"] is True
+    assert door["block"]["match"] is True
+    assert door["open"]["match"] is True
+    assert door["close"]["match"] is True
+    assert door["block"]["steps"][-1]["teacher_door"] == 1
+    assert door["open"]["steps"][0]["teacher_door"] == 0

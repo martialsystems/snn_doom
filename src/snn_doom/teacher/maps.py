@@ -2,7 +2,9 @@
 """8x8 wall maps. '#' wall, '.' empty. Outer ring is always wall."""
 from __future__ import annotations
 
-from snn_doom.const import MAP_H, MAP_W
+from dataclasses import replace
+
+from snn_doom.const import DOOR_IDX, MAP_H, MAP_W
 from snn_doom.teacher.state import GameState
 
 DEFAULT_ROWS: tuple[str, ...] = (
@@ -73,6 +75,19 @@ def spawn(
         enemy_alive=enemy_alive,
         player_hit=0,
     )
+
+
+def door_closed(state: GameState) -> int:
+    return (state.map_bits >> DOOR_IDX) & 1
+
+
+def with_door(state: GameState, closed: int) -> GameState:
+    if closed not in (0, 1):
+        raise ValueError("closed must be 0 or 1")
+    bit = 1 << DOOR_IDX
+    if closed:
+        return replace(state, map_bits=state.map_bits | bit)
+    return replace(state, map_bits=state.map_bits & ~bit)
 
 
 DEFAULT_MAP_BITS: int = parse_map(DEFAULT_ROWS)

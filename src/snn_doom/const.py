@@ -32,8 +32,13 @@ IN_TURN_R: Final[int] = 1
 IN_FWD: Final[int] = 2
 IN_BACK: Final[int] = 3
 IN_FIRE: Final[int] = 4
-N_INPUT_BITS: Final[int] = 5
-INPUT_NAMES: Final[tuple[str, ...]] = ("turn_left", "turn_right", "fwd", "back", "fire")
+IN_DOOR: Final[int] = 5
+N_INPUT_BITS: Final[int] = 6
+INPUT_NAMES: Final[tuple[str, ...]] = ("turn_left", "turn_right", "fwd", "back", "fire", "door")
+# One door cell on the 8x8. Default map leaves it open so held-fwd still passes.
+DOOR_X: Final[int] = 4
+DOOR_Y: Final[int] = 5
+DOOR_IDX: Final[int] = DOOR_Y * MAP_W + DOOR_X
 
 # Persistent game state (sequencer/clock live in the net, not here).
 STATE_FIELDS: Final[tuple[tuple[str, int], ...]] = (
@@ -89,7 +94,8 @@ ANALOG_THRESH: Final[float] = 1.0
 SETTLE_STEPS: Final[int] = 29
 POSE_WINDOWS: Final[int] = 5
 MARCH_LEN: Final[int] = MAX_DIST + 1  # beat 0 loads; beats 1..15 add like the teacher
-STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN)
+DOOR_WINDOWS: Final[int] = 1  # after last march, before the next pose re-arm
+STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN + DOOR_WINDOWS)
 # Freeze ticks after the contact tick. Contact also paints dead (alive already 0).
 DEATH_TICKS: Final[int] = 4
 

@@ -34,4 +34,6 @@ def test_headless_demo_does_not_inject_fire() -> None:
     assert "pack_input(0, 0, int(args.fwd), 0)" in demo
     view = (REPO / "src" / "snn_doom" / "demo" / "view.py").read_text(encoding="utf-8")
     assert 'int("space" in pressed or "ctrl" in pressed or "f" in pressed)' in view
+    assert 'int("e" in pressed or "q" in pressed)' in view
     assert "pack_input(" in view
+    assert "pack_input(0, 0, int(args.fwd), 0)" in demo

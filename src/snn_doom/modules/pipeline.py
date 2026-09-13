@@ -14,6 +14,7 @@ from snn_doom.const import (
     CENTER_COL,
     COS,
     DEATH_TICKS,
+    DOOR_IDX,
     FRAME_H,
     MARCH_LEN,
     MOVE_DIV,
@@ -40,6 +41,7 @@ from snn_doom.snn.digital import (
     bistable,
     decoder_bits,
     gated_ring,
+    latch_write,
     mux_int,
     or_n,
     oscillator_ring,
@@ -173,6 +175,10 @@ class DoomSNN:
         """Fire AND heading sprite. Host may copy this; kill already wrote enemy_alive."""
         return int(self.net.spikes[self.shot] >= 1.0)
 
+    def read_door(self) -> int:
+        """Door occupancy bit in map RAM (1 closed)."""
+        return read_bit(self.net.spikes, self.ram_cells[DOOR_IDX])
+
     def read_state(self) -> dict[str, int]:
         s = self.net.spikes
         return {
@@ -203,6 +209,7 @@ def build_doom_snn() -> DoomSNN:
     ray_busy = bistable(b, "ray_busy", "SEQUENCER")
     death_pending = bistable(b, "death_pending", "SEQUENCER")
     death_busy = bistable(b, "death_busy", "SEQUENCER")
+    door_busy = bistable(b, "door_busy", "SEQUENCER")
     pose_gate = and2(b, beat, pose_busy.t, "pose_gate", "SEQUENCER")
     ray_gate = and2(b, beat, ray_busy.t, "ray_gate", "SEQUENCER")
     pose_ring = gated_ring(b, 5, pose_gate, "SEQUENCER_POSE")
@@ -221,23 +228,31 @@ def build_doom_snn() -> DoomSNN:
     b.wire(pose_end, ray_busy.t, W_FORCE)
     b.wire(pose_end, ray_busy.f, W_INH)
     frame_end = and3(b, col_adv, col_ring[-1], march_ring[-1], "frame_end", "SEQUENCER")
-    # Re-arm pose for the next host tick so multi-tick tapes cannot skip turn/move.
-    b.wire(frame_end, pose_busy.t, W_FORCE)
-    b.wire(frame_end, pose_busy.f, W_INH)
+    # Door window after last march. Pose re-arm waits for door_end so RAM does not mutate mid-march.
+    b.wire(frame_end, door_busy.t, W_FORCE)
+    b.wire(frame_end, door_busy.f, W_INH)
     b.wire(frame_end, ray_busy.f, W_FORCE)
     b.wire(frame_end, ray_busy.t, W_INH)
-    b.wire(frame_end, pose_ring[0], W_FORCE)
-    for i in range(1, 5):
-        b.wire(frame_end, pose_ring[i], W_INH)
+    b.wire(frame_end, pose_busy.f, W_FORCE)
+    b.wire(frame_end, pose_busy.t, W_INH)
     b.wire(frame_end, march_ring[0], W_FORCE)
     for i in range(1, MARCH_LEN):
         b.wire(frame_end, march_ring[i], W_INH)
     b.wire(frame_end, col_ring[0], W_FORCE)
     for i in range(1, N_COLS):
         b.wire(frame_end, col_ring[i], W_INH)
+    door_gate = and2(b, beat, door_busy.t, "door_gate", "SEQUENCER")
+    door_end = door_gate
+    b.wire(door_end, pose_busy.t, W_FORCE)
+    b.wire(door_end, pose_busy.f, W_INH)
+    b.wire(door_end, door_busy.f, W_FORCE)
+    b.wire(door_end, door_busy.t, W_INH)
+    b.wire(door_end, pose_ring[0], W_FORCE)
+    for i in range(1, 5):
+        b.wire(door_end, pose_ring[i], W_INH)
 
     in_rails = [Rail(*b.alloc_pair(f"in_{i}", "BIT_LATCH")) for i in range(N_INPUT_BITS)]
-    turn_l, turn_r, fwd, back, fire = in_rails
+    turn_l, turn_r, fwd, back, fire, door = in_rails
     left_only = and2(b, turn_l.t, turn_r.f, "left_only", "BIT_LATCH")
     right_only = and2(b, turn_r.t, turn_l.f, "right_only", "BIT_LATCH")
     fwd_only = and2(b, fwd.t, back.f, "fwd_only", "BIT_LATCH")
@@ -297,11 +312,26 @@ def build_doom_snn() -> DoomSNN:
     b.wire(bias, cin2.f, 1.2)
     ny, _ = add_adder(b, py, dy, cin2, "ny", "ADDER_COMPARE")
 
-    we_ram = Rail(*b.alloc_pair("we_ram", "RAM"))
-    b.wire(bias, we_ram.f, 1.2)
+    we_never = Rail(*b.alloc_pair("we_never", "RAM"))
+    b.wire(bias, we_never.f, 1.2)
     data_ram = Rail(*b.alloc_pair("d_ram", "RAM"))
     addr_n = [nx[4], nx[5], nx[6], ny[4], ny[5], ny[6]]
-    ram_cells, ram_n, _ = add_ram1(b, addr_n, we_ram, data_ram, "map", "RAM")
+    ram_cells, ram_n, _ = add_ram1(b, addr_n, we_never, data_ram, "map", "RAM")
+    # Door write uses the old we_ram port as a 2-step pulse on this cell only.
+    door_early = or_n(b, [clk[2], clk[3]], "door_early", "DOOR")
+    we_ram_t = and3(b, door_busy.t, door.t, door_early, "we_ram_t", "DOOR")
+    we_ram_f = b.alloc("we_ram_f", "DOOR")
+    b.wire(bias, we_ram_f, 1.2)
+    b.wire(we_ram_t, we_ram_f, W_INH)
+    we_ram = Rail(we_ram_t, we_ram_f)
+    latch_write(
+        b,
+        ram_cells[DOOR_IDX],
+        we_ram,
+        Rail(ram_cells[DOOR_IDX].f, ram_cells[DOOR_IDX].t),
+        "door_tog",
+        "DOOR",
+    )
     wall_t = or_n(b, [ram_n.t, nx[7].t, ny[7].t], "wall_t", "RAM")
     wall_f = and3(b, ram_n.f, nx[7].f, ny[7].f, "wall_f", "RAM")
     wall = Rail(wall_t, wall_f)
@@ -530,7 +560,7 @@ def build_doom_snn() -> DoomSNN:
         pixels=ro["pixels"],
         shot=shot,
         steps_per_tick=STEPS_PER_TICK,
-        kick=[clk[0], bias, pose_busy.t, pose_ring[0], march_ring[0], col_ring[0], ray_busy.f],
+        kick=[clk[0], bias, pose_busy.t, pose_ring[0], march_ring[0], col_ring[0], ray_busy.f, door_busy.f],
         pose_ring=pose_ring,
         col_ring=col_ring,
         march_ring=march_ring,

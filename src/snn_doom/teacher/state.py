@@ -98,14 +98,35 @@ class GameState:
         return self.cell_wall(x >> 4, y >> 4)
 
 
-def pack_input(turn_left: int, turn_right: int, fwd: int, back: int, fire: int = 0) -> int:
-    for v in (turn_left, turn_right, fwd, back, fire):
+def pack_input(
+    turn_left: int,
+    turn_right: int,
+    fwd: int,
+    back: int,
+    fire: int = 0,
+    door: int = 0,
+) -> int:
+    for v in (turn_left, turn_right, fwd, back, fire, door):
         if v not in (0, 1):
             raise ValueError("input bits must be 0 or 1")
-    return turn_left | (turn_right << 1) | (fwd << 2) | (back << 3) | (fire << 4)
+    return (
+        turn_left
+        | (turn_right << 1)
+        | (fwd << 2)
+        | (back << 3)
+        | (fire << 4)
+        | (door << 5)
+    )
 
 
-def unpack_input(bits: int) -> tuple[int, int, int, int, int]:
-    if bits < 0 or bits > 31:
+def unpack_input(bits: int) -> tuple[int, int, int, int, int, int]:
+    if bits < 0 or bits > 63:
         raise ValueError("input bits overflow")
-    return bits & 1, (bits >> 1) & 1, (bits >> 2) & 1, (bits >> 3) & 1, (bits >> 4) & 1
+    return (
+        bits & 1,
+        (bits >> 1) & 1,
+        (bits >> 2) & 1,
+        (bits >> 3) & 1,
+        (bits >> 4) & 1,
+        (bits >> 5) & 1,
+    )

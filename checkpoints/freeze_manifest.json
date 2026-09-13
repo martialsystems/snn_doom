@@ -7,7 +7,8 @@
     "RAM": "0f14830431557c94eac94e8e4d94b6af49b3c2ede182421d5f729c9f2fd8a1b3",
     "SEQUENCER": "8c71842b0814c7e565ec096526de22ecc88e0bb362d65e4988014a311f01abb3",
     "RAY_COLUMN": "4b419466d8c4a9ab925d60efafeeb1628ecfb2ea70607ef7d66b2b7c95a1213e",
-    "FRAME_READOUT": "9616e456c60ea790750f04837522f9155667091705fe809b61c8658b287a8788"
+    "FRAME_READOUT": "9616e456c60ea790750f04837522f9155667091705fe809b61c8658b287a8788",
+    "DOOR": "29d9d0d5b097214bd107eb838a4811c7b3800de6292da8673fff1c9968c0f334"
   },
   "files": {
     "CLOCK": "clock.json",
@@ -17,6 +18,7 @@
     "RAM": "ram.json",
     "SEQUENCER": "sequencer.json",
     "RAY_COLUMN": "ray_column.json",
-    "FRAME_READOUT": "frame_readout.json"
+    "FRAME_READOUT": "frame_readout.json",
+    "DOOR": "door.json"
   }
 }

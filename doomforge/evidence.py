@@ -23,6 +23,7 @@ ROLE_FILES = {
     "SEQUENCER": "sequencer.json",
     "RAY_COLUMN": "ray_column.json",
     "FRAME_READOUT": "frame_readout.json",
+    "DOOR": "door.json",
 }
 
 BANNED_DEMO_TOKENS = (

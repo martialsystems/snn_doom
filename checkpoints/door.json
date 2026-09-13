@@ -1,0 +1,18 @@
+{
+  "role": "DOOR",
+  "encoding": "dual_rail",
+  "seed": 0,
+  "hand_wired": true,
+  "row": {
+    "door_cell": [
+      4,
+      5
+    ],
+    "we_window": "door_busy clk[2]|clk[3]",
+    "pulse_steps": 2,
+    "after": "last_march",
+    "before": "next_pose",
+    "n_neurons": 5
+  },
+  "frozen": true
+}

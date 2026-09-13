@@ -28,6 +28,8 @@ def test_ablation_json_held_key_visible() -> None:
     data = json.loads(path.read_text(encoding="utf-8"))
     assert data.get("held_key") == "fwd"
     assert data.get("latch_held_key_dies") is True
+    if "door_write_dies" in data:
+        assert data["door_write_dies"] is True
 
 
 def test_zero_clock_freezes_sequencer() -> None:

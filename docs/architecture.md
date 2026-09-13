@@ -29,7 +29,7 @@ Digital modules use `tau=0` (v=I, a McCulloch-Pitts gate on LIF hardware). Analo
 
 World is 8x8 cells, 16 subcells per cell (4.4 fixed point). Angle is 64 ticks of 5.625 degrees. Map bit=1 is wall. Sequencer and clock are network-internal, not packed state.
 
-Input bits (host injects every LIF step of a game tick): turn_left, turn_right, fwd, back, fire.
+Input bits (host injects every LIF step of a game tick): turn_left, turn_right, fwd, back, fire, door.
 
 ## Teacher tick
 
@@ -40,6 +40,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 5. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
 6. Paint: 16x16 pixels, 2-bit color (sky, floor, wall, enemy). Height = `16-dist`.
 7. Fire: AND the fifth key with the heading column sprite. A hit clears `enemy_alive`. The painted frame is the shot you saw.
+8. Door: after paint, the sixth key toggles occupancy of cell (4,5) through `we_ram`. Next pose sees the new bit.
 
 ## Module graph
 
@@ -54,7 +55,7 @@ CLOCK (SETTLE=29 ring)
        -> FRAME_READOUT (fixed 16x16x4 WTA)
 ```
 
-Host: inject 5 key bits, step `STEPS_PER_TICK` LIF updates, argmax 4 color lines per pixel, draw, log.
+Host: inject 6 key bits, step `STEPS_PER_TICK` LIF updates, argmax 4 color lines per pixel, draw, log.
 
 ## Encodings
 
