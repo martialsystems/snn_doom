@@ -1,6 +1,6 @@
 {
-  "n_neurons": 7187,
-  "n_edges": 39694,
+  "n_neurons": 7958,
+  "n_edges": 41779,
   "steps_per_tick": 7598,
   "cap": 8000,
   "modules": [
@@ -15,14 +15,14 @@
     "SEQUENCER"
   ],
   "counts": {
-    "ADDER_COMPARE": 2542,
+    "ADDER_COMPARE": 2992,
     "BIT_LATCH": 26,
     "CLOCK": 30,
     "DOOR": 5,
-    "FRAME_READOUT": 1664,
+    "FRAME_READOUT": 1856,
     "RAM": 780,
-    "RAY_COLUMN": 1669,
-    "REGISTER_FILE": 348,
-    "SEQUENCER": 123
+    "RAY_COLUMN": 1722,
+    "REGISTER_FILE": 417,
+    "SEQUENCER": 130
   }
 }

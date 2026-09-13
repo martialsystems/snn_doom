@@ -58,6 +58,8 @@ def cast_ray(state: GameState, ang: int) -> Column:
         cx, cy = x >> 4, y >> 4
         if state.enemy_alive and (cx, cy) == (state.ex >> 4, state.ey >> 4):
             sprite = 1
+        if state.enemy2_alive and (cx, cy) == (state.ex2 >> 4, state.ey2 >> 4):
+            sprite = 1
         if state.cell_wall(cx, cy):
             side = 1 if abs(dx) >= abs(dy) else 0
             return Column(dist=dist, side=side, sprite=sprite)
@@ -110,7 +112,7 @@ def paint_column(col: Column) -> np.ndarray:
 
 def paint_frame(columns: tuple[Column, ...] | list[Column]) -> np.ndarray:
     if len(columns) != N_COLS:
-        raise ValueError("need 16 columns")
+        raise ValueError(f"need {N_COLS} columns")
     frame = np.zeros((FRAME_H, N_COLS), dtype=np.uint8)
     for c, col in enumerate(columns):
         frame[:, c] = paint_column(col)

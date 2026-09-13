@@ -12,7 +12,7 @@ CELL: Final[int] = 16
 WORLD: Final[int] = MAP_W * CELL
 N_ANG: Final[int] = 64
 N_COLS: Final[int] = 16
-FRAME_H: Final[int] = 16
+FRAME_H: Final[int] = 18
 MAX_DIST: Final[int] = 15
 RAY_SCALE: Final[int] = 8
 MOVE_DIV: Final[int] = 2
@@ -50,6 +50,10 @@ STATE_FIELDS: Final[tuple[tuple[str, int], ...]] = (
     ("ey", 8),
     ("enemy_alive", 1),
     ("player_hit", 1),
+    ("ex2", 8),
+    ("ey2", 8),
+    ("enemy2_alive", 1),
+    ("ammo", 3),
 )
 
 
@@ -79,6 +83,11 @@ DEFAULT_PY: Final[int] = 5 * CELL + CELL // 2
 DEFAULT_ANG: Final[int] = 0
 DEFAULT_EX: Final[int] = 6 * CELL + CELL // 2
 DEFAULT_EY: Final[int] = 2 * CELL + CELL // 2
+# Second sprite: stationary, off the spawn-east heading ray so held-fwd hitscan stays 0.
+DEFAULT_EX2: Final[int] = 2 * CELL + CELL // 2
+DEFAULT_EY2: Final[int] = 2 * CELL + CELL // 2
+AMMO_BITS: Final[int] = 3
+DEFAULT_AMMO: Final[int] = 7
 
 SEED: Final[int] = 0
 FLIES_BUDGET: Final[int] = 166_700

@@ -25,7 +25,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -34,7 +38,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -97,7 +105,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -106,7 +118,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -169,7 +185,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -178,7 +198,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -241,7 +265,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -250,7 +278,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -313,7 +345,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -322,7 +358,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             6,
@@ -391,7 +431,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -400,7 +444,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -463,7 +511,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -472,7 +524,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -535,7 +591,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 32,
@@ -544,7 +604,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -607,7 +671,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 32,
@@ -616,7 +684,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             12,
@@ -679,7 +751,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -688,7 +764,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             6,
@@ -757,7 +837,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -766,7 +850,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -829,7 +917,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -838,7 +930,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -901,7 +997,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -910,7 +1010,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -973,7 +1077,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -982,7 +1090,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             12,
@@ -1045,7 +1157,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 25,
@@ -1054,7 +1170,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             13,
@@ -1123,7 +1243,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 20,
@@ -1132,7 +1256,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -1195,7 +1323,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 20,
@@ -1204,7 +1336,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -1267,7 +1403,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -1276,7 +1416,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -1339,7 +1483,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -1348,7 +1496,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -1411,7 +1563,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 20,
@@ -1420,7 +1576,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             6,
@@ -1489,7 +1649,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -1498,7 +1662,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -1561,7 +1729,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -1570,7 +1742,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -1633,7 +1809,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -1642,7 +1822,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -1705,7 +1889,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -1714,7 +1902,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -1777,7 +1969,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 51,
@@ -1786,7 +1982,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             9,
@@ -1856,7 +2056,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 28,
@@ -1865,7 +2069,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -1928,7 +2136,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 32,
@@ -1937,7 +2149,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2000,7 +2216,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 36,
@@ -2009,7 +2229,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2072,7 +2296,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 40,
@@ -2081,7 +2309,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2144,7 +2376,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 44,
@@ -2153,7 +2389,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2216,7 +2456,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 48,
@@ -2225,7 +2469,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2288,7 +2536,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 52,
@@ -2297,7 +2549,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           10,
@@ -2360,7 +2616,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 56,
@@ -2369,7 +2629,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           10,
@@ -2432,7 +2696,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 60,
@@ -2441,7 +2709,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           9,
@@ -2504,7 +2776,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 64,
@@ -2513,7 +2789,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           8,
@@ -2576,7 +2856,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 68,
@@ -2585,7 +2869,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           8,
@@ -2648,7 +2936,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 72,
@@ -2657,7 +2949,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           7,
@@ -2720,7 +3016,11 @@
           "ex": 78,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 76,
@@ -2729,7 +3029,11 @@
           "ex": 78,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           6,
@@ -2792,7 +3096,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 80,
@@ -2801,7 +3109,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           6,
@@ -2864,7 +3176,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 84,
@@ -2873,7 +3189,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           5,
@@ -2936,7 +3256,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 88,
@@ -2945,7 +3269,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           4,
@@ -3008,7 +3336,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 92,
@@ -3017,7 +3349,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           4,
@@ -3080,7 +3416,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 96,
@@ -3089,7 +3429,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           3,
@@ -3152,7 +3496,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 100,
@@ -3161,7 +3509,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -3224,7 +3576,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 104,
@@ -3233,7 +3589,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -3296,7 +3656,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3305,7 +3669,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3368,7 +3736,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3377,7 +3749,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3440,7 +3816,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3449,7 +3829,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3512,7 +3896,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3521,7 +3909,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3584,7 +3976,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3593,7 +3989,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3656,7 +4056,11 @@
           "ex": 104,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3665,7 +4069,11 @@
           "ex": 104,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3728,7 +4136,11 @@
           "ex": 106,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3737,7 +4149,11 @@
           "ex": 106,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3800,7 +4216,11 @@
           "ex": 108,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3809,7 +4229,11 @@
           "ex": 108,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3872,7 +4296,11 @@
           "ex": 108,
           "ey": 42,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3881,7 +4309,11 @@
           "ex": 108,
           "ey": 42,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -3944,7 +4376,11 @@
           "ex": 108,
           "ey": 44,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -3953,7 +4389,11 @@
           "ex": 108,
           "ey": 44,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -4016,7 +4456,11 @@
           "ex": 108,
           "ey": 46,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -4025,7 +4469,11 @@
           "ex": 108,
           "ey": 46,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -4088,7 +4536,11 @@
           "ex": 108,
           "ey": 48,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 108,
@@ -4097,7 +4549,11 @@
           "ex": 108,
           "ey": 48,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           1,
@@ -4168,7 +4624,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 6
           },
           "snn_pose": {
             "px": 24,
@@ -4177,7 +4637,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 6
           },
           "teacher_dist": [
             5,
@@ -4246,7 +4710,11 @@
             "ex": 104,
             "ey": 42,
             "enemy_alive": 0,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 6
           },
           "snn_pose": {
             "px": 104,
@@ -4255,7 +4723,11 @@
             "ex": 104,
             "ey": 42,
             "enemy_alive": 0,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 6
           },
           "teacher_dist": [
             5,
@@ -4325,7 +4797,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 6
         },
         "snn_pose": {
           "px": 28,
@@ -4334,7 +4810,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 6
         },
         "teacher_dist": [
           5,
@@ -4397,7 +4877,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 5
         },
         "snn_pose": {
           "px": 32,
@@ -4406,7 +4890,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 5
         },
         "teacher_dist": [
           5,
@@ -4469,7 +4957,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 4
         },
         "snn_pose": {
           "px": 36,
@@ -4478,7 +4970,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 4
         },
         "teacher_dist": [
           5,
@@ -4541,7 +5037,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 3
         },
         "snn_pose": {
           "px": 40,
@@ -4550,7 +5050,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 3
         },
         "teacher_dist": [
           5,
@@ -4613,7 +5117,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 2
         },
         "snn_pose": {
           "px": 44,
@@ -4622,7 +5130,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 2
         },
         "teacher_dist": [
           5,
@@ -4685,7 +5197,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 1
         },
         "snn_pose": {
           "px": 48,
@@ -4694,7 +5210,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 1
         },
         "teacher_dist": [
           5,
@@ -4757,7 +5277,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 52,
@@ -4766,7 +5290,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           10,
@@ -4829,7 +5357,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 56,
@@ -4838,7 +5370,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           10,
@@ -4901,7 +5437,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 60,
@@ -4910,7 +5450,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           9,
@@ -4973,7 +5517,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 64,
@@ -4982,7 +5530,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           8,
@@ -5045,7 +5597,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 68,
@@ -5054,7 +5610,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           8,
@@ -5117,7 +5677,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 72,
@@ -5126,7 +5690,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           7,
@@ -5189,7 +5757,11 @@
           "ex": 78,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 76,
@@ -5198,7 +5770,11 @@
           "ex": 78,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           6,
@@ -5261,7 +5837,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 80,
@@ -5270,7 +5850,11 @@
           "ex": 80,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           6,
@@ -5333,7 +5917,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 84,
@@ -5342,7 +5930,11 @@
           "ex": 82,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           5,
@@ -5405,7 +5997,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 88,
@@ -5414,7 +6010,11 @@
           "ex": 84,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           4,
@@ -5477,7 +6077,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 92,
@@ -5486,7 +6090,11 @@
           "ex": 86,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           4,
@@ -5549,7 +6157,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 96,
@@ -5558,7 +6170,11 @@
           "ex": 88,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           3,
@@ -5621,7 +6237,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 100,
@@ -5630,7 +6250,11 @@
           "ex": 90,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           2,
@@ -5693,7 +6317,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 104,
@@ -5702,7 +6330,11 @@
           "ex": 92,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           2,
@@ -5765,7 +6397,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -5774,7 +6410,11 @@
           "ex": 94,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -5837,7 +6477,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -5846,7 +6490,11 @@
           "ex": 96,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -5909,7 +6557,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -5918,7 +6570,11 @@
           "ex": 98,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -5981,7 +6637,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -5990,7 +6650,11 @@
           "ex": 100,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6053,7 +6717,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6062,7 +6730,11 @@
           "ex": 102,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6125,7 +6797,11 @@
           "ex": 104,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6134,7 +6810,11 @@
           "ex": 104,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6197,7 +6877,11 @@
           "ex": 106,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6206,7 +6890,11 @@
           "ex": 106,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6269,7 +6957,11 @@
           "ex": 108,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6278,7 +6970,11 @@
           "ex": 108,
           "ey": 40,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6341,7 +7037,11 @@
           "ex": 108,
           "ey": 42,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6350,7 +7050,11 @@
           "ex": 108,
           "ey": 42,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6413,7 +7117,11 @@
           "ex": 108,
           "ey": 44,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6422,7 +7130,11 @@
           "ex": 108,
           "ey": 44,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6485,7 +7197,11 @@
           "ex": 108,
           "ey": 46,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6494,7 +7210,11 @@
           "ex": 108,
           "ey": 46,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6557,7 +7277,11 @@
           "ex": 108,
           "ey": 48,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "snn_pose": {
           "px": 108,
@@ -6566,7 +7290,11 @@
           "ex": 108,
           "ey": 48,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
         },
         "teacher_dist": [
           1,
@@ -6635,7 +7363,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 24,
@@ -6644,7 +7376,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -6707,7 +7443,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 24,
@@ -6716,7 +7456,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -6779,7 +7523,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 24,
@@ -6788,7 +7536,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -6851,7 +7603,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 24,
@@ -6860,7 +7616,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 1
+          "player_hit": 1,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -6923,7 +7683,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 24,
@@ -6932,7 +7696,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -6995,7 +7763,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "snn_pose": {
           "px": 28,
@@ -7004,7 +7776,11 @@
           "ex": 24,
           "ey": 24,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 7
         },
         "teacher_dist": [
           2,
@@ -7075,7 +7851,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -7084,7 +7864,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7147,7 +7931,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 32,
@@ -7156,7 +7944,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7219,7 +8011,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 36,
@@ -7228,7 +8024,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7291,7 +8091,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 40,
@@ -7300,7 +8104,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7363,7 +8171,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 44,
@@ -7372,7 +8184,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7435,7 +8251,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 48,
@@ -7444,7 +8264,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -7507,7 +8331,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -7516,7 +8344,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -7579,7 +8411,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 56,
@@ -7588,7 +8424,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -7651,7 +8491,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -7660,7 +8504,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -7723,7 +8571,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -7732,7 +8584,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -7795,7 +8651,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -7804,7 +8664,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -7867,7 +8731,11 @@
             "ex": 80,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -7876,7 +8744,11 @@
             "ex": 80,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -7945,7 +8817,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 24,
@@ -7954,7 +8830,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8017,7 +8897,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -8026,7 +8910,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8089,7 +8977,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 32,
@@ -8098,7 +8990,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8161,7 +9057,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 36,
@@ -8170,7 +9070,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8233,7 +9137,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 40,
@@ -8242,7 +9150,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8305,7 +9217,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 44,
@@ -8314,7 +9230,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8377,7 +9297,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 48,
@@ -8386,7 +9310,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8449,7 +9377,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -8458,7 +9390,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -8521,7 +9457,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 56,
@@ -8530,7 +9470,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -8593,7 +9537,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -8602,7 +9550,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             9,
@@ -8665,7 +9617,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 64,
@@ -8674,7 +9630,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             8,
@@ -8737,7 +9697,11 @@
             "ex": 80,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 68,
@@ -8746,7 +9710,11 @@
             "ex": 80,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             8,
@@ -8809,7 +9777,11 @@
             "ex": 78,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 72,
@@ -8818,7 +9790,11 @@
             "ex": 78,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             7,
@@ -8887,7 +9863,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 28,
@@ -8896,7 +9876,11 @@
             "ex": 102,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -8959,7 +9943,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 32,
@@ -8968,7 +9956,11 @@
             "ex": 100,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -9031,7 +10023,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 36,
@@ -9040,7 +10036,11 @@
             "ex": 98,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -9103,7 +10103,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 40,
@@ -9112,7 +10116,11 @@
             "ex": 96,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -9175,7 +10183,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 44,
@@ -9184,7 +10196,11 @@
             "ex": 94,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -9247,7 +10263,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 48,
@@ -9256,7 +10276,11 @@
             "ex": 92,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             5,
@@ -9319,7 +10343,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 52,
@@ -9328,7 +10356,11 @@
             "ex": 90,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -9391,7 +10423,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 56,
@@ -9400,7 +10436,11 @@
             "ex": 88,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             10,
@@ -9463,7 +10503,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -9472,7 +10516,11 @@
             "ex": 86,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             9,
@@ -9535,7 +10583,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -9544,7 +10596,11 @@
             "ex": 84,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             9,
@@ -9607,7 +10663,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "snn_pose": {
             "px": 60,
@@ -9616,7 +10676,11 @@
             "ex": 82,
             "ey": 40,
             "enemy_alive": 1,
-            "player_hit": 0
+            "player_hit": 0,
+            "ex2": 40,
+            "ey2": 40,
+            "enemy2_alive": 1,
+            "ammo": 7
           },
           "teacher_dist": [
             1,
@@ -9664,5 +10728,177 @@
         }
       ]
     }
+  },
+  "second": {
+    "name": "second_sprite_kill",
+    "match": true,
+    "steps": [
+      {
+        "i": 0,
+        "bits": 16,
+        "pose_ok": true,
+        "dist_ok": true,
+        "frame_ok": true,
+        "hitscan_ok": true,
+        "shot_ok": true,
+        "door_ok": true,
+        "match": true,
+        "teacher_pose": {
+          "px": 40,
+          "py": 88,
+          "ang": 48,
+          "ex": 102,
+          "ey": 40,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 0,
+          "ammo": 6
+        },
+        "snn_pose": {
+          "px": 40,
+          "py": 88,
+          "ang": 48,
+          "ex": 102,
+          "ey": 40,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 0,
+          "ammo": 6
+        },
+        "teacher_dist": [
+          5,
+          5,
+          7,
+          7,
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5
+        ],
+        "snn_dist": [
+          5,
+          5,
+          7,
+          7,
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5
+        ],
+        "teacher_hitscan": 1,
+        "snn_hitscan": 1,
+        "teacher_shot": 1,
+        "snn_shot": 1,
+        "teacher_door": 0,
+        "snn_door": 0,
+        "l1": 0
+      }
+    ]
+  },
+  "ammo_dry": {
+    "name": "ammo_zero_no_kill",
+    "match": true,
+    "steps": [
+      {
+        "i": 0,
+        "bits": 16,
+        "pose_ok": true,
+        "dist_ok": true,
+        "frame_ok": true,
+        "hitscan_ok": true,
+        "shot_ok": true,
+        "door_ok": true,
+        "match": true,
+        "teacher_pose": {
+          "px": 104,
+          "py": 88,
+          "ang": 48,
+          "ex": 104,
+          "ey": 42,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
+        },
+        "snn_pose": {
+          "px": 104,
+          "py": 88,
+          "ang": 48,
+          "ex": 104,
+          "ey": 42,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 40,
+          "ey2": 40,
+          "enemy2_alive": 1,
+          "ammo": 0
+        },
+        "teacher_dist": [
+          5,
+          5,
+          11,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10,
+          8,
+          4,
+          4,
+          3,
+          2,
+          2,
+          2
+        ],
+        "snn_dist": [
+          5,
+          5,
+          11,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10,
+          8,
+          4,
+          4,
+          3,
+          2,
+          2,
+          2
+        ],
+        "teacher_hitscan": 1,
+        "snn_hitscan": 1,
+        "teacher_shot": 0,
+        "snn_shot": 0,
+        "teacher_door": 0,
+        "snn_door": 0,
+        "l1": 0
+      }
+    ]
   }
 }

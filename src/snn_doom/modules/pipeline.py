@@ -11,10 +11,12 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from snn_doom.const import (
+    AMMO_BITS,
     CENTER_COL,
     COS,
     DEATH_TICKS,
     DOOR_IDX,
+    FOV_HALF,
     FRAME_H,
     MARCH_LEN,
     MOVE_DIV,
@@ -109,6 +111,10 @@ class DoomSNN:
     ey: list[Rail]
     enemy_alive: Rail
     player_hit: Rail
+    ex2: list[Rail]
+    ey2: list[Rail]
+    enemy2_alive: Rail
+    ammo: list[Rail]
     ram_cells: list[Rail]
     dist_cols: list[list[Rail]]
     sprite_cols: list[Rail]
@@ -132,6 +138,10 @@ class DoomSNN:
         drive_int(cur, self.ey, state.ey)
         drive_bit(cur, self.enemy_alive, state.enemy_alive)
         drive_bit(cur, self.player_hit, state.player_hit)
+        drive_int(cur, self.ex2, state.ex2)
+        drive_int(cur, self.ey2, state.ey2)
+        drive_bit(cur, self.enemy2_alive, state.enemy2_alive)
+        drive_int(cur, self.ammo, state.ammo)
         for i, cell in enumerate(self.ram_cells):
             drive_bit(cur, cell, (state.map_bits >> i) & 1)
         for _ in range(6):
@@ -189,6 +199,10 @@ class DoomSNN:
             "ey": read_int(s, self.ey),
             "enemy_alive": read_bit(s, self.enemy_alive),
             "player_hit": read_bit(s, self.player_hit),
+            "ex2": read_int(s, self.ex2),
+            "ey2": read_int(s, self.ey2),
+            "enemy2_alive": read_bit(s, self.enemy2_alive),
+            "ammo": read_int(s, self.ammo),
         }
 
     def raster(self) -> dict[str, np.ndarray]:
@@ -280,6 +294,10 @@ def build_doom_snn() -> DoomSNN:
     ey = add_reg(b, "ey", 8, "REGISTER_FILE")
     enemy_alive = bistable(b, "alive", "REGISTER_FILE")
     player_hit = bistable(b, "hit", "REGISTER_FILE")
+    ex2 = add_reg(b, "ex2", 8, "REGISTER_FILE")
+    ey2 = add_reg(b, "ey2", 8, "REGISTER_FILE")
+    enemy2_alive = bistable(b, "alive2", "REGISTER_FILE")
+    ammo = add_reg(b, "ammo", AMMO_BITS, "REGISTER_FILE")
 
     cin0 = Rail(*b.alloc_pair("cin0", "ADDER_COMPARE"))
     b.wire(bias, cin0.f, 1.2)
@@ -378,11 +396,13 @@ def build_doom_snn() -> DoomSNN:
     ey_next = mux_int(b, ecommit, ney, ey, "eyn", "REGISTER_FILE")
     same = and2(b, _cell_eq(b, px, ex, "cx"), _cell_eq(b, py, ey, "cy"), "same_cell", "ADDER_COMPARE")
     hit_set = and2(b, same, enemy_alive.t, "hit_set", "ADDER_COMPARE")
+    same2 = and2(b, _cell_eq(b, px, ex2, "cx2"), _cell_eq(b, py, ey2, "cy2"), "same_cell2", "ADDER_COMPARE")
+    hit_set2 = and2(b, same2, enemy2_alive.t, "hit_set2", "ADDER_COMPARE")
 
     rx = add_reg(b, "rx", 8, "RAY_COLUMN")
     ry = add_reg(b, "ry", 8, "RAY_COLUMN")
     rhit = bistable(b, "rhit", "RAY_COLUMN")
-    col_off = tuple((c - 8) % N_ANG for c in range(N_COLS))
+    col_off = tuple((c - FOV_HALF) % N_ANG for c in range(N_COLS))
     sel_dx = [Rail(*b.alloc_pair(f"sdx_{k}", "RAY_COLUMN")) for k in range(8)]
     sel_dy = [Rail(*b.alloc_pair(f"sdy_{k}", "RAY_COLUMN")) for k in range(8)]
     for c in range(N_COLS):
@@ -408,6 +428,8 @@ def build_doom_snn() -> DoomSNN:
 
     dist_cols = [add_reg(b, f"dist{c}", 4, "RAY_COLUMN") for c in range(N_COLS)]
     sprite_cols = [bistable(b, f"sp{c}", "RAY_COLUMN") for c in range(N_COLS)]
+    heading_e1 = bistable(b, "hd1", "RAY_COLUMN")
+    heading_e2 = bistable(b, "hd2", "RAY_COLUMN")
 
     ro = build_fixed_readout(b, "wta")
     for c in range(N_COLS):
@@ -443,11 +465,15 @@ def build_doom_snn() -> DoomSNN:
     add_write(b, py, we_xy, py_next, "w_py", "REGISTER_FILE")
     add_write(b, ex, we_e, ex_next, "w_ex", "REGISTER_FILE")
     add_write(b, ey, we_e, ey_next, "w_ey", "REGISTER_FILE")
-    hs = and2(b, p_hit, hit_set, "hs", "SEQUENCER")
+    hs1 = and2(b, p_hit, hit_set, "hs1", "SEQUENCER")
+    hs2 = and2(b, p_hit, hit_set2, "hs2", "SEQUENCER")
+    hs = or_n(b, [hs1, hs2], "hs", "SEQUENCER")
     b.wire(hs, player_hit.t, W_FORCE)
     b.wire(hs, player_hit.f, W_INH)
-    b.wire(hs, enemy_alive.f, W_FORCE)
-    b.wire(hs, enemy_alive.t, W_INH)
+    b.wire(hs1, enemy_alive.f, W_FORCE)
+    b.wire(hs1, enemy_alive.t, W_INH)
+    b.wire(hs2, enemy2_alive.f, W_FORCE)
+    b.wire(hs2, enemy2_alive.t, W_INH)
     b.wire(hs, death_pending.t, W_FORCE)
     b.wire(hs, death_pending.f, W_INH)
 
@@ -499,15 +525,48 @@ def build_doom_snn() -> DoomSNN:
         spry = _cell_eq(b, ryn, ey, f"spry{c}")
         sxy = and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN")
         spr = and3(b, vis, sxy, enemy_alive.t, f"spr{c}", "RAY_COLUMN")
-        b.wire(spr, sprite_cols[c].t, W_FORCE)
-        b.wire(spr, sprite_cols[c].f, W_INH)
+        sprx2 = _cell_eq(b, rxn, ex2, f"sprx2{c}")
+        spry2 = _cell_eq(b, ryn, ey2, f"spry2{c}")
+        sxy2 = and2(b, sprx2, spry2, f"sxy2{c}", "RAY_COLUMN")
+        spr2 = and3(b, vis, sxy2, enemy2_alive.t, f"spr2{c}", "RAY_COLUMN")
+        spr_any = or_n(b, [spr, spr2], f"spra{c}", "RAY_COLUMN")
+        b.wire(spr_any, sprite_cols[c].t, W_FORCE)
+        b.wire(spr_any, sprite_cols[c].f, W_INH)
+        if c == CENTER_COL:
+            clr_h = and2(b, new_col, col_ring[c], "hdclr", "RAY_COLUMN")
+            b.wire(clr_h, heading_e1.f, W_FORCE)
+            b.wire(clr_h, heading_e1.t, W_INH)
+            b.wire(clr_h, heading_e2.f, W_FORCE)
+            b.wire(clr_h, heading_e2.t, W_INH)
+            b.wire(spr, heading_e1.t, W_FORCE)
+            b.wire(spr, heading_e1.f, W_INH)
+            b.wire(spr2, heading_e2.t, W_FORCE)
+            b.wire(spr2, heading_e2.f, W_INH)
 
     # Fire AND heading sprite. Kill on the last column's last march window (SETTLE long).
-    shot = and2(b, fire.t, sprite_cols[CENTER_COL].t, "shot", "SEQUENCER")
+    ammo_nz = or_n(b, [ammo[i].t for i in range(AMMO_BITS)], "ammo_nz", "REGISTER_FILE")
+    shot = and3(b, fire.t, sprite_cols[CENTER_COL].t, ammo_nz, "shot", "SEQUENCER")
     end_hold = and2(b, col_ring[-1], march_ring[-1], "end_hold", "SEQUENCER")
-    kill = and2(b, end_hold, shot, "kill", "SEQUENCER")
-    b.wire(kill, enemy_alive.f, W_FORCE)
-    b.wire(kill, enemy_alive.t, W_INH)
+    kill1 = and3(b, end_hold, fire.t, and2(b, heading_e1.t, ammo_nz, "k1a", "SEQUENCER"), "kill1", "SEQUENCER")
+    kill2 = and3(b, end_hold, fire.t, and2(b, heading_e2.t, ammo_nz, "k2a", "SEQUENCER"), "kill2", "SEQUENCER")
+    b.wire(kill1, enemy_alive.f, W_FORCE)
+    b.wire(kill1, enemy_alive.t, W_INH)
+    b.wire(kill2, enemy2_alive.f, W_FORCE)
+    b.wire(kill2, enemy2_alive.t, W_INH)
+    # Consume ammo after paint, in the door window. 2-step pulse, late in SETTLE so the 3-bit add settles.
+    take = and2(b, fire.t, ammo_nz, "ammo_take", "REGISTER_FILE")
+    skip_ammo = b.alloc("ammo_hold", "REGISTER_FILE")
+    b.wire(bias, skip_ammo, 1.2)
+    b.wire(take, skip_ammo, W_INH)
+    take_r = Rail(take, skip_ammo)
+    neg1 = _const_int(b, 7, AMMO_BITS, "aneg1", "ADDER_COMPARE", bias)
+    cin_a = Rail(*b.alloc_pair("cina", "ADDER_COMPARE"))
+    b.wire(bias, cin_a.f, 1.2)
+    ammo_m1, _ = add_adder(b, ammo, neg1, cin_a, "ammo_sub", "ADDER_COMPARE")
+    ammo_next = mux_int(b, take_r, ammo_m1, ammo, "amnext", "REGISTER_FILE")
+    ammo_pulse = or_n(b, [clk[2], clk[3]], "ammo_pulse", "REGISTER_FILE")
+    we_ammo = _we(b, and2(b, door_busy.t, ammo_pulse, "we_ammo_p", "REGISTER_FILE"), "we_ammo", bias)
+    add_write(b, ammo, we_ammo, ammo_next, "w_ammo", "REGISTER_FILE")
 
     # Death: arm after the contact frame, then DEATH_TICKS freeze ticks, then re-arm.
     ray_start = and3(b, ray_gate, march_ring[0], col_ring[0], "ray_start", "SEQUENCER")
@@ -554,6 +613,10 @@ def build_doom_snn() -> DoomSNN:
         ey=ey,
         enemy_alive=enemy_alive,
         player_hit=player_hit,
+        ex2=ex2,
+        ey2=ey2,
+        enemy2_alive=enemy2_alive,
+        ammo=ammo,
         ram_cells=ram_cells,
         dist_cols=dist_cols,
         sprite_cols=sprite_cols,

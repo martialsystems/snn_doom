@@ -72,12 +72,46 @@ def apply_enemy(state: GameState) -> GameState:
     return moved if moved is not None else state
 
 
+def _heading_enemy_hits(state: GameState) -> tuple[int, int]:
+    """Which living enemies the heading ray visits before a wall."""
+    from snn_doom.const import COS, MAX_DIST, SIN, WORLD
+    from snn_doom.teacher.render import column_angle
+
+    x = state.px
+    y = state.py
+    ang = column_angle(state.ang, CENTER_COL)
+    dx = COS[ang]
+    dy = SIN[ang]
+    hit1 = 0
+    hit2 = 0
+    for _ in range(1, MAX_DIST + 1):
+        x += dx
+        y += dy
+        if x < 0 or y < 0 or x >= WORLD or y >= WORLD:
+            break
+        cx, cy = x >> 4, y >> 4
+        if state.enemy_alive and (cx, cy) == (state.ex >> 4, state.ey >> 4):
+            hit1 = 1
+        if state.enemy2_alive and (cx, cy) == (state.ex2 >> 4, state.ey2 >> 4):
+            hit2 = 1
+        if state.cell_wall(cx, cy):
+            break
+    return hit1, hit2
+
+
 def apply_fire(state: GameState, fire: int, heading_sprite: int) -> tuple[GameState, int]:
-    """Kill if fire is held and the heading column saw a living enemy. Paint already ran."""
-    shot = int(bool(fire and heading_sprite and state.enemy_alive))
-    if not shot:
+    """Consume one ammo if present. Kill heading-ray enemies only when ammo was > 0."""
+    if not fire or state.ammo <= 0:
         return state, 0
-    return replace(state, enemy_alive=0), 1
+    hit1, hit2 = _heading_enemy_hits(state)
+    shot = int(bool(heading_sprite and (hit1 or hit2)))
+    s = replace(
+        state,
+        ammo=state.ammo - 1,
+        enemy_alive=0 if hit1 else state.enemy_alive,
+        enemy2_alive=0 if hit2 else state.enemy2_alive,
+    )
+    return s, shot
 
 
 def apply_door(state: GameState, door: int) -> GameState:
@@ -88,12 +122,25 @@ def apply_door(state: GameState, door: int) -> GameState:
 
 
 def apply_collide(state: GameState) -> GameState:
-    if not state.enemy_alive:
+    same1 = (
+        state.enemy_alive
+        and (state.px >> 4) == (state.ex >> 4)
+        and (state.py >> 4) == (state.ey >> 4)
+    )
+    same2 = (
+        state.enemy2_alive
+        and (state.px >> 4) == (state.ex2 >> 4)
+        and (state.py >> 4) == (state.ey2 >> 4)
+    )
+    if not same1 and not same2:
         return state
-    same = (state.px >> 4) == (state.ex >> 4) and (state.py >> 4) == (state.ey >> 4)
-    if not same:
-        return state
-    return replace(state, enemy_alive=0, player_hit=1, death_left=DEATH_TICKS)
+    return replace(
+        state,
+        enemy_alive=0 if same1 else state.enemy_alive,
+        enemy2_alive=0 if same2 else state.enemy2_alive,
+        player_hit=1,
+        death_left=DEATH_TICKS,
+    )
 
 
 @dataclass(frozen=True, slots=True)

@@ -4,7 +4,7 @@ v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the
 
 ## Contract
 
-Teacher in `src/snn_doom/teacher/` is the spec: 104-bit state, integer march, one enemy, 16×16 paint.
+Teacher in `src/snn_doom/teacher/` is the spec: 124-bit state, integer march, two enemies, 16×18 paint.
 Stitched net in `src/snn_doom/modules/pipeline.py` is the engine.
 Host injects 6 key bits, runs 7,598 LIF updates, argmaxes 16×16×4 color lines, draws, logs.
 Same discrete update everywhere:
@@ -17,7 +17,7 @@ v ← v (1 − s)
 
 Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_doom.snn.train_analog`) and are not on the demo path.
 
-Running machine: 7,187 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. Door is a 2-step `we_ram` pulse on cell (4,5) after last march. SETTLE is 29.
+Running machine: 7,958 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. Death is a 16-cell sequencer chain. Door is a 2-step `we_ram` pulse on cell (4,5) after last march. VIEW is 16×18. Second sprite is a stationary enemy at (2,2). Ammo is a 3-bit register. SETTLE is 29.
 
 Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
 
@@ -29,6 +29,9 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Enemy step vs teacher | match |
 | Walls in the decoded frame | yes |
 | 16 column distances bit-exact | yes (five poses in `logs/ray_parity.json`) |
+| VIEW | 16×18 paint; same 16-column march |
+| Second sprite | stationary enemy (2,2); heading hitscan only |
+| Ammo | 3-bit; fire consumes; 0 cannot kill |
 | Center-column hitscan | heading ray sprite bit; teacher and net match |
 | 32-tick held-fwd tape | pose, dists, hitscan, frames (`logs/tick_tape.json`) |
 | Fire | fifth bit AND heading sprite; spawn miss, posed kill |
@@ -42,7 +45,7 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 
 Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. LATCH ablation is silent if no key is held.
 
-## State (104 bits)
+## State (124 bits)
 
 | Field | Bits | Offset |
 |-------|-----:|-------:|
@@ -52,8 +55,11 @@ Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and 
 | ex, ey | 8, 8 | 86, 94 |
 | enemy_alive | 1 | 102 |
 | player_hit | 1 | 103 |
+| ex2, ey2 | 8, 8 | 104, 112 |
+| enemy2_alive | 1 | 120 |
+| ammo | 3 | 121 |
 
-World: 8×8 cells, 16 subcells/cell (4.4 fixed point). Angle: 64 ticks = 360°. Map bit 1 is wall. Frame: 16×16, 2-bit color {sky, floor, wall, enemy}. Rays: 16 columns, angles ang-8 to ang+7, march 8 units/step, max 15. Height: 16 - dist.
+World: 8×8 cells, 16 subcells/cell (4.4 fixed point). Angle: 64 ticks = 360°. Map bit 1 is wall. Frame: 16×18, 2-bit color {sky, floor, wall, enemy}. Rays: 16 columns, angles ang-8 to ang+7, march 8 units/step, max 15. Height: 18 - dist.
 
 Inputs per LIF step: turn_left, turn_right, fwd, back, fire, door.
 
@@ -69,7 +75,7 @@ Inputs per LIF step: turn_left, turn_right, fwd, back, fire, door.
 | SEQUENCER | pose / column / march rings | 5 / 16 / 15 plus death chain and door window |
 | DOOR | `we_ram` pulse on cell (4,5) | after last march, before next pose |
 | RAY_COLUMN | one marching ray, 16 dist latches | frozen dual-rail after five-pose 16-int match |
-| FRAME_READOUT | 16×16×4 color lines | frozen wta after five-pose argmax match |
+| FRAME_READOUT | 16×18×4 color lines | frozen wta after five-pose argmax match |
 
 Encodings that won the digital bake-off for CLOCK / LATCH / REG / ALU / RAM / SEQ: dual-rail, bistable, oscillator. RAY_COLUMN missed the 0.70 gate in every encoding. Shared LUT tagging once marked move COS ROM as RAY, so RAY ablation killed pose. Fixed. Do not do that again.
 
@@ -121,4 +127,4 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 
 ## v1
 
-7,187 LIF units. SETTLE 29 (7,598 LIF steps/tick). Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm. Door: closed blocks, toggle opens a pass, toggle closes a block (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.
+7,958 LIF units. SETTLE 29 (7,598 LIF steps/tick). 16×18 VIEW, stationary second sprite at (2,2), 3-bit ammo. Teacher-matched pose, enemy, distances, frames, and center-column hitscan on the five-pose tape plus four extra ticks, and on 32 held-fwd ticks. Fire: spawn miss, posed kill. Held-fire corridor does not leak a kill. Death: overlap freeze then re-arm. Door: closed blocks, toggle opens a pass, toggle closes a block (`logs/tick_tape.json`). Every named module has a freeze hash in `checkpoints/freeze_manifest.json`. Pixel L1 stays a metric. `scale_166k.py` still dies unless extra units have a named job. That file does not exist.

@@ -29,7 +29,7 @@ def test_readme_and_docs_prose() -> None:
     assert "docs/methodology.md" in readme
     method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
     assert "7,217" in method
-    assert "104-bit" in method
+    assert "124-bit" in method
     assert "ray_parity.json" in method
     assert "teacher.tick" in method
     assert "cast_ray" in method

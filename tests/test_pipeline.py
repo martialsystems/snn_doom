@@ -183,3 +183,31 @@ def test_pipeline_door_block_toggle_pass() -> None:
             passed = True
             break
     assert passed
+
+
+def test_pipeline_second_sprite_and_ammo() -> None:
+    from snn_doom.teacher.engine import tick
+    from snn_doom.teacher.state import pack_input
+
+    fire = pack_input(0, 0, 0, 0, 1)
+    m = build_doom_snn()
+    look2 = spawn(px=40, py=88, ang=48)
+    m.reset(look2)
+    pix = m.tick(fire)
+    tr = tick(look2, fire)
+    assert tr.shot == 1
+    assert m.read_shot() == 1
+    st = m.read_state()
+    assert st["enemy2_alive"] == 0
+    assert st["enemy_alive"] == 1
+    assert st["ammo"] == tr.state.ammo == look2.ammo - 1
+    np.testing.assert_array_equal(pix, tr.pixels)
+    dry = spawn(px=104, py=88, ang=48, ammo=0)
+    m.reset(dry)
+    pix = m.tick(fire)
+    tr = tick(dry, fire)
+    assert tr.shot == 0
+    assert m.read_shot() == 0
+    assert m.read_state()["enemy_alive"] == 1
+    assert m.read_state()["ammo"] == 0
+    np.testing.assert_array_equal(pix, tr.pixels)

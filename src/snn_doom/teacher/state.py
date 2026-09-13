@@ -1,13 +1,16 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""Packed 104-bit game state. Teacher and SNN share this layout."""
+"""Packed game state. Teacher and SNN share this layout."""
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 from snn_doom.const import (
+    DEFAULT_AMMO,
     DEFAULT_ANG,
     DEFAULT_EX,
+    DEFAULT_EX2,
     DEFAULT_EY,
+    DEFAULT_EY2,
     DEFAULT_PX,
     DEFAULT_PY,
     MAP_CELLS,
@@ -43,12 +46,16 @@ class GameState:
     ey: int
     enemy_alive: int
     player_hit: int
-    death_left: int = 0  # sequencer-internal; not in the 104-bit pack
+    ex2: int = DEFAULT_EX2
+    ey2: int = DEFAULT_EY2
+    enemy2_alive: int = 1
+    ammo: int = DEFAULT_AMMO
+    death_left: int = 0  # sequencer-internal; not packed
 
     def __post_init__(self) -> None:
         if self.map_bits < 0 or self.map_bits >= (1 << MAP_CELLS):
             raise ValueError("map_bits overflow")
-        for name in ("px", "py", "ex", "ey"):
+        for name in ("px", "py", "ex", "ey", "ex2", "ey2"):
             v = getattr(self, name)
             if v < 0 or v >= WORLD:
                 raise ValueError(f"{name}={v} out of world")
@@ -56,6 +63,10 @@ class GameState:
             raise ValueError(f"ang={self.ang} out of range")
         if self.enemy_alive not in (0, 1) or self.player_hit not in (0, 1):
             raise ValueError("flag bits must be 0 or 1")
+        if self.enemy2_alive not in (0, 1):
+            raise ValueError("flag bits must be 0 or 1")
+        if self.ammo < 0 or self.ammo > 7:
+            raise ValueError("ammo must fit in 3 bits")
         if self.death_left < 0:
             raise ValueError("death_left must be >= 0")
 
@@ -69,6 +80,10 @@ class GameState:
         packed = _set(packed, "ey", self.ey)
         packed = _set(packed, "enemy_alive", self.enemy_alive)
         packed = _set(packed, "player_hit", self.player_hit)
+        packed = _set(packed, "ex2", self.ex2)
+        packed = _set(packed, "ey2", self.ey2)
+        packed = _set(packed, "enemy2_alive", self.enemy2_alive)
+        packed = _set(packed, "ammo", self.ammo)
         return packed
 
     @classmethod
@@ -84,6 +99,10 @@ class GameState:
             ey=_get(packed, "ey"),
             enemy_alive=_get(packed, "enemy_alive"),
             player_hit=_get(packed, "player_hit"),
+            ex2=_get(packed, "ex2"),
+            ey2=_get(packed, "ey2"),
+            enemy2_alive=_get(packed, "enemy2_alive"),
+            ammo=_get(packed, "ammo"),
         )
 
     def cell_wall(self, cx: int, cy: int) -> bool:

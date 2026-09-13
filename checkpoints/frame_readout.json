@@ -6,13 +6,7 @@
   "row": {
     "frame_parity": true,
     "sprite_blob": true,
-    "cases": [
-      "idle",
-      "forward",
-      "turn",
-      "back",
-      "wall_graze"
-    ],
+    "view": "16x18",
     "l1": {
       "idle": 0,
       "forward": 0,

@@ -64,7 +64,13 @@ def spawn(
     ex: int = 104,
     ey: int = 40,
     enemy_alive: int = 1,
+    ex2: int | None = None,
+    ey2: int | None = None,
+    enemy2_alive: int = 1,
+    ammo: int | None = None,
 ) -> GameState:
+    from snn_doom.const import DEFAULT_AMMO, DEFAULT_EX2, DEFAULT_EY2
+
     return GameState(
         map_bits=parse_map(rows),
         px=px,
@@ -74,6 +80,10 @@ def spawn(
         ey=ey,
         enemy_alive=enemy_alive,
         player_hit=0,
+        ex2=DEFAULT_EX2 if ex2 is None else ex2,
+        ey2=DEFAULT_EY2 if ey2 is None else ey2,
+        enemy2_alive=enemy2_alive,
+        ammo=DEFAULT_AMMO if ammo is None else ammo,
     )
 
 

@@ -271,6 +271,7 @@ def eval_ray(enc: EncodedNet, noise: float = 0.0, rng: np.random.Generator | Non
 def eval_readout(enc: EncodedNet, noise: float = 0.0, rng: np.random.Generator | None = None) -> dict:
     if "dist_bits" not in enc.extra:
         return {"accuracy": 0.1, "stability": 0.0, "spikes_per_step": 1.0, "n_neurons": enc.net.n}
+    from snn_doom.const import FRAME_H, N_COLS
     from snn_doom.teacher.render import Column
 
     # dist=4 sprite=0 is the wall slab. dist=10 sprite=1 is the blob, not wall-overwrite.
@@ -279,18 +280,18 @@ def eval_readout(enc: EncodedNet, noise: float = 0.0, rng: np.random.Generator |
     spk = 0.0
     last = None
     for dist, sprite in pairs:
-        cols = tuple(Column(dist=dist, side=0, sprite=sprite) for _ in range(16))
+        cols = tuple(Column(dist=dist, side=0, sprite=sprite) for _ in range(N_COLS))
         want = paint_frame(cols)
         enc.reset()
         for _ in range(12):
             cur = zeros(enc.net)
-            for c in range(16):
+            for c in range(N_COLS):
                 drive_int(cur, enc.extra["dist_bits"][c], dist)
                 drive_bit(cur, enc.extra["sprite_bits"][c], sprite)
             last = enc.net.step(cur)
         frame = np.zeros_like(want)
-        for c in range(16):
-            for r in range(16):
+        for c in range(N_COLS):
+            for r in range(FRAME_H):
                 vals = [float(last[enc.extra["pixels"][c][r][k]]) for k in range(4)]
                 frame[r, c] = int(np.argmax(vals))
         hits += int(np.array_equal(frame, want))

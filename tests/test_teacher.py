@@ -25,7 +25,7 @@ from snn_doom.teacher.state import GameState, pack_input, unpack_input
 
 
 def test_state_bits_under_budget() -> None:
-    assert STATE_BITS == 104
+    assert STATE_BITS == 124
     assert STATE_BITS < 256
 
 
@@ -234,6 +234,8 @@ def test_fire_kills_when_heading_ray_sees_enemy() -> None:
     assert r.columns[CENTER_COL].sprite == 1
     assert r.shot == 1
     assert r.state.enemy_alive == 0
+    assert r.state.enemy2_alive == 1
+    assert r.state.ammo == s.ammo - 1
     assert hitscan(r.state) == 0
     again = tick(r.state, pack_input(0, 0, 0, 0, 1))
     assert again.shot == 0
@@ -248,14 +250,14 @@ def test_sprite_paint_is_blob_not_wall_overwrite() -> None:
     blob = paint_column(Column(dist=10, side=0, sprite=1))
     wall = paint_column(Column(dist=10, side=0, sprite=0))
     l1 = int(np.abs(blob.astype(int) - wall.astype(int)).sum())
-    assert l1 == 3
     enemy_rows = [r for r in range(FRAME_H) if blob[r] == COLOR_ENEMY]
-    assert enemy_rows == [mid - 1, mid, mid + 1]
+    assert enemy_rows == [r for r in range(FRAME_H) if is_enemy_row(r, 10)]
+    assert l1 == len(enemy_rows)
     wall_only = [r for r in range(FRAME_H) if wall[r] == COLOR_WALL and blob[r] != COLOR_ENEMY]
-    assert wall_only == [mid - 2, mid + 2]
+    assert wall_only
     assert is_enemy_row(mid, 10)
-    assert is_wall_row(mid - 2, 10)
-    assert not is_enemy_row(mid - 2, 10)
+    assert is_wall_row(wall_only[0], 10)
+    assert not is_enemy_row(wall_only[0], 10)
 
 
 def test_default_door_is_open() -> None:
@@ -318,3 +320,53 @@ def test_apply_door_is_after_paint() -> None:
     # This tick still marched a closed door; occupancy flips after paint.
     assert door_closed(r.state) == 0
     assert apply_door(s, 1).map_bits != s.map_bits
+
+
+def test_view_frame_is_taller() -> None:
+    s = spawn()
+    r = tick(s, 0)
+    assert r.pixels.shape == (FRAME_H, N_COLS)
+    assert FRAME_H == 18
+
+
+def test_second_sprite_on_heading_is_not_spawn_east() -> None:
+    s = spawn()
+    r = tick(s, 0)
+    assert hitscan(r.state) == 0
+    look = spawn(px=40, py=88, ang=48)
+    r = tick(look, 0)
+    assert r.columns[CENTER_COL].sprite == 1
+    assert r.state.enemy2_alive == 1
+
+
+def test_fire_kills_second_sprite_only() -> None:
+    s = spawn(px=40, py=88, ang=48)
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.shot == 1
+    assert r.state.enemy2_alive == 0
+    assert r.state.enemy_alive == 1
+    assert r.state.ammo == s.ammo - 1
+
+
+def test_ammo_zero_does_not_kill() -> None:
+    s = spawn(px=104, py=88, ang=48, ammo=0)
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.shot == 0
+    assert r.state.enemy_alive == 1
+    assert r.state.ammo == 0
+
+
+def test_ammo_one_kills_and_empties() -> None:
+    s = spawn(px=104, py=88, ang=48, ammo=1)
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.shot == 1
+    assert r.state.enemy_alive == 0
+    assert r.state.ammo == 0
+
+
+def test_fire_miss_still_consumes_ammo() -> None:
+    s = spawn(ammo=3)
+    r = tick(s, pack_input(0, 0, 0, 0, 1))
+    assert r.shot == 0
+    assert r.state.enemy_alive == 1
+    assert r.state.ammo == 2

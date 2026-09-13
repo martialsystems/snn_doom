@@ -7,12 +7,16 @@
       "ex": 102,
       "ey": 40,
       "enemy_alive": 1,
-      "player_hit": 0
+      "player_hit": 0,
+      "ex2": 40,
+      "ey2": 40,
+      "enemy2_alive": 1,
+      "ammo": 7
     },
     "rows": [
       {
         "module": "CLOCK",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -20,7 +24,11 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
@@ -34,13 +42,17 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 164
+        "pixels_nonzero": 196
       },
       {
         "module": "REGISTER_FILE",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 1,
           "py": 1,
@@ -48,13 +60,17 @@
           "ex": 1,
           "ey": 1,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 1,
+          "enemy2_alive": 1,
+          "ammo": 1
         },
         "pixels_nonzero": 0
       },
       {
         "module": "ADDER_COMPARE",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -62,13 +78,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "RAM",
-        "pixel_l1": 132,
+        "pixel_l1": 152,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -76,13 +96,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 95
+        "pixels_nonzero": 117
       },
       {
         "module": "SEQUENCER",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -90,13 +114,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "RAY_COLUMN",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -104,13 +132,17 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "FRAME_READOUT",
-        "pixel_l1": 252,
+        "pixel_l1": 316,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -118,7 +150,11 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
@@ -132,9 +168,13 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 164
+        "pixels_nonzero": 196
       }
     ]
   },
@@ -146,12 +186,16 @@
       "ex": 102,
       "ey": 40,
       "enemy_alive": 1,
-      "player_hit": 0
+      "player_hit": 0,
+      "ex2": 40,
+      "ey2": 40,
+      "enemy2_alive": 1,
+      "ammo": 7
     },
     "rows": [
       {
         "module": "CLOCK",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 1,
           "py": 0,
@@ -159,7 +203,11 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
@@ -173,13 +221,17 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 164
+        "pixels_nonzero": 196
       },
       {
         "module": "REGISTER_FILE",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 1,
           "py": 1,
@@ -187,13 +239,17 @@
           "ex": 1,
           "ey": 1,
           "enemy_alive": 1,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 1,
+          "enemy2_alive": 1,
+          "ammo": 1
         },
         "pixels_nonzero": 0
       },
       {
         "module": "ADDER_COMPARE",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 1,
           "py": 0,
@@ -201,13 +257,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "RAM",
-        "pixel_l1": 135,
+        "pixel_l1": 155,
         "state_delta": {
           "px": 1,
           "py": 0,
@@ -215,13 +275,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 95
+        "pixels_nonzero": 117
       },
       {
         "module": "SEQUENCER",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 1,
           "py": 0,
@@ -229,13 +293,17 @@
           "ex": 1,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "RAY_COLUMN",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -243,13 +311,17 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
       {
         "module": "FRAME_READOUT",
-        "pixel_l1": 255,
+        "pixel_l1": 319,
         "state_delta": {
           "px": 0,
           "py": 0,
@@ -257,7 +329,11 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
         "pixels_nonzero": 0
       },
@@ -271,9 +347,13 @@
           "ex": 0,
           "ey": 0,
           "enemy_alive": 0,
-          "player_hit": 0
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0
         },
-        "pixels_nonzero": 165
+        "pixels_nonzero": 197
       }
     ]
   },
@@ -284,14 +364,18 @@
     "ex": 102,
     "ey": 40,
     "enemy_alive": 1,
-    "player_hit": 0
+    "player_hit": 0,
+    "ex2": 40,
+    "ey2": 40,
+    "enemy2_alive": 1,
+    "ammo": 7
   },
   "held_key": "fwd",
   "latch_held_key_dies": true,
   "rows": [
     {
       "module": "CLOCK",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -299,7 +383,11 @@
         "ex": 1,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
       "pixels_nonzero": 0
     },
@@ -313,13 +401,17 @@
         "ex": 0,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
-      "pixels_nonzero": 164
+      "pixels_nonzero": 196
     },
     {
       "module": "REGISTER_FILE",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 1,
         "py": 1,
@@ -327,13 +419,17 @@
         "ex": 1,
         "ey": 1,
         "enemy_alive": 1,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 1,
+        "enemy2_alive": 1,
+        "ammo": 1
       },
       "pixels_nonzero": 0
     },
     {
       "module": "ADDER_COMPARE",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -341,13 +437,17 @@
         "ex": 1,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
       "pixels_nonzero": 0
     },
     {
       "module": "RAM",
-      "pixel_l1": 135,
+      "pixel_l1": 155,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -355,13 +455,17 @@
         "ex": 1,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
-      "pixels_nonzero": 95
+      "pixels_nonzero": 117
     },
     {
       "module": "SEQUENCER",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 1,
         "py": 0,
@@ -369,13 +473,17 @@
         "ex": 1,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
       "pixels_nonzero": 0
     },
     {
       "module": "RAY_COLUMN",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 0,
         "py": 0,
@@ -383,13 +491,17 @@
         "ex": 0,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
       "pixels_nonzero": 0
     },
     {
       "module": "FRAME_READOUT",
-      "pixel_l1": 255,
+      "pixel_l1": 319,
       "state_delta": {
         "px": 0,
         "py": 0,
@@ -397,7 +509,11 @@
         "ex": 0,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
       "pixels_nonzero": 0
     },
@@ -411,9 +527,13 @@
         "ex": 0,
         "ey": 0,
         "enemy_alive": 0,
-        "player_hit": 0
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0
       },
-      "pixels_nonzero": 165
+      "pixels_nonzero": 197
     }
   ],
   "door_write_dies": true,

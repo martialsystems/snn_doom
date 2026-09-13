@@ -29,7 +29,9 @@ TAPE_BITS = (
 )
 # Posed heading-on-enemy. Spawn looking east is the miss. Do not rotate spawn into a hit.
 LOOK = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+LOOK2 = spawn(px=40, py=88, ang=48)
 OVERLAP = spawn(px=24, py=24, ex=24, ey=24)
+DRY = spawn(px=104, py=88, ang=48, ammo=0)
 
 
 def _pose_dict(state: GameState) -> dict[str, int]:
@@ -41,6 +43,10 @@ def _pose_dict(state: GameState) -> dict[str, int]:
         "ey": state.ey,
         "enemy_alive": state.enemy_alive,
         "player_hit": state.player_hit,
+        "ex2": state.ex2,
+        "ey2": state.ey2,
+        "enemy2_alive": state.enemy2_alive,
+        "ammo": state.ammo,
     }
 
 
@@ -192,6 +198,21 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
     )
     door_ok = door_block_ok and door_open_ok and door_close_ok
     all_match = all_match and door_ok
+    e2_steps = _run_bits(m, LOOK2, [FIRE_BITS])
+    e2_ok = (
+        e2_steps[0]["match"]
+        and e2_steps[0]["teacher_shot"] == 1
+        and e2_steps[0]["teacher_pose"]["enemy2_alive"] == 0
+        and e2_steps[0]["teacher_pose"]["enemy_alive"] == 1
+    )
+    dry_steps = _run_bits(m, DRY, [FIRE_BITS])
+    dry_ok = (
+        dry_steps[0]["match"]
+        and dry_steps[0]["teacher_shot"] == 0
+        and dry_steps[0]["teacher_pose"]["enemy_alive"] == 1
+        and dry_steps[0]["teacher_pose"]["ammo"] == 0
+    )
+    all_match = all_match and e2_ok and dry_ok
     payload = {
         "all_match": all_match,
         "extra_ticks": extra_ticks,
@@ -212,6 +233,8 @@ def run_tick_tape(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HEL
             "open": {"name": "door_toggle_open_pass", "match": door_open_ok, "steps": open_steps},
             "close": {"name": "door_toggle_close_block", "match": door_close_ok, "steps": close_steps},
         },
+        "second": {"name": "second_sprite_kill", "match": e2_ok, "steps": e2_steps},
+        "ammo_dry": {"name": "ammo_zero_no_kill", "match": dry_ok, "steps": dry_steps},
     }
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "tick_tape.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

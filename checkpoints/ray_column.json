@@ -4,14 +4,9 @@
   "seed": 0,
   "hand_wired": true,
   "row": {
-    "parity": true,
-    "cases": [
-      "idle",
-      "forward",
-      "turn",
-      "back",
-      "wall_graze"
-    ]
+    "all_match": true,
+    "view": "16x18",
+    "n_cols": 16
   },
   "frozen": true
 }

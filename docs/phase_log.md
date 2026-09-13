@@ -44,6 +44,8 @@ SPEED (2026-09-12): SETTLE 29. Isolated 127+1 is 0 at 23, exact at 24. 30+6 exac
 
 Door (2026-09-12): cell (4,5), sixth host bit. Default map open so held-fwd still passes. Write is a 2-step `we_ram` pulse on that RAM bistable after last march (`door_busy` window, `clk[2]|clk[3]`). Pose re-arm is `door_end` on the door-window beat. Teacher tests first. Isolated RAM set-bit reads back at SETTLE 29. Toggle data is the opposite rail; pulse width 2 so it does not oscillate. Headless `--frames` injects door=0. Interactive e/q is host-only. Scale still blocked. Extra units undeclared.
 
+VIEW, second sprite, ammo (2026-09-13): 16×18 paint (32 columns would miss the 8,000 cap). Stationary second enemy at cell (2,2), off spawn-east heading. Hitscan remains the heading column. Fire consumes 3-bit ammo; ammo 0 cannot kill; posed look with ammo 1 kills. 18-column VIEW was measured at 7,631 before the second sprite and did not leave enough cells for per-column e2 compares. SETTLE 29. Scale still blocked.
+
 ## GraphForge pin (2026-09-12)
 
 Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale_166k. VBD is evidence (`logs/teacher_green.json`, `logs/demo_surface.json`, `logs/ray_parity.json`, `logs/ablation.json`, `checkpoints/freeze_manifest.json`). Sanity: train_readout blocked, scale_166k blocked, bake-off and train_ray allowed, demo surface clean. LATCH held-key ablation now sets `latch_held_key_dies`.

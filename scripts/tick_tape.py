@@ -31,6 +31,8 @@ def main() -> None:
         "door_block": payload["door"]["block"]["match"],
         "door_open": payload["door"]["open"]["match"],
         "door_close": payload["door"]["close"]["match"],
+        "second": payload["second"]["match"],
+        "ammo_dry": payload["ammo_dry"]["match"],
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:

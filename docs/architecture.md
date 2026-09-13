@@ -14,7 +14,7 @@ v <- v * (1 - s)
 
 Digital modules use `tau=0` (v=I, a McCulloch-Pitts gate on LIF hardware). Analog bake-off nets use `tau=0.8`. JAX is unused: one autodiff stack, and this house already pins torch on sibling products.
 
-## State bits (104)
+## State bits (124)
 
 | Field | Width | Offset |
 |-------|------:|-------:|
@@ -26,6 +26,10 @@ Digital modules use `tau=0` (v=I, a McCulloch-Pitts gate on LIF hardware). Analo
 | ey | 8 | 94 |
 | enemy_alive | 1 | 102 |
 | player_hit | 1 | 103 |
+| ex2 | 8 | 104 |
+| ey2 | 8 | 112 |
+| enemy2_alive | 1 | 120 |
+| ammo | 3 | 121 |
 
 World is 8x8 cells, 16 subcells per cell (4.4 fixed point). Angle is 64 ticks of 5.625 degrees. Map bit=1 is wall. Sequencer and clock are network-internal, not packed state.
 
@@ -38,7 +42,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 3. Enemy: if alive, step 2 units on x toward the player, else on y. Stay if wall.
 4. Collide: same cell as the player sets `player_hit`, clears `enemy_alive`, and starts `DEATH_TICKS` freeze ticks (pose held, dead frame, then re-arm).
 5. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
-6. Paint: 16x16 pixels, 2-bit color (sky, floor, wall, enemy). Height = `16-dist`.
+6. Paint: 16x18 pixels, 2-bit color (sky, floor, wall, enemy). Height = `18-dist`.
 7. Fire: AND the fifth key with the heading column sprite. A hit clears `enemy_alive`. The painted frame is the shot you saw.
 8. Door: after paint, the sixth key toggles occupancy of cell (4,5) through `we_ram`. Next pose sees the new bit.
 
@@ -53,7 +57,7 @@ CLOCK (SETTLE=29 ring)
        -> RAM (64 map cells, extra read ports)
        -> DOOR (2-step we_ram pulse on cell (4,5) after last march)
        -> RAY_COLUMN (rx,ry,dx,dy, per-column dist)
-       -> FRAME_READOUT (fixed 16x16x4 WTA)
+       -> FRAME_READOUT (fixed 16x18x4 WTA)
 ```
 
 Host: inject 6 key bits, step `STEPS_PER_TICK` LIF updates, argmax 4 color lines per pixel, draw, log.
@@ -74,7 +78,7 @@ Fly cell-type names are not features. MaleCNS is a Phase 4 sparse init, not v1 t
 
 ## Neuron budget
 
-v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json` at DOOR freeze): 7,187 neurons, 39,694 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
+v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,958 neurons, 41,779 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
 
 ## Curriculum (stitch)
 
