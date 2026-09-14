@@ -4,7 +4,17 @@ A fruit fly was mapped. People taught that map to play DOOM...but this is not th
 
 This repo doesn't showcase the fly brain playing DOOM. The fly brain *is* a DOOM engine, each neuron is remapped with a sole function, to run DOOM. Python only injects six keys, steps the circuit, and decodes the color lines. That's it. It does none of the heavy lifting, even thought it CAN technically run DOOM by itself without a fly.
 
-Research notes: [v1 closed machine](docs/v1.md). [v2: walking e2 under a named 12,000 cap](docs/v2.md). `--play` stays v1. Trailer on [martialgames.net/snn-doom/](https://martialgames.net/snn-doom/).
+Research notes: 
+- [V1 - closed machine](docs/v1.md)
+- [v2: walking e2 under a named 12,000 cap](docs/v2.md).
+
+[Full Methodology](docs/methodology.md)
+
+`--play` stays v1. 
+
+[Play online now](https://martialgames.net/snn-doom/)
+
+or you can download this git and test yourself.
 
 ## Play
 
