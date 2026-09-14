@@ -1,3 +1,7 @@
+<p align="right">
+  <a href="https://ko-fi.com/martialgames"><img src="https://img.shields.io/badge/Donate-Ko--fi-ff5e5b?style=flat-square&logo=ko-fi&logoColor=white" alt="Donate on Ko-fi" /></a>
+</p>
+
 # snn_doom
 
 A fruit fly was mapped. People taught that map to play DOOM...but this is not that. This is *farrr* more cursed. 
