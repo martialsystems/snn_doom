@@ -96,7 +96,7 @@ class HostDead:
 
 
 def write_latches(machine, state: GameState) -> dict[str, int]:
-    """Host write through pipeline.reset. Same path Restart uses."""
+    """Host write through pipeline.reset. Same path Restart uses. Waves do not change ang."""
     machine.reset(state)
     return machine.read_state()
 

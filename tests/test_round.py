@@ -4,10 +4,10 @@ from __future__ import annotations
 from snn_doom.demo.round import RoundState
 
 
-def test_clear_sprites_wins() -> None:
+def test_both_sprites_dead_is_play() -> None:
     rnd = RoundState(limit=64)
     st = {"enemy_alive": 0, "enemy2_alive": 0, "hp": 3, "player_hit": 0}
-    assert rnd.observe(st) == "win"
+    assert rnd.observe(st) == "play"
     assert rnd.score == 2
 
 

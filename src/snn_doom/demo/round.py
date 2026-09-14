@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""Score = kills. Clear both sprites to win. The tick clock does not eject the window."""
+"""Score = kills. hp==0 is lose. Double-kill is not a win. The clock does not eject the window."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -26,9 +26,6 @@ class RoundState:
         self.e2_was = int(st.get("enemy2_alive") or 0)
         if int(st.get("hp") or 0) <= 0:
             self.outcome = "lose"
-            return self.outcome
-        if not self.e1_was and not self.e2_was:
-            self.outcome = "win"
             return self.outcome
         self.outcome = "play"
         return "play"

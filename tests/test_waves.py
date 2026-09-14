@@ -5,7 +5,7 @@ import numpy as np
 
 from snn_doom.const import FRAME_H, N_COLS, V1_NEURON_CAP
 from snn_doom.demo.round import RoundState
-from snn_doom.demo.waves import HostWaves
+from snn_doom.demo.waves import HostWaves, heading_and_fov_cells
 from snn_doom.teacher.maps import spawn
 from snn_doom.teacher.state import pack_input
 
@@ -45,6 +45,9 @@ def test_kill_e1_stays_play_then_respawns() -> None:
     cell = (st["ex"] >> 4, st["ey"] >> 4)
     assert cell != (look.px >> 4, look.py >> 4)
     assert cell != (look.ex2 >> 4, look.ey2 >> 4)
+    heading, fov = heading_and_fov_cells(st["px"], st["py"], st["ang"], last["map_bits"])
+    if heading is not None:
+        assert cell != heading
     np.testing.assert_array_equal(last["pixels"], m.decode_pixels())
     assert last["pixels"].shape == (FRAME_H, N_COLS)
     assert waves.log and waves.log[0]["who"] == "e1"
@@ -54,10 +57,44 @@ def test_kill_e1_stays_play_then_respawns() -> None:
 
 
 def test_no_waves_kill_does_not_quit_policy() -> None:
+    from snn_doom.modules.pipeline import build_doom_snn
+
     rnd = RoundState()
     live = {"enemy_alive": 0, "enemy2_alive": 1, "hp": 3, "player_hit": 0}
     assert rnd.observe(live) == "play"
     assert rnd.score == 1
+    m = build_doom_snn()
+    look = spawn(px=104, py=88, ang=48, ex=104, ey=40)
+    m.reset(look)
+    m.tick(pack_input(0, 0, 0, 0, 1))
+    last = _last(m)
+    assert last["state"]["enemy_alive"] == 0
+    waves = HostWaves(enabled=False, seed=7)
+    m.tick(0)
+    last = _last(m)
+    last = waves.follow(m, last, tick=2, score=1)
+    assert last["state"]["enemy_alive"] == 0
+    assert rnd.observe(last["state"]) == "play"
+
+
+def test_decode_identity_with_radar_dead_waves() -> None:
+    from snn_doom.demo.console import run_console
+    from snn_doom.modules.pipeline import build_doom_snn
+
+    m = build_doom_snn()
+    stats = run_console(
+        machine=m,
+        display=False,
+        tty=False,
+        ticks=1,
+        radar=True,
+        splash=True,
+        waves=True,
+        record=False,
+        sound=False,
+    )
+    np.testing.assert_array_equal(stats["pixels"], m.decode_pixels())
+    assert stats["n_neurons"] == 7973
 
 
 def test_waves_demo_path() -> None:

@@ -413,7 +413,7 @@ def run_console(
                     sys.stdout.write("\x1b[2J\x1b[H")
                 sys.stdout.write(body + "\n")
                 sys.stdout.flush()
-            if ticks > 0 and outcome != "play" and not (host_dead.enabled and host_dead.dead):
+            if ticks > 0 and int(last["state"].get("hp") or 0) <= 0 and not host_dead.enabled:
                 break
     finally:
         if fd is not None and old_term is not None:

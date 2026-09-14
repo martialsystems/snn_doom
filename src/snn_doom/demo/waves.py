@@ -6,7 +6,18 @@ import random
 from dataclasses import replace
 from typing import Any
 
-from snn_doom.const import CELL, DOOR_X, DOOR_Y, MAP_H, MAP_W
+from snn_doom.const import (
+    CELL,
+    COS,
+    DOOR_X,
+    DOOR_Y,
+    FOV_HALF,
+    MAP_H,
+    MAP_W,
+    MAX_DIST,
+    N_ANG,
+    SIN,
+)
 from snn_doom.demo.dead import write_latches
 from snn_doom.teacher.state import GameState
 
@@ -30,6 +41,36 @@ def latches_to_state(st: dict[str, Any], map_bits: int) -> GameState:
     )
 
 
+def _open_cell(map_bits: int, cx: int, cy: int) -> bool:
+    if cx < 0 or cy < 0 or cx >= MAP_W or cy >= MAP_H:
+        return False
+    return not ((int(map_bits) >> (cy * MAP_W + cx)) & 1)
+
+
+def heading_and_fov_cells(px: int, py: int, ang: int, map_bits: int) -> tuple[tuple[int, int] | None, set[tuple[int, int]]]:
+    """Cells the 16 FOV rays enter. Host COS/SIN march. Not teacher.cast_ray."""
+    pc = (int(px) >> 4, int(py) >> 4)
+    heading: tuple[int, int] | None = None
+    fov: set[tuple[int, int]] = set()
+    for da in range(-FOV_HALF, FOV_HALF):
+        a = (int(ang) + da) % N_ANG
+        x, y = int(px), int(py)
+        for _ in range(MAX_DIST):
+            x += int(COS[a])
+            y += int(SIN[a])
+            cx, cy = x >> 4, y >> 4
+            if cx < 0 or cy < 0 or cx >= MAP_W or cy >= MAP_H:
+                break
+            if (cx, cy) == pc:
+                continue
+            fov.add((cx, cy))
+            if da == 0 and heading is None:
+                heading = (cx, cy)
+            if not _open_cell(map_bits, cx, cy):
+                break
+    return heading, fov
+
+
 def free_cells(
     map_bits: int,
     *,
@@ -38,20 +79,59 @@ def free_cells(
     ex2: int,
     ey2: int,
     door: int,
+    ang: int | None = None,
 ) -> list[tuple[int, int]]:
     pc = (int(px) >> 4, int(py) >> 4)
     e2 = (int(ex2) >> 4, int(ey2) >> 4)
-    out: list[tuple[int, int]] = []
+    base: list[tuple[int, int]] = []
     for cy in range(MAP_H):
         for cx in range(MAP_W):
-            if (map_bits >> (cy * MAP_W + cx)) & 1:
+            if not _open_cell(map_bits, cx, cy):
                 continue
             if (cx, cy) == pc or (cx, cy) == e2:
                 continue
             if (cx, cy) == (DOOR_X, DOOR_Y) and int(door) == 1:
                 continue
-            out.append((cx, cy))
-    return out
+            base.append((cx, cy))
+    if ang is None or not base:
+        return base
+    heading, fov = heading_and_fov_cells(px, py, int(ang), map_bits)
+    blocked = set(fov)
+    if heading is not None:
+        blocked.add(heading)
+    off = [c for c in base if c not in blocked]
+    if off:
+        return off
+    return base
+
+
+def pick_spawn_cell(
+    map_bits: int,
+    *,
+    px: int,
+    py: int,
+    ex2: int,
+    ey2: int,
+    door: int,
+    ang: int,
+    rng: random.Random,
+) -> tuple[int, int] | None:
+    base = free_cells(map_bits, px=px, py=py, ex2=ex2, ey2=ey2, door=door)
+    if not base:
+        return None
+    heading, fov = heading_and_fov_cells(px, py, ang, map_bits)
+    blocked = set(fov)
+    if heading is not None:
+        blocked.add(heading)
+    off = [c for c in base if c not in blocked]
+    if off:
+        return rng.choice(off)
+    return farthest_cell(base, px, py)
+
+
+def farthest_cell(cells: list[tuple[int, int]], px: int, py: int) -> tuple[int, int]:
+    pcx, pcy = int(px) >> 4, int(py) >> 4
+    return max(cells, key=lambda c: (c[0] - pcx) * (c[0] - pcx) + (c[1] - pcy) * (c[1] - pcy))
 
 
 def cell_center(cx: int, cy: int) -> tuple[int, int]:
@@ -128,25 +208,27 @@ class HostWaves:
         st = last["state"]
         map_bits = int(last["map_bits"])
         door = int(last.get("door") or 0)
-        cells = free_cells(
+        picked = pick_spawn_cell(
             map_bits,
-            px=st["px"],
-            py=st["py"],
-            ex2=st["ex2"],
-            ey2=st["ey2"],
+            px=int(st["px"]),
+            py=int(st["py"]),
+            ex2=int(st["ex2"]),
+            ey2=int(st["ey2"]),
             door=door,
+            ang=int(st["ang"]),
+            rng=self.rng,
         )
-        if who == "e2":
-            cells = [c for c in cells if c != (int(st["ex"]) >> 4, int(st["ey"]) >> 4)]
-        if not cells:
+        if picked is None:
             return last
-        cx, cy = self.rng.choice(cells)
+        cx, cy = picked
+        keep_ang = int(st["ang"])
         wx, wy = cell_center(cx, cy)
         s = latches_to_state(st, map_bits)
         if who == "e1":
             s = replace(s, ex=wx, ey=wy, enemy_alive=1)
         else:
             s = replace(s, ex2=wx, ey2=wy, enemy2_alive=1)
+        assert s.ang == keep_ang
         st2 = write_latches(machine, s)
         last = dict(last)
         last["state"] = st2
