@@ -34,6 +34,7 @@ def main() -> None:
     p.add_argument("--map", dest="map_name", default="door", choices=sorted(MAPS))
     p.add_argument("--ghost", type=Path, default=None)
     p.add_argument("--no-radar", action="store_true")
+    p.add_argument("--no-dead", action="store_true")
     args = p.parse_args()
     require_demo_path()
     headless = args.frames is not None and args.frames > 0 and not args.play and not args.tty
@@ -57,6 +58,7 @@ def main() -> None:
             fwd_lock=bool(args.fwd),
             ghost=args.ghost,
             radar=not args.no_radar,
+            splash=not args.no_dead,
             out=None if args.tty else args.out,
         )
     dump = {k: stats[k] for k in ("ticks_per_sec", "n_neurons", "spikes_per_step", "state", "score", "outcome") if k in stats}

@@ -1,0 +1,13 @@
+name: host_dead
+claimed_job: "Python blit a HOST_DEAD YOU DIED splash and Restart button"
+claimed_qol: "see death and restart without new LIF"
+new_state_bits: []
+new_modules_or_edges: []
+estimated_new_neurons: 0
+estimated_new_edges: 0
+teacher_delta: "none; host cosmetics"
+view_delta: "matplotlib splash; decoded 16x18x4 indices unchanged"
+ablation_target: module tag HOSTDEAD
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - leave HOST_DEAD in demo/dead.py (0 neurons)

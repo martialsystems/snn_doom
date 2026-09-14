@@ -15,7 +15,7 @@ python -m venv .venv && .venv/bin/pip install -e ".[play]"
 # Esc            quit
 ```
 
-Same loop: `scripts/run_demo.py --play`. Default is the 16×18 VIEW, raster hidden, door at (4,5) closed. `--lab` shows the spike raster. `--fast` skips it. `--scale 32` is chunky pixels. `--map corridor|arena|door`. `--tty` is the terminal view. `--fwd` holds forward. `--ghost logs/runs/held_fwd.bits` overlays a recorded path. `--no-radar` hides HOST_RADAR.
+Same loop: `scripts/run_demo.py --play`. Default is the 16×18 VIEW, raster hidden, door at (4,5) closed. `--lab` shows the spike raster. `--fast` skips it. `--scale 32` is chunky pixels. `--map corridor|arena|door`. `--tty` is the terminal view. `--fwd` holds forward. `--ghost logs/runs/held_fwd.bits` overlays a recorded path. `--no-radar` hides HOST_RADAR. `--no-dead` closes on death instead of HOST_DEAD.
 
 ![16x18 VIEW](docs/play.gif)
 

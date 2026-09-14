@@ -39,6 +39,14 @@ class InputLatch:
             elif t in CANON_KEYS and t not in ("space", "e"):
                 self.held.discard(t)
 
+    def clear(self) -> None:
+        self.held.clear()
+        if self.fwd_lock:
+            self.held.add("up")
+        self._fire = False
+        self._door = False
+        self.flash = {}
+
     def consume(self) -> tuple[int, dict[str, bool], set[str]]:
         pressed = set(self.held)
         if self.fwd_lock:

@@ -42,6 +42,7 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Isolated RAY bake-off winner | none; stitch freeze is dual-rail after parity |
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
 | Host radar | console, not a named LIF job |
+| HOST_DEAD | console, not a named LIF job |
 | SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28; SETTLE 24 held-fwd still fails (`logs/settle_probe.json`) |
 | Door | cell (4,5); sixth bit toggles occupancy after paint |
 | 166k scale-up | refused until extra units have a named job |

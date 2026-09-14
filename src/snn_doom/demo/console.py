@@ -17,6 +17,7 @@ import numpy as np
 from snn_doom.const import CENTER_COL, DOOR_X, DOOR_Y, FRAME_H, N_COLS, STEPS_PER_TICK
 from snn_doom.demo.radar import facing_char
 from snn_doom.demo.audio import play as play_sfx
+from snn_doom.demo.dead import HostDead, restore_spawn
 from snn_doom.demo.latch import InputLatch
 from snn_doom.demo.round import ROUND_TICKS, RoundState
 from snn_doom.demo.tapes import load_ghost, save_run
@@ -51,6 +52,7 @@ def render_tty(
     color: bool = False,
     lif_step: int = 0,
     lif_total: int = 0,
+    dead: bool = False,
 ) -> str:
     """Text console of the decoded frame plus RAM map. No second renderer."""
     lines: list[str] = ["snn_doom console  inject / LIF / decode"]
@@ -110,6 +112,8 @@ def render_tty(
             lif_total=lif_total,
         )
     )
+    if dead:
+        lines.extend(["", "HOST_DEAD", "YOU DIED", "R restart"])
     return "\n".join(lines)
 
 
@@ -135,12 +139,16 @@ def _silence_mpl_keys() -> None:
             mpl.rcParams[key] = []
 
 
-def _bind_keys(fig, latch: InputLatch, stop: dict[str, bool]) -> None:
+def _bind_keys(fig, latch: InputLatch, stop: dict[str, bool], host_dead: HostDead | None = None) -> None:
     def on_press(event) -> None:
         tokens = ingest_key(getattr(event, "key", None))
         if any(t in QUIT_KEYS for t in tokens):
             stop["q"] = True
             return
+        if host_dead is not None:
+            host_dead.note_tokens(tokens)
+            if host_dead.dead:
+                return
         if "c" in tokens:
             latch.held.clear()
             return
@@ -179,6 +187,7 @@ def run_console(
     round_limit: int = ROUND_TICKS,
     sound: bool = True,
     radar: bool = True,
+    splash: bool = True,
 ) -> dict[str, Any]:
     """Live host. ticks=0 runs until quit when a surface is open; headless defaults to 1."""
     if tty:
@@ -193,6 +202,7 @@ def run_console(
     if pressed:
         latch.held |= set(pressed)
     stop = {"q": False}
+    host_dead = HostDead(enabled=splash)
     fig = None
     artists: dict[str, Any] | None = None
     color_tty = bool(tty and sys.stdout.isatty())
@@ -213,7 +223,8 @@ def run_console(
 
         _silence_mpl_keys()
         fig, artists = make_console_figure() if lab else make_play_figure(scale=scale, radar=radar)
-        _bind_keys(fig, latch, stop)
+        host_dead.attach(fig, artists)
+        _bind_keys(fig, latch, stop, host_dead)
         plt.show(block=False)
 
     t0 = time.perf_counter()
@@ -274,9 +285,24 @@ def run_console(
                     break
                 fig.canvas.flush_events()
             if tty and fd is not None:
-                if not _poll_tty(latch, stop, fd):
+                if not _poll_tty(latch, stop, fd, host_dead):
                     break
+            if host_dead.restart:
+                latch.clear()
+                last["state"] = restore_spawn(m, state0)
+                last["pixels"] = m.decode_pixels()
+                last["map_bits"] = m.read_map_bits()
+                last["door"] = m.read_door()
+                last["shot"] = 0
+                last["hitscan"] = 0
+                rnd = RoundState(limit=round_limit if round_limit else 10**9)
+                host_dead.hide()
+                continue
             bits, flash, shown = latch.consume()
+            if host_dead.dead:
+                bits = host_dead.gate_bits(bits)
+                flash = {}
+                shown = set()
             tape.append(bits)
             prev = last["state"]
             ghost_st = ghost_poses[n] if ghost_poses and n < len(ghost_poses) else None
@@ -315,6 +341,8 @@ def run_console(
             last["state"]["score"] = rnd.score
             poses.append(dict(last["state"]))
             n += 1
+            if host_dead.observe_hp(int(last["state"].get("hp") or 0)):
+                host_dead.show()
             if sound:
                 if last["shot"]:
                     play_sfx("kill")
@@ -370,12 +398,13 @@ def run_console(
                     color=color_tty,
                     lif_step=last["steps_per_tick"],
                     lif_total=last["steps_per_tick"],
+                    dead=host_dead.dead,
                 )
                 if color_tty:
                     sys.stdout.write("\x1b[2J\x1b[H")
                 sys.stdout.write(body + "\n")
                 sys.stdout.flush()
-            if outcome != "play":
+            if outcome != "play" and not (host_dead.enabled and host_dead.dead):
                 break
     finally:
         if fd is not None and old_term is not None:
@@ -406,10 +435,11 @@ def run_console(
         "score": rnd.score,
         "outcome": rnd.outcome,
         "tape": tape,
+        "dead": host_dead.dead,
     }
 
 
-def _poll_tty(latch: InputLatch, stop: dict[str, bool], fd: int) -> bool:
+def _poll_tty(latch: InputLatch, stop: dict[str, bool], fd: int, host_dead: HostDead | None = None) -> bool:
     while True:
         ready, _, _ = select.select([fd], [], [], 0)
         if not ready:
@@ -436,6 +466,10 @@ def _poll_tty(latch: InputLatch, stop: dict[str, bool], fd: int) -> bool:
         if any(t in QUIT_KEYS for t in tokens):
             stop["q"] = True
             return False
+        if host_dead is not None:
+            host_dead.note_tokens(tokens)
+            if host_dead.dead:
+                continue
         if ch in ("w", "a", "s", "d"):
             for k in ("up", "down", "left", "right"):
                 latch.held.discard(k)
