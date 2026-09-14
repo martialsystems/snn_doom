@@ -1,40 +1,44 @@
 snn_doom console  inject / LIF / decode
 ................
 ................
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
-WWWWWWWWWWWWWWWW
+WW..............
+WWWWW...........
+WWWWWWW......WWW
+WWWWWWW......WWW
+WWWWWWWW.....@@@
+WWWWWWWWWWWW.@@@
+WWWWWWWWWWWW@@@@
+WWWWWWWWWWWW@@@@
+WWWWWWWWWWWW@@@@
+WWWWWWWWWWWW#@@@
+WWWWWWWW#####@@@
+WWWWWWW######WWW
+WWWWWWW######WWW
+WWWWW###########
+WW##############
 ################
 
 ########
-#......#
-#.2...1#
+#P>....#
+#.2....#
 #..##..#
 #......#
-#...d.P#
+#...D..#
 #......#
 ########
 
 snn_doom console
 ticks/sec 0.000
 neurons 7973
-spikes/step 2144.7
-px 108 py 88 ang 0
-e1 108,44 alive 1
+spikes/step 1931.8
+px 24 py 24 ang 0
+e1 24,24 alive 0
 e2 40,40 alive 1
-ammo 7 hp 3 score 0 hit 0 door 0 shot 0 hs 0
-keys up
+ammo 7 hp 0 score 0 hit 1 door 0 shot 0 hs 0
+keys (none)
 WASD/arrows move  space/f fire  e/q door  Esc quit
 this is the ALU / this is RAM
+
+HOST_DEAD
+YOU DIED
+R restart

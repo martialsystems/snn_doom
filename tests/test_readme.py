@@ -31,7 +31,12 @@ def test_readme_and_docs_prose() -> None:
     assert "python -m snn_doom.play" in readme
     assert "--scale" in readme
     assert (REPO / "docs" / "play.gif").is_file()
+    assert (REPO / "docs" / "dead.gif").is_file()
     assert (REPO / "docs" / "tty.png").is_file()
+    assert "docs/play.gif" in readme
+    assert "docs/dead.gif" in readme
+    assert "HOST_RADAR" in readme
+    assert "HOST_DEAD" in readme
     assert "six keys" in readme
     method = (REPO / "docs" / "methodology.md").read_text(encoding="utf-8")
     assert "7,217" in method
