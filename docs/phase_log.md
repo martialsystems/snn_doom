@@ -1,5 +1,9 @@
 # Phase log
 
+## v1 closed / v2 spec (2026-09-14)
+
+v1 is the museum machine: 7,973 LIF, cap 8,000, leftover 27, e2 statue, `--play` default. Do not restamp `checkpoints/snn_doom_v1.json` for a walker. v2 is a new teacher, cap 12,000 (`doom.v2_cap`), and a later stitch. First v2 sentence: `apply_enemy2` in `tick()`. Phase 4 remains 166,700 and is refused. Notes: [v1.md](v1.md), [v2.md](v2.md).
+
 ## Phase 0: teacher (2026-09-12)
 
 Passed: 104-bit packed state, 8x8 map, integer ray march, turn/move/enemy/collide, 16x16 framebuffer, deterministic `tick`, unit tests.

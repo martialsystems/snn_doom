@@ -7,5 +7,5 @@
   "policy": "report_only",
   "local_candidates": ["~/graphforge"],
   "require_product_laws": true,
-  "note": "snn_doom: teacher before bake-off; freeze before next train; demo host surface; 166k refused until RAY distances lock; leftover spend refused over 8k; SETTLE refused below the green probe. VBD is evidence. Verify-before-done is the finish gate."
+  "note": "snn_doom: teacher before bake-off; freeze before next train; demo host surface; 166k refused until RAY distances lock; leftover spend refused over 8k; SETTLE refused below the green probe; v2 cap named 12k (doom.v2_cap), not 166k. VBD is evidence. Verify-before-done is the finish gate."
 }

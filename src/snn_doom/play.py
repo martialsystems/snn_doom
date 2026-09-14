@@ -10,6 +10,24 @@ from pathlib import Path
 from snn_doom.demo.console import run_console
 from snn_doom.teacher.maps import MAPS
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _v2_ready() -> tuple[bool, str]:
+    ckpt = ROOT / "checkpoints" / "snn_doom_v2.json"
+    tape = ROOT / "logs" / "tick_tape_v2.json"
+    if not ckpt.is_file():
+        return False, "v2 stitch missing (checkpoints/snn_doom_v2.json); --play stays v1. See docs/v2.md"
+    if not tape.is_file():
+        return False, "v2 tape missing (logs/tick_tape_v2.json)"
+    try:
+        data = json.loads(tape.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False, "v2 tape unreadable"
+    if not data.get("all_match"):
+        return False, "v2 tape not all_match"
+    return True, "ok"
+
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="snn-doom-play")
@@ -27,7 +45,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-waves", action="store_true", help="do not host-respawn e1")
     p.add_argument("--wave-e2", action="store_true", help="host-respawn the statue too")
     p.add_argument("--out", type=Path, default=None)
+    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
     args = p.parse_args(argv)
+    if args.machine == "v2":
+        ok, why = _v2_ready()
+        if not ok:
+            print(why, file=sys.stderr)
+            return 2
     stats = run_console(
         ticks=args.ticks,
         display=not args.tty,

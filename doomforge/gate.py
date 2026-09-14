@@ -17,6 +17,7 @@ from doomforge.graphs.scale_166k import build_graph as build_scale
 from doomforge.graphs.settle_floor import build_graph as build_settle_floor
 from doomforge.graphs.teacher_green import build_graph as build_teacher
 from doomforge.graphs.v1_cap import build_graph as build_v1_cap
+from doomforge.graphs.v2_cap import build_graph as build_v2_cap
 
 
 def require_teacher_green(*, intent: str) -> None:
@@ -106,6 +107,31 @@ def require_v1_cap(
     )
 
 
+def require_v2_cap(
+    *,
+    n_neurons: int | None = None,
+    estimated_new_neurons: int = 0,
+    intent: str = "document",
+) -> None:
+    n = evidence.v2_neurons() if n_neurons is None else int(n_neurons)
+    from snn_doom.const import FLIES_BUDGET
+
+    require_law(
+        build_v2_cap(),
+        {
+            "intent": intent,
+            "n_neurons": n,
+            "estimated_new_neurons": int(estimated_new_neurons),
+            "cap": evidence.v2_cap(),
+            "flies_budget": int(FLIES_BUDGET),
+        },
+        allow_decisions=["allow"],
+        law_id="doom.v2_cap",
+        thread_id=intent or "document",
+        raise_error=True,
+    )
+
+
 def require_settle_floor(
     *,
     settle: int | None = None,
@@ -137,5 +163,6 @@ __all__ = [
     "require_demo_path",
     "require_can_scale",
     "require_v1_cap",
+    "require_v2_cap",
     "require_settle_floor",
 ]

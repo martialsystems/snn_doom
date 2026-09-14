@@ -215,6 +215,26 @@ def v1_cap() -> int:
     return int(V1_NEURON_CAP)
 
 
+def v2_cap() -> int:
+    from snn_doom.const import V2_NEURON_CAP
+
+    return int(V2_NEURON_CAP)
+
+
+def v2_neurons() -> int:
+    path = CKPT / "snn_doom_v2.json"
+    if not path.is_file():
+        return -1
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return -1
+    try:
+        return int(data.get("n_neurons"))
+    except (TypeError, ValueError):
+        return -1
+
+
 def v1_neurons() -> int:
     path = CKPT / "snn_doom_v1.json"
     if not path.is_file():

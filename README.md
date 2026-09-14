@@ -27,7 +27,7 @@ TTY:
 
 ![tty](docs/tty.png)
 
-All the technical bits: [docs/methodology.md](docs/methodology.md).
+All the technical bits: [docs/methodology.md](docs/methodology.md). v1 is closed: [docs/v1.md](docs/v1.md). Walking e2 is v2: [docs/v2.md](docs/v2.md). `--play` stays v1.
 
 ```bash
 .venv/bin/python -m pytest tests/ -q

@@ -11,6 +11,7 @@ from doomforge.gate import (
     require_demo_path,
     require_settle_floor,
     require_v1_cap,
+    require_v2_cap,
 )
 from doomforge.graphs.module_freeze import build_graph as build_freeze
 from doomforge.graphs.scale_166k import build_graph as build_scale
@@ -139,6 +140,7 @@ def test_gate_live_edges() -> None:
     require_can_train("train_ray")
     require_demo_path()
     require_v1_cap()
+    require_v2_cap()
     require_settle_floor()
     if frozen_map().get("RAY_COLUMN") and ray_distances_exact():
         require_can_train("train_readout")
@@ -166,6 +168,18 @@ def test_settle_floor_blocks_24_while_probe_red() -> None:
         require_settle_floor(settle=24, intent="ship")
     require_settle_floor(settle=29, intent="ship")
     require_settle_floor(settle=24, intent="probe", adopt=False)
+
+
+def test_v2_cap_named_12k_blocks_flies() -> None:
+    from snn_doom.const import V2_NEURON_CAP
+
+    assert V2_NEURON_CAP == 12_000
+    require_v2_cap(n_neurons=8_000, estimated_new_neurons=40, intent="export")
+    with pytest.raises(LawBlockedError):
+        require_v2_cap(n_neurons=12_001, intent="export")
+    with pytest.raises(LawBlockedError):
+        require_v2_cap(n_neurons=166_700, intent="export")
+    require_v2_cap(intent="document")
 
 
 def test_auditor_does_not_call_v1_cap_gate() -> None:

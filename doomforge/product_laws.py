@@ -6,6 +6,8 @@ from typing import Any
 
 
 def laws() -> list[dict[str, Any]]:
+    from snn_doom.const import FLIES_BUDGET
+
     from doomforge import evidence
     from doomforge.graphs.demo_path import build_graph as demo_path
     from doomforge.graphs.module_freeze import build_graph as module_freeze
@@ -13,6 +15,7 @@ def laws() -> list[dict[str, Any]]:
     from doomforge.graphs.settle_floor import build_graph as settle_floor
     from doomforge.graphs.teacher_green import build_graph as teacher_green
     from doomforge.graphs.v1_cap import build_graph as v1_cap
+    from doomforge.graphs.v2_cap import build_graph as v2_cap
 
     frozen = evidence.frozen_map()
     return [
@@ -56,6 +59,18 @@ def laws() -> list[dict[str, Any]]:
                 "n_neurons": evidence.v1_neurons(),
                 "estimated_new_neurons": 0,
                 "cap": evidence.v1_cap(),
+            },
+            "allow_decisions": ["allow"],
+        },
+        {
+            "id": "doom.v2_cap",
+            "build": v2_cap,
+            "state": {
+                "intent": "",
+                "n_neurons": evidence.v2_neurons(),
+                "estimated_new_neurons": 0,
+                "cap": evidence.v2_cap(),
+                "flies_budget": FLIES_BUDGET,
             },
             "allow_decisions": ["allow"],
         },

@@ -6,7 +6,7 @@ The teacher is the spec. The demo path must not call `teacher.tick`, `cast_ray`,
 
 Do not train a ViZDoom agent. Do not preserve fly cell types as features. MaleCNS is Phase 4 sparse init only. Do not grow to 166,700 neurons until `logs/ray_parity.json` `all_match` is true, ablations isolate, and LATCH dies on a held key. Do not spend leftover neurons unless `scripts/audit_qol.py` verdict is ACCEPT or ACCEPT_WITH_CAP.
 
-Do not write a stitch over `V1_NEURON_CAP`. Call `doomforge.gate.require_v1_cap` from stitch export, not from the auditor. Do not drop SETTLE below the green floor in `logs/settle_probe.json`. Call `doomforge.gate.require_settle_floor` from CLOCK/SETTLE writers. Audit may emit ACCEPT_WITH_CAP. Stitch may not. Keep `apply_enemy2` out of `tick()` until a stitch lists the neurons taken from a named cluster whose ablation still isolates.
+Do not write a stitch over `V1_NEURON_CAP`. Call `doomforge.gate.require_v1_cap` from stitch export, not from the auditor. Do not drop SETTLE below the green floor in `logs/settle_probe.json`. Call `doomforge.gate.require_settle_floor` from CLOCK/SETTLE writers. Audit may emit ACCEPT_WITH_CAP. Stitch may not. Keep `apply_enemy2` out of `tick()` on v1. v1 is closed (7,973 LIF, cap 8,000). Do not edit `checkpoints/snn_doom_v1.json` to fit a walker. Walking e2 is v2: cap 12,000, `doom.v2_cap`, `docs/v2.md`. `--play` stays v1 until `logs/tick_tape_v2.json` is green. `--machine v2` fail-closes if that stitch is missing. Phase 4 is 166,700 and is not v2.
 
 Verify:
 

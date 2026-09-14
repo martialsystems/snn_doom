@@ -18,6 +18,7 @@ from doomforge.gate import (
     require_demo_path,
     require_settle_floor,
     require_v1_cap,
+    require_v2_cap,
 )
 
 
@@ -41,10 +42,21 @@ def main() -> None:
     except LawBlockedError as exc:
         print("scale still blocked:", exc)
     require_v1_cap()
+    require_v2_cap()
     require_settle_floor()
     try:
         require_v1_cap(n_neurons=8001, intent="export")
         raise SystemExit("expected v1 cap block on 8001")
+    except LawBlockedError:
+        pass
+    try:
+        require_v2_cap(n_neurons=12_001, intent="export")
+        raise SystemExit("expected v2 cap block on 12001")
+    except LawBlockedError:
+        pass
+    try:
+        require_v2_cap(n_neurons=166_700, intent="export")
+        raise SystemExit("expected v2 cap block on flies budget")
     except LawBlockedError:
         pass
     try:

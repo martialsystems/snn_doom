@@ -14,6 +14,8 @@ def test_readme_and_docs_prose() -> None:
         REPO / "docs" / "how_this_runs_doom.md",
         REPO / "docs" / "methodology.md",
         REPO / "docs" / "phase_log.md",
+        REPO / "docs" / "v1.md",
+        REPO / "docs" / "v2.md",
         REPO / "AGENTS.md",
     ]
     for path in files:

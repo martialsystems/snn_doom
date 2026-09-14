@@ -100,6 +100,8 @@ PICKUP_AMMO: Final[int] = 7
 SEED: Final[int] = 0
 FLIES_BUDGET: Final[int] = 166_700
 V1_NEURON_CAP: Final[int] = 8_000
+# Named before any v2 stitch. Not 166,700. See docs/v2.md.
+V2_NEURON_CAP: Final[int] = 12_000
 
 # LIF digital subset: tau=0 makes v=I, a McCulloch-Pitts gate on LIF hardware.
 DIGITAL_TAU: Final[float] = 0.0

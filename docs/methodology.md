@@ -19,7 +19,7 @@ Digital gates use τ = 0. Analog BPTT experiments use τ = 0.8 in PyTorch (`snn_
 
 Running machine: 7,973 LIF neurons. v1 budget cap is 8,000. Museum label (Phase 3 stitch, not the running machine): 7,217 LIF neurons. Sprite latches were added after that stitch so multi-tick enemy columns hold. Readout paints the teacher sprite blob, not the whole wall slab. Fire is four extra cells. HP is a 2-bit register (contact decrements). Door is a 2-step `we_ram` pulse on cell (4,5) after last march. VIEW is 16×18. Second sprite is a stationary enemy at (2,2). Ammo is a 3-bit register. Pickup at (3,6) fills it. SETTLE is 29.
 
-Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md).
+Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout and graph: [architecture.md](architecture.md). Closed v1 note: [v1.md](v1.md). Sequel: [v2.md](v2.md).
 
 ## Current results
 
@@ -48,6 +48,8 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28; SETTLE 24 held-fwd still fails (`logs/settle_probe.json`) |
 | Door | cell (4,5); sixth bit toggles occupancy after paint |
 | 166k scale-up | refused until extra units have a named job |
+| v1 | closed museum machine; leftover 27 cannot buy walking e2 |
+| v2 | named cap 12,000; no stitch yet; `--play` stays v1 |
 
 Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. LATCH ablation is silent if no key is held.
 
@@ -137,6 +139,8 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `vbd.runtime.json` | verify-before-done checks |
 | `doomforge/` | GraphForge pin and the refuse laws |
 | `proposals/` | neuron QoL asks; `scripts/audit_qol.py` judges them against the frozen stitch |
+| `docs/v1.md` | closed 8k machine |
+| `docs/v2.md` | walking e2 + named 12k cap; not Phase 4 |
 
 ## v1
 
