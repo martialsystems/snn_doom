@@ -1,0 +1,13 @@
+name: host_radar
+claimed_job: "Python blit a HOST_RADAR panel from REGISTER_FILE and RAM bits"
+claimed_qol: "see player vs e1 vs e2 vs door vs walls"
+new_state_bits: []
+new_modules_or_edges: []
+estimated_new_neurons: 0
+estimated_new_edges: 0
+teacher_delta: "none; host cosmetics"
+view_delta: "matplotlib radar; decoded 16x18x4 indices unchanged"
+ablation_target: module tag HOSTRADAR
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - leave HOST_RADAR in demo/radar.py (0 neurons)

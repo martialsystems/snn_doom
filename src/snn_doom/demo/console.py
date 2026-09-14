@@ -15,6 +15,7 @@ from typing import Any
 import numpy as np
 
 from snn_doom.const import CENTER_COL, DOOR_X, DOOR_Y, FRAME_H, N_COLS, STEPS_PER_TICK
+from snn_doom.demo.radar import facing_char
 from snn_doom.demo.audio import play as play_sfx
 from snn_doom.demo.latch import InputLatch
 from snn_doom.demo.round import ROUND_TICKS, RoundState
@@ -74,13 +75,25 @@ def render_tty(
 
     grid = [list(row) for row in rows_of(map_bits)]
     if 0 <= DOOR_Y < len(grid) and 0 <= DOOR_X < len(grid[0]):
-        grid[DOOR_Y][DOOR_X] = "D" if door else "d"
+        grid[DOOR_Y][DOOR_X] = "D"
     if st["enemy2_alive"] and 0 <= e2y < len(grid) and 0 <= e2x < len(grid[0]):
         grid[e2y][e2x] = "2"
     if st["enemy_alive"] and 0 <= e1y < len(grid) and 0 <= e1x < len(grid[0]):
         grid[e1y][e1x] = "1"
     if 0 <= pcy < len(grid) and 0 <= pcx < len(grid[0]):
         grid[pcy][pcx] = "P"
+        face = facing_char(int(st.get("ang") or 0))
+        fx, fy = pcx, pcy
+        if face == ">":
+            fx += 1
+        elif face == "<":
+            fx -= 1
+        elif face == "v":
+            fy += 1
+        else:
+            fy -= 1
+        if 0 <= fy < len(grid) and 0 <= fx < len(grid[0]) and grid[fy][fx] in {".", "#"}:
+            grid[fy][fx] = face
     lines.extend("".join(row) for row in grid)
     lines.append("")
     lines.append(
@@ -165,6 +178,7 @@ def run_console(
     ghost: list[int] | Path | None = None,
     round_limit: int = ROUND_TICKS,
     sound: bool = True,
+    radar: bool = True,
 ) -> dict[str, Any]:
     """Live host. ticks=0 runs until quit when a surface is open; headless defaults to 1."""
     if tty:
@@ -198,7 +212,7 @@ def run_console(
         import matplotlib.pyplot as plt
 
         _silence_mpl_keys()
-        fig, artists = make_console_figure() if lab else make_play_figure(scale=scale)
+        fig, artists = make_console_figure() if lab else make_play_figure(scale=scale, radar=radar)
         _bind_keys(fig, latch, stop)
         plt.show(block=False)
 
@@ -233,6 +247,7 @@ def run_console(
                 door=last["door"],
                 lif_total=STEPS_PER_TICK,
             ),
+            door=last["door"],
         )
         fig.canvas.flush_events()
 
@@ -293,6 +308,7 @@ def run_console(
                     dist=m.read_dists(),
                     heading_col=CENTER_COL,
                     ghost=ghost_st,
+                    door=last["door"],
                 )
                 fig.canvas.flush_events()
             last = host_frame(m, bits, raster=lab)
@@ -336,6 +352,7 @@ def run_console(
                     dist=dists,
                     heading_col=CENTER_COL,
                     ghost=ghost_st,
+                    door=last["door"],
                 )
                 fig.canvas.flush_events()
             if tty:

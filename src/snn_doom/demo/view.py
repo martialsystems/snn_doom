@@ -293,10 +293,14 @@ def make_console_figure():
     }
 
 
-def make_play_figure(scale: int = 32):
+def make_play_figure(scale: int = 32, *, radar: bool = True):
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(1, 1, figsize=(8, 9))
+    if radar:
+        fig, (ax, ax_radar) = plt.subplots(1, 2, figsize=(12, 7))
+    else:
+        fig, ax = plt.subplots(1, 1, figsize=(8, 9))
+        ax_radar = None
     fig.patch.set_facecolor("#000000")
     try:
         fig.canvas.manager.set_window_title("snn_doom")
@@ -305,6 +309,10 @@ def make_play_figure(scale: int = 32):
     ax.set_facecolor("#000000")
     ax.set_title("FRAME_READOUT", color="#c8d0c8", fontsize=10, fontfamily="monospace")
     ax.axis("off")
+    if ax_radar is not None:
+        ax_radar.set_facecolor("#000000")
+        ax_radar.set_title("HOST_RADAR", color="#c8d0c8", fontsize=10, fontfamily="monospace")
+        ax_radar.axis("off")
     hud = ax.text(
         0.02,
         0.02,
@@ -323,13 +331,16 @@ def make_play_figure(scale: int = 32):
     return fig, {
         "ax_map": None,
         "ax_frame": ax,
+        "ax_radar": ax_radar,
         "ax_ras": None,
         "ax_hud": ax,
         "hud": hud,
         "im_map": None,
         "im_frame": None,
+        "im_radar": None,
         "im_ras": None,
         "lab": False,
+        "radar": bool(radar),
         "scale": scale,
     }
 
@@ -360,8 +371,10 @@ def update_console_figure(
     dist: list[int] | None = None,
     heading_col: int | None = 8,
     ghost: dict[str, int] | None = None,
+    door: int | None = None,
 ) -> None:
     from snn_doom.const import CENTER_COL
+    from snn_doom.demo.radar import radar_rgb
 
     scale = int(artists.get("scale") or 16)
     rgb_frame = frame_rgb(
@@ -385,11 +398,19 @@ def update_console_figure(
             artists["im_frame"].set_data(rgb_frame)
             artists["im_ras"].set_data(rgb_ras)
     else:
-        _paste_minimap(rgb_frame, map_bits, st, ghost)
         if artists["im_frame"] is None:
             artists["im_frame"] = artists["ax_frame"].imshow(rgb_frame)
         else:
             artists["im_frame"].set_data(rgb_frame)
+        if artists.get("radar") and artists.get("ax_radar") is not None:
+            st_r = dict(st)
+            if door is not None:
+                st_r["door"] = int(door)
+            rgb_radar = radar_rgb(map_bits, st_r, door=door, ghost=ghost)
+            if artists.get("im_radar") is None:
+                artists["im_radar"] = artists["ax_radar"].imshow(rgb_radar)
+            else:
+                artists["im_radar"].set_data(rgb_radar)
     artists["hud"].set_text(text)
     fig.canvas.draw_idle()
 

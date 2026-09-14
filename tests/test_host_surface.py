@@ -57,3 +57,5 @@ def test_play_flag_is_live_console() -> None:
     assert "--lab" in play
     assert "--scale" in play
     assert "--fast" in play
+    assert "--no-radar" in play
+    assert "--no-radar" in demo
