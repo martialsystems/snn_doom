@@ -1,6 +1,6 @@
 # Methodology (2026-09-12)
 
-v1 is a discrete LIF circuit that implements a toy Doom tick. The joke is in the README. This file is the machine.
+v1 is a discrete LIF circuit that implements a toy Doom tick. 
 
 ## Contract
 
