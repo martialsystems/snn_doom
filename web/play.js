@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Martial Systems LLC
 import { bitsFromKeys, cellCenter, drawRadar, drawView, freeCells, ingestKey } from "./host.js";
 
-const SCALE = 32;
+const SCALE = 48;
 const held = new Set();
 let fire = false;
 let door = false;
@@ -151,8 +151,8 @@ fetch("./pack/net.json")
     spawn = { ...m.spawn };
     view.width = m.n_cols * SCALE;
     view.height = m.frame_h * SCALE;
-    radar.width = 256;
-    radar.height = 256;
+    radar.width = 384;
+    radar.height = 384;
     worker.postMessage({ type: "load", jsonUrl: "./pack/net.json", binUrl: "./pack/net.bin" });
   })
   .catch((err) => setStatus("load failed: " + err));

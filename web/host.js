@@ -96,8 +96,8 @@ function stamp(data, w, h, wx, wy, scale, rgb, r) {
 }
 
 export function drawRadar(ctx, meta, mapBits, st, door) {
-  const scale = 2;
-  const size = 128 * scale;
+  const size = ctx.canvas.width || 384;
+  const scale = size / 128;
   const cell = meta.cell * scale;
   const img = ctx.createImageData(size, size);
   const d = img.data;
