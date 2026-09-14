@@ -21,11 +21,16 @@ def test_readme_and_docs_prose() -> None:
     for path in files:
         text = path.read_text(encoding="utf-8")
         assert "—" not in text, path
-        assert "What it is not" not in text, path
-        assert "What this is not" not in text, path
+        if path.name != "README.md":
+            assert "What it is not" not in text, path
+            assert "What this is not" not in text, path
     readme = (REPO / "README.md").read_text(encoding="utf-8")
     assert readme.startswith("# snn_doom\n\nA fruit fly was mapped.")
     assert "## What this is not" not in readme
+    assert "## What it is not" in readme
+    assert "docs/v1.md" in readme
+    assert "docs/v2.md" in readme
+    assert readme.index("docs/v1.md") < readme.index("## Play")
     assert "inject" in readme.lower()
     assert "decode" in readme.lower()
     assert "docs/methodology.md" in readme

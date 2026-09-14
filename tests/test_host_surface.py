@@ -26,7 +26,7 @@ def test_readme_host_contract() -> None:
     assert "inject" in text.lower()
     assert "decode" in text.lower()
     assert "—" not in text
-    assert "What it is not" not in text
+    assert "## What it is not" in text
 
 
 def test_headless_demo_does_not_inject_fire() -> None:
