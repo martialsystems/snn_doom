@@ -6,7 +6,7 @@ This repo doesn't showcase the fly brain playing DOOM. The fly brain *is* a DOOM
 
 [Play online now](https://martialgames.net/snn-doom/)
 
-## Research notes: 
+## Research notes
 
 - [Full Methodology](docs/methodology.md)
 - [V1 - closed machine](docs/v1.md)
