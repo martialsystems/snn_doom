@@ -15,8 +15,8 @@ The page steps the exported v1 LIF. `python -m snn_doom.play` is the same stitch
 ## Research notes
 
 - [Full Methodology](docs/methodology.md)
-- [V1 - closed machine](docs/v1.md)
-- [v2: walking e2 under a named 12,000 cap](docs/v2.md)
+- [V1 - closed machine, 8,000 neurons](docs/v1.md)
+- [v2 - scaling it up to 12,000 neurons](docs/v2.md)
 
 or you can download this git and test yourself.
 
