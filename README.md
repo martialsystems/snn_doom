@@ -70,6 +70,8 @@ Digital gates use τ = 0. That is a McCulloch-Pitts gate sitting on LIF hardware
 
 v1 budget is 8,000 neurons. The running stitch is 7,973. The leftover 27 cells do not buy a second chase ALU. Fly-scale 166,700 is refused until every extra unit has a named job and the 16 column distances stay teacher-exact under ablation.
 
+How the host and the net split the tick: [docs/how_this_runs_doom.md](docs/how_this_runs_doom.md).
+
 ## What Python is allowed to do
 
 Host:
@@ -104,4 +106,4 @@ It is not "we mapped a fly and it learned to play." Cell types are not features.
 
 Zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. That is the point of the stitch.
 
-The long version lives in [docs/methodology.md](docs/methodology.md). How the host and the net split the tick: [docs/how_this_runs_doom.md](docs/how_this_runs_doom.md).
+The long version lives in [docs/methodology.md](docs/methodology.md). 
