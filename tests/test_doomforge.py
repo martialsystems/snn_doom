@@ -9,6 +9,8 @@ from doomforge.gate import (
     require_can_scale,
     require_can_train,
     require_demo_path,
+    require_settle_floor,
+    require_v1_cap,
 )
 from doomforge.graphs.module_freeze import build_graph as build_freeze
 from doomforge.graphs.scale_166k import build_graph as build_scale
@@ -136,6 +138,8 @@ def test_gate_live_edges() -> None:
     require_can_bakeoff()
     require_can_train("train_ray")
     require_demo_path()
+    require_v1_cap()
+    require_settle_floor()
     if frozen_map().get("RAY_COLUMN") and ray_distances_exact():
         require_can_train("train_readout")
     else:
@@ -143,3 +147,32 @@ def test_gate_live_edges() -> None:
             require_can_train("train_readout")
     with pytest.raises(LawBlockedError):
         require_can_scale()
+
+
+def test_v1_cap_blocks_over_8000() -> None:
+    with pytest.raises(LawBlockedError):
+        require_v1_cap(n_neurons=8001, intent="export")
+    with pytest.raises(LawBlockedError):
+        require_v1_cap(n_neurons=7973, estimated_new_neurons=40, intent="leftover_spend")
+    require_v1_cap(n_neurons=7973, estimated_new_neurons=0, intent="export")
+
+
+def test_settle_floor_blocks_24_while_probe_red() -> None:
+    from doomforge.evidence import settle_floor, settle_live
+
+    assert settle_live() == 29
+    assert settle_floor() == 29
+    with pytest.raises(LawBlockedError):
+        require_settle_floor(settle=24, intent="ship")
+    require_settle_floor(settle=29, intent="ship")
+    require_settle_floor(settle=24, intent="probe", adopt=False)
+
+
+def test_auditor_does_not_call_v1_cap_gate() -> None:
+    from pathlib import Path
+
+    src = (Path(__file__).resolve().parents[1] / "src" / "snn_doom" / "qol" / "auditor.py").read_text(
+        encoding="utf-8"
+    )
+    assert "require_v1_cap" not in src
+    assert "require_settle_floor" not in src

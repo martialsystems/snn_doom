@@ -7,14 +7,18 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from doomforge.gate import require_settle_floor, require_v1_cap
 from snn_doom.const import STEPS_PER_TICK, V1_NEURON_CAP
 from snn_doom.modules.pipeline import build_doom_snn
 
 
 def main() -> None:
     m = build_doom_snn()
+    require_v1_cap(n_neurons=m.net.n, intent="export")
+    require_settle_floor(intent="export")
     out = ROOT / "checkpoints" / "snn_doom_v1.json"
     payload = {
         "n_neurons": m.net.n,

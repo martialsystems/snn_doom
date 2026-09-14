@@ -209,6 +209,53 @@ def extra_units_declared() -> bool:
     return True
 
 
+def v1_cap() -> int:
+    from snn_doom.const import V1_NEURON_CAP
+
+    return int(V1_NEURON_CAP)
+
+
+def v1_neurons() -> int:
+    path = CKPT / "snn_doom_v1.json"
+    if not path.is_file():
+        return -1
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return -1
+    try:
+        return int(data.get("n_neurons"))
+    except (TypeError, ValueError):
+        return -1
+
+
+def settle_live() -> int:
+    from snn_doom.const import SETTLE_STEPS
+
+    return int(SETTLE_STEPS)
+
+
+def settle_floor() -> int:
+    """Last green held-fwd SETTLE. Red probe keeps baseline. Missing probe cannot drop."""
+    path = LOGS / "settle_probe.json"
+    live = settle_live()
+    if not path.is_file():
+        return live
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return live
+    if bool(data.get("match")):
+        try:
+            return int(data.get("candidate") or live)
+        except (TypeError, ValueError):
+            return live
+    try:
+        return int(data.get("baseline") or live)
+    except (TypeError, ValueError):
+        return live
+
+
 def latch_held_key_dies(report: dict[str, Any] | None = None) -> bool:
     report = report if report is not None else ablation_report()
     if report.get("missing"):

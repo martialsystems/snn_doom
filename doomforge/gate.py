@@ -14,7 +14,9 @@ from doomforge import evidence
 from doomforge.graphs.demo_path import build_graph as build_demo
 from doomforge.graphs.module_freeze import TRAIN_INTENT, build_graph as build_freeze
 from doomforge.graphs.scale_166k import build_graph as build_scale
+from doomforge.graphs.settle_floor import build_graph as build_settle_floor
 from doomforge.graphs.teacher_green import build_graph as build_teacher
+from doomforge.graphs.v1_cap import build_graph as build_v1_cap
 
 
 def require_teacher_green(*, intent: str) -> None:
@@ -82,6 +84,50 @@ def require_can_train_role(role: str) -> None:
     require_can_train(intent)
 
 
+def require_v1_cap(
+    *,
+    n_neurons: int | None = None,
+    estimated_new_neurons: int = 0,
+    intent: str = "stitch",
+) -> None:
+    n = evidence.v1_neurons() if n_neurons is None else int(n_neurons)
+    require_law(
+        build_v1_cap(),
+        {
+            "intent": intent,
+            "n_neurons": n,
+            "estimated_new_neurons": int(estimated_new_neurons),
+            "cap": evidence.v1_cap(),
+        },
+        allow_decisions=["allow"],
+        law_id="doom.v1_cap",
+        thread_id=intent or "stitch",
+        raise_error=True,
+    )
+
+
+def require_settle_floor(
+    *,
+    settle: int | None = None,
+    intent: str = "ship",
+    adopt: bool = False,
+) -> None:
+    live = evidence.settle_live() if settle is None else int(settle)
+    require_law(
+        build_settle_floor(),
+        {
+            "intent": intent,
+            "settle": live,
+            "settle_floor": evidence.settle_floor(),
+            "adopt": bool(adopt),
+        },
+        allow_decisions=["allow"],
+        law_id="doom.settle_floor",
+        thread_id=intent or "ship",
+        raise_error=True,
+    )
+
+
 __all__ = [
     "LawBlockedError",
     "require_teacher_green",
@@ -90,4 +136,6 @@ __all__ = [
     "require_can_bakeoff",
     "require_demo_path",
     "require_can_scale",
+    "require_v1_cap",
+    "require_settle_floor",
 ]

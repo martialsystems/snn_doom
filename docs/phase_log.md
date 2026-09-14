@@ -54,6 +54,10 @@ Four refuse laws in `doomforge/`: teacher_green, module_freeze, demo_path, scale
 
 Refused. `scripts/scale_166k.py` raises LawBlockedError until `logs/ray_parity.json` all_match, RAY freeze, ablations isolate, and LATCH dies on a held key.
 
+## GraphForge v1 cap and SETTLE floor (2026-09-14)
+
+Pinned `doom.v1_cap` on stitch export (`scripts/export_checkpoint.py`) and `doom.settle_floor` on CLOCK/SETTLE writers. Live checkpoint 7,973 is under 8,000. SETTLE 29 is the green held-fwd floor; 24 stays refused while `logs/settle_probe.json` `match` is false. Auditor verdicts unchanged: walking e2 is still ACCEPT_WITH_CAP. `apply_enemy2` stays out of `tick()`.
+
 ## Phase 5: demo (2026-09-12)
 
 Passed: `scripts/run_demo.py --frames 1` writes `logs/demo_frame.png` (~1.6 ticks/sec on this host). Host path does not call `tick`/`cast_ray`.

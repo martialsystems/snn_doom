@@ -76,3 +76,5 @@ def test_auditor_does_not_import_demo_engine() -> None:
     assert "cast_ray(" not in src
     assert "paint_frame" not in src
     assert "build_doom_snn" not in src
+    assert "require_v1_cap" not in src
+    assert "require_settle_floor" not in src

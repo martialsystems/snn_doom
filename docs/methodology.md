@@ -92,7 +92,7 @@ A module freezes before the next one trains. RAY freeze is `checkpoints/ray_colu
 Demo path must not call `teacher.tick` or `cast_ray`.
 166,700 neurons are refused until column distances match the teacher march and ablations stay green.
 
-Those four are GraphForge laws in `doomforge/`. Pytest and the JSON under `logs/` are evidence the graph reads. Do not report done on a scale-up that skips RAY lock. Phase log: [phase_log.md](phase_log.md).
+Those four are GraphForge laws in `doomforge/`, plus `doom.v1_cap` on stitch export and `doom.settle_floor` on CLOCK/SETTLE writers. Pytest and the JSON under `logs/` are evidence the graph reads. Do not report done on a scale-up that skips RAY lock. The QoL auditor may emit ACCEPT_WITH_CAP; stitch export may not. Phase log: [phase_log.md](phase_log.md).
 
 Do not pin idle pixel L1 as a law. Pin the 16 column distances. L1 can still move after RAY is exact.
 
@@ -131,7 +131,7 @@ One discrete equation. Two autodiff stories. Do not mix them in `run_demo.py`.
 | `docs/phase_log.md` | what passed |
 | `docs/bakeoff.md` | encoding bake-off |
 | `vbd.runtime.json` | verify-before-done checks |
-| `doomforge/` | GraphForge pin and the four refuse laws |
+| `doomforge/` | GraphForge pin and the refuse laws |
 | `proposals/` | neuron QoL asks; `scripts/audit_qol.py` judges them against the frozen stitch |
 
 ## v1

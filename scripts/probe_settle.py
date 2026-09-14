@@ -102,6 +102,10 @@ def main() -> None:
     print(json.dumps({k: payload[k] for k in ("candidate", "baseline", "match", "adopted", "n_neurons")}, indent=2))
     const.SETTLE_STEPS = baseline
     const.STEPS_PER_TICK = baseline * (POSE_WINDOWS + N_COLS * MARCH_LEN + DOOR_WINDOWS)
+    sys.path.insert(0, str(ROOT))
+    from doomforge.gate import require_settle_floor
+
+    require_settle_floor(intent="ship")
     if not ok:
         print("SETTLE 24 failed held-fwd; keeping", baseline)
 

@@ -19,6 +19,13 @@ def freeze_role(role: str, encoding: str, row: dict | None, dest: Path | None = 
         name = ROLE_FILES.get(role, role.lower() + ".json")
         dest = root / "checkpoints" / name
     dest.parent.mkdir(parents=True, exist_ok=True)
+    if role == "CLOCK":
+        try:
+            from doomforge.gate import require_settle_floor
+        except ImportError:
+            require_settle_floor = None  # type: ignore[assignment]
+        if require_settle_floor is not None:
+            require_settle_floor(intent="clock")
     dest.write_text(
         json.dumps(
             {
