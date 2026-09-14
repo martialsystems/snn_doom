@@ -10,13 +10,15 @@ This repo doesn't showcase the fly brain playing DOOM. The fly brain *is* a DOOM
 
 [Play online now](https://martialgames.net/snn-doom/)
 
+The page steps the exported v1 LIF. `python -m snn_doom.play` is the same stitch locally.
+
 ## Research notes
 
 - [Full Methodology](docs/methodology.md)
 - [V1 - closed machine](docs/v1.md)
 - [v2: walking e2 under a named 12,000 cap](docs/v2.md)
 
-or you can download this git and test yourself. 
+or you can download this git and test yourself.
 
 ## Play
 
