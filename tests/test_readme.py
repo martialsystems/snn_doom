@@ -30,6 +30,7 @@ def test_readme_and_docs_prose() -> None:
     assert "## What it is not" in readme
     assert "docs/v1.md" in readme
     assert "docs/v2.md" in readme
+    assert "martialgames.net/snn-doom/" in readme
     assert readme.index("docs/v1.md") < readme.index("## Play")
     assert "inject" in readme.lower()
     assert "decode" in readme.lower()
