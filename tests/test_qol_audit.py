@@ -51,6 +51,7 @@ def test_waste_and_law_proposals() -> None:
     pal = audit_proposal(load_proposal(PROPOSALS / "host_palette.yaml"))
     radar = audit_proposal(load_proposal(PROPOSALS / "host_radar.yaml"))
     dead = audit_proposal(load_proposal(PROPOSALS / "host_dead.yaml"))
+    waves = audit_proposal(load_proposal(PROPOSALS / "host_waves.yaml"))
     spare = audit_proposal(load_proposal(PROPOSALS / "spare_latches.yaml"))
     assert settle["verdict"] == "REJECT_WASTE"
     assert analog["verdict"] == "REJECT_BREAKS_LAW"
@@ -61,6 +62,7 @@ def test_waste_and_law_proposals() -> None:
     assert pal["verdict"] == "REJECT_WASTE"
     assert radar["verdict"] == "REJECT_WASTE"
     assert dead["verdict"] == "REJECT_WASTE"
+    assert waves["verdict"] == "REJECT_WASTE"
     assert spare["verdict"] == "REJECT_WASTE"
 
 

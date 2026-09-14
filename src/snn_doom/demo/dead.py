@@ -95,8 +95,13 @@ class HostDead:
         return f"HOST_DEAD\n{SPLASH}\n{RESTART_HINT}"
 
 
+def write_latches(machine, state: GameState) -> dict[str, int]:
+    """Host write through pipeline.reset. Same path Restart uses."""
+    machine.reset(state)
+    return machine.read_state()
+
+
 def restore_spawn(machine, state0: GameState | None = None) -> dict[str, int]:
     """pipeline.reset to DEFAULT_* spawn. No new LIF graph."""
     s0 = state0 if state0 is not None else spawn()
-    machine.reset(s0)
-    return machine.read_state()
+    return write_latches(machine, s0)

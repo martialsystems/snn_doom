@@ -61,3 +61,6 @@ def test_play_flag_is_live_console() -> None:
     assert "--no-radar" in demo
     assert "--no-dead" in play
     assert "--no-dead" in demo
+    assert "--no-waves" in play
+    assert "--no-waves" in demo
+    assert "--wave-e2" in play

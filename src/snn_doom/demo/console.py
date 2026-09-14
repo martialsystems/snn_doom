@@ -19,6 +19,7 @@ from snn_doom.demo.radar import facing_char
 from snn_doom.demo.audio import play as play_sfx
 from snn_doom.demo.dead import HostDead, restore_spawn
 from snn_doom.demo.latch import InputLatch
+from snn_doom.demo.waves import HostWaves
 from snn_doom.demo.round import ROUND_TICKS, RoundState
 from snn_doom.demo.tapes import load_ghost, save_run
 from snn_doom.demo.view import (
@@ -188,6 +189,9 @@ def run_console(
     sound: bool = True,
     radar: bool = True,
     splash: bool = True,
+    waves: bool = True,
+    wave_e2: bool = False,
+    wave_seed: int = 0,
 ) -> dict[str, Any]:
     """Live host. ticks=0 runs until quit when a surface is open; headless defaults to 1."""
     if tty:
@@ -203,6 +207,7 @@ def run_console(
         latch.held |= set(pressed)
     stop = {"q": False}
     host_dead = HostDead(enabled=splash)
+    host_waves = HostWaves(enabled=waves, wave_e2=wave_e2, seed=wave_seed)
     fig = None
     artists: dict[str, Any] | None = None
     color_tty = bool(tty and sys.stdout.isatty())
@@ -297,6 +302,7 @@ def run_console(
                 last["hitscan"] = 0
                 rnd = RoundState(limit=round_limit if round_limit else 10**9)
                 host_dead.hide()
+                host_waves = HostWaves(enabled=waves, wave_e2=wave_e2, seed=wave_seed)
                 continue
             bits, flash, shown = latch.consume()
             if host_dead.dead:
@@ -343,13 +349,16 @@ def run_console(
             n += 1
             if host_dead.observe_hp(int(last["state"].get("hp") or 0)):
                 host_dead.show()
+            outcome = rnd.observe(last["state"])
+            if not host_dead.dead:
+                last = host_waves.follow(m, last, tick=n, score=rnd.score)
+                last["state"]["score"] = rnd.score
             if sound:
                 if last["shot"]:
                     play_sfx("kill")
                 moved = last["state"]["px"] != prev["px"] or last["state"]["py"] != prev["py"]
                 if (bits & 12) in (4, 8) and not moved:
                     play_sfx("wall")
-            outcome = rnd.observe(last["state"])
             elapsed = time.perf_counter() - t0
             tps = n / max(elapsed, 1e-6)
             text = hud_text(
@@ -404,7 +413,7 @@ def run_console(
                     sys.stdout.write("\x1b[2J\x1b[H")
                 sys.stdout.write(body + "\n")
                 sys.stdout.flush()
-            if outcome != "play" and not (host_dead.enabled and host_dead.dead):
+            if ticks > 0 and outcome != "play" and not (host_dead.enabled and host_dead.dead):
                 break
     finally:
         if fd is not None and old_term is not None:
@@ -436,6 +445,7 @@ def run_console(
         "outcome": rnd.outcome,
         "tape": tape,
         "dead": host_dead.dead,
+        "waves": list(host_waves.log),
     }
 
 

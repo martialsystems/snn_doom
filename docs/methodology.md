@@ -43,6 +43,8 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | Host calling `teacher.tick` / `cast_ray` in the demo path | forbidden, tested |
 | Host radar | console, not a named LIF job |
 | HOST_DEAD | console, not a named LIF job |
+| Play window | stays open until Esc or YOU DIED; tick clock does not eject |
+| Host waves | console respawn of e1 after a kill, not a named LIF job |
 | SETTLE | 29; isolated 127+1 fails at 23; held-fwd chase fails at 28; SETTLE 24 held-fwd still fails (`logs/settle_probe.json`) |
 | Door | cell (4,5); sixth bit toggles occupancy after paint |
 | 166k scale-up | refused until extra units have a named job |

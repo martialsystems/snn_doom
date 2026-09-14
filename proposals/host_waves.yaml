@@ -1,0 +1,13 @@
+name: host_waves
+claimed_job: "Python blit a looping red chaser with pipeline.reset after a kill"
+claimed_qol: "red chaser loops after a kill"
+new_state_bits: []
+new_modules_or_edges: []
+estimated_new_neurons: 0
+estimated_new_edges: 0
+teacher_delta: "none; host cosmetics"
+view_delta: "matplotlib host wave; decoded 16x18x4 indices unchanged by Python paint"
+ablation_target: module tag HOSTWAVES
+must_not_break: [ray_parity, held_fwd_tape]
+alternatives:
+  - leave HOST_WAVES in demo/waves.py (0 neurons)

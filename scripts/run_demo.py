@@ -35,6 +35,8 @@ def main() -> None:
     p.add_argument("--ghost", type=Path, default=None)
     p.add_argument("--no-radar", action="store_true")
     p.add_argument("--no-dead", action="store_true")
+    p.add_argument("--no-waves", action="store_true")
+    p.add_argument("--wave-e2", action="store_true")
     args = p.parse_args()
     require_demo_path()
     headless = args.frames is not None and args.frames > 0 and not args.play and not args.tty
@@ -59,6 +61,8 @@ def main() -> None:
             ghost=args.ghost,
             radar=not args.no_radar,
             splash=not args.no_dead,
+            waves=not args.no_waves,
+            wave_e2=bool(args.wave_e2),
             out=None if args.tty else args.out,
         )
     dump = {k: stats[k] for k in ("ticks_per_sec", "n_neurons", "spikes_per_step", "state", "score", "outcome") if k in stats}

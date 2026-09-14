@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""A round, not an infinite tick. Score = kills. Survive N ticks or clear sprites."""
+"""Score = kills. Clear both sprites to win. The tick clock does not eject the window."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -24,13 +24,11 @@ class RoundState:
             self.score += 1
         self.e1_was = int(st.get("enemy_alive") or 0)
         self.e2_was = int(st.get("enemy2_alive") or 0)
-        if st.get("hp", 3) <= 0 or st.get("player_hit"):
+        if int(st.get("hp") or 0) <= 0:
             self.outcome = "lose"
             return self.outcome
         if not self.e1_was and not self.e2_was:
             self.outcome = "win"
             return self.outcome
-        if self.ticks >= self.limit:
-            self.outcome = "win"
-            return self.outcome
+        self.outcome = "play"
         return "play"

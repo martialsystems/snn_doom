@@ -24,6 +24,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--quiet", action="store_true")
     p.add_argument("--no-radar", action="store_true")
     p.add_argument("--no-dead", action="store_true", help="close on death instead of HOST_DEAD")
+    p.add_argument("--no-waves", action="store_true", help="do not host-respawn e1")
+    p.add_argument("--wave-e2", action="store_true", help="host-respawn the statue too")
     p.add_argument("--out", type=Path, default=None)
     args = p.parse_args(argv)
     stats = run_console(
@@ -39,6 +41,8 @@ def main(argv: list[str] | None = None) -> int:
         sound=not args.quiet,
         radar=not args.no_radar,
         splash=not args.no_dead,
+        waves=not args.no_waves,
+        wave_e2=bool(args.wave_e2),
         out=args.out,
     )
     dump = {k: stats[k] for k in ("ticks_per_sec", "n_neurons", "ticks", "score", "outcome") if k in stats}

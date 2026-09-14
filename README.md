@@ -15,7 +15,7 @@ python -m venv .venv && .venv/bin/pip install -e ".[play]"
 # Esc            quit
 ```
 
-Same loop: `scripts/run_demo.py --play`. Default is the 16×18 VIEW, raster hidden, door at (4,5) closed. `--lab` shows the spike raster. `--fast` skips it. `--scale 32` is chunky pixels. `--map corridor|arena|door`. `--tty` is the terminal view. `--fwd` holds forward. `--ghost logs/runs/held_fwd.bits` overlays a recorded path. `--no-radar` hides HOST_RADAR. `--no-dead` closes on death instead of HOST_DEAD.
+Same loop: `scripts/run_demo.py --play`. Default is the 16×18 VIEW, raster hidden, door at (4,5) closed. `--lab` shows the spike raster. `--fast` skips it. `--scale 32` is chunky pixels. `--map corridor|arena|door`. `--tty` is the terminal view. `--fwd` holds forward. `--ghost logs/runs/held_fwd.bits` overlays a recorded path. `--no-radar` hides HOST_RADAR. `--no-dead` closes on death instead of HOST_DEAD. Esc quits. Killing the red chaser scores and host-respawns it on a free cell. The orange mark is the statue at (2,2). `--no-waves` leaves the two-sprite map without respawn and still does not quit on a kill.
 
 ![FRAME_READOUT plus HOST_RADAR](docs/play.gif)
 
