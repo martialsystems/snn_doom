@@ -47,12 +47,17 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--machine", choices=("v1", "v2"), default="v1")
     args = p.parse_args(argv)
+    machine = None
     if args.machine == "v2":
         ok, why = _v2_ready()
         if not ok:
             print(why, file=sys.stderr)
             return 2
+        from snn_doom.modules.pipeline import build_doom_snn
+
+        machine = build_doom_snn(walk_e2=True)
     stats = run_console(
+        machine=machine,
         ticks=args.ticks,
         display=not args.tty,
         tty=bool(args.tty),

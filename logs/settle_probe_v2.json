@@ -1,0 +1,8 @@
+{
+  "machine": "v2",
+  "baseline": 29,
+  "candidate": 29,
+  "match": true,
+  "held_ticks": 32,
+  "note": "tick_tape_v2 held-fwd and two-chaser match at SETTLE 29. Floor unchanged. Not a SETTLE pad."
+}

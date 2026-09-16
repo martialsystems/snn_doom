@@ -14,11 +14,32 @@
     "json": "/Users/samw/snn_doom/logs/qol_audit/fly_scale_init.json"
   },
   {
+    "name": "host_dead",
+    "verdict": "REJECT_WASTE",
+    "score": 0.5,
+    "headroom": 27,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/host_dead.json"
+  },
+  {
     "name": "host_palette",
     "verdict": "REJECT_WASTE",
     "score": 0.5,
     "headroom": 27,
     "json": "/Users/samw/snn_doom/logs/qol_audit/host_palette.json"
+  },
+  {
+    "name": "host_radar",
+    "verdict": "REJECT_WASTE",
+    "score": 0.47,
+    "headroom": 27,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/host_radar.json"
+  },
+  {
+    "name": "host_waves",
+    "verdict": "REJECT_WASTE",
+    "score": 0.5,
+    "headroom": 27,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/host_waves.json"
   },
   {
     "name": "moving_second_sprite",

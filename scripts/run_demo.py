@@ -40,24 +40,28 @@ def main() -> None:
     p.add_argument("--machine", choices=("v1", "v2"), default="v1")
     args = p.parse_args()
     require_demo_path()
+    machine = None
     if args.machine == "v2":
         from snn_doom.play import _v2_ready
+        from snn_doom.modules.pipeline import build_doom_snn
 
         ok, why = _v2_ready()
         if not ok:
             print(why, file=sys.stderr)
             raise SystemExit(2)
+        machine = build_doom_snn(walk_e2=True)
     headless = args.frames is not None and args.frames > 0 and not args.play and not args.tty
     if headless:
         n = args.frames
         bits = pack_input(0, 0, int(args.fwd), 0)
         inputs = [bits] * max(n, 1)
-        stats = run_demo(frames=max(n, 1), out=args.out, inputs=inputs)
+        stats = run_demo(frames=max(n, 1), out=args.out, inputs=inputs, machine=machine)
     else:
         from snn_doom.demo.console import run_console
 
         n = 0 if args.frames is None else args.frames
         stats = run_console(
+            machine=machine,
             ticks=n,
             display=not args.tty,
             tty=bool(args.tty),

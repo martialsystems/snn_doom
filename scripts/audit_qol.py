@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("proposal", nargs="?", type=Path, help="proposals/foo.yaml")
     p.add_argument("--scan", type=Path, default=None, help="directory of proposal files")
     p.add_argument("--compare", type=Path, default=None, help="checkpoints/snn_doom_v1.json")
+    p.add_argument("--cap", type=int, default=None, help="override named cap (doom.v2_cap is 12000)")
     p.add_argument("--out", type=Path, default=None)
     args = p.parse_args(argv)
     if args.scan is None and args.proposal is None:
@@ -35,13 +36,13 @@ def main(argv: list[str] | None = None) -> int:
         if not folder.is_dir():
             print(f"missing scan dir {folder}", file=sys.stderr)
             return 2
-        reports = scan_dir(folder, compare=args.compare)
+        reports = scan_dir(folder, compare=args.compare, cap=args.cap)
     else:
         path = args.proposal
         if path is None or not path.is_file():
             print("need a proposal file or --scan DIR", file=sys.stderr)
             return 2
-        reports = [audit_proposal(load_proposal(path), compare=args.compare)]
+        reports = [audit_proposal(load_proposal(path), compare=args.compare, cap=args.cap)]
     dest = args.out
     index = []
     for report in reports:

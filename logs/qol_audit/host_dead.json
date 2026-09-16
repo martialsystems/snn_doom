@@ -1,9 +1,9 @@
 {
   "proposal": {
-    "name": "analog_tau_demo",
-    "claimed_job": "switch demo LIF to analog tau=0.8 BPTT for smoother motion",
-    "claimed_qol": "less digital flicker",
-    "path": "proposals/analog_tau.yaml"
+    "name": "host_dead",
+    "claimed_job": "Python blit a HOST_DEAD YOU DIED splash and Restart button",
+    "claimed_qol": "see death and restart without new LIF",
+    "path": "proposals/host_dead.yaml"
   },
   "baseline_neurons": 7973,
   "baseline_edges": 41811,
@@ -15,12 +15,12 @@
   "fly_scale_refused": false,
   "named_job_ok": {
     "ok": true,
-    "reason": "cluster ANALOG: switch demo LIF to analog tau=0.8 BPTT for smoother motion",
-    "ablation_target": "ANALOG"
+    "reason": "cluster HOSTDEAD: Python blit a HOST_DEAD YOU DIED splash and Restart button",
+    "ablation_target": "HOSTDEAD"
   },
   "teacher_specifiable": {
     "ok": false,
-    "reason": "analog tau is bake-off only; demo path is digital tau=0"
+    "reason": "teacher_delta does not name a teacher field or apply_* function"
   },
   "observable_deltas": [
     {
@@ -33,25 +33,25 @@
   "parity_risk": [
     {
       "tape": "tick_tape",
-      "why": "any stitch edit can drift sequencer re-arm",
+      "why": "frame_ok is on every tape step",
       "live_green": true,
       "listed": true
     }
   ],
-  "ablation_contract": "zeroing ANALOG must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
+  "ablation_contract": "zeroing HOSTDEAD must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
   "cost_per_observable": null,
   "cheaper_alternative": {
-    "text": "digital tau=0 (0 neurons)",
+    "text": "leave HOST_DEAD in demo/dead.py (0 neurons)",
     "neurons": 0,
     "legal": true,
     "reason": "not cheaper than the proposal"
   },
-  "bakeoff_need": true,
-  "score": 0.35,
+  "bakeoff_need": false,
+  "score": 0.5,
   "score_parts": {
     "observable": 0.0,
     "named_job_ablation": 1.0,
-    "parity": 0.0,
+    "parity": 1.0,
     "cost": 1.0,
     "cap_named": 0.0,
     "spec_not_waste": 0.0
@@ -64,14 +64,15 @@
     "cap_named": 0.1,
     "spec_not_waste": 0.1
   },
-  "verdict": "REJECT_BREAKS_LAW",
+  "verdict": "REJECT_WASTE",
   "reasons": [
-    "Analog tau belongs in bake-off, not the digital demo stitch.",
-    "analog tau is bake-off only; demo path is digital tau=0",
+    "Host overlay that fakes engine work is banned on the demo path.",
+    "teacher_delta does not name a teacher field or apply_* function",
     "Text matches a waste pattern and there is no player-actionable observable.",
-    "cluster ANALOG: switch demo LIF to analog tau=0.8 BPTT for smoother motion",
-    "analog tau is bake-off only; demo path is digital tau=0",
-    "zeroing ANALOG must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
+    "No player-actionable observable: turn, fire, door, or flee has nothing new to do.",
+    "cluster HOSTDEAD: Python blit a HOST_DEAD YOU DIED splash and Restart button",
+    "teacher_delta does not name a teacher field or apply_* function",
+    "zeroing HOSTDEAD must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
   ],
   "gates_failed": [
     "doom.demo_path",

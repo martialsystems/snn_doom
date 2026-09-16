@@ -1,22 +1,22 @@
 {
   "proposal": {
-    "name": "settle_padding",
-    "claimed_job": "pad SETTLE from 29 to 32 just in case carry chains starve",
-    "claimed_qol": "smoother rays",
-    "path": "proposals/settle_padding.yaml"
+    "name": "host_radar",
+    "claimed_job": "Python blit a HOST_RADAR panel from REGISTER_FILE and RAM bits",
+    "claimed_qol": "see player vs e1 vs e2 vs door vs walls",
+    "path": "proposals/host_radar.yaml"
   },
   "baseline_neurons": 7973,
   "baseline_edges": 41811,
   "cap": 8000,
   "cap_law": "doom.v1_cap",
-  "estimated_new_neurons": 3,
-  "estimated_new_edges": 6,
-  "headroom": 24,
+  "estimated_new_neurons": 0,
+  "estimated_new_edges": 0,
+  "headroom": 27,
   "fly_scale_refused": false,
   "named_job_ok": {
     "ok": true,
-    "reason": "cluster CLOCKPAD: pad SETTLE from 29 to 32 just in case carry chains starve",
-    "ablation_target": "CLOCKPAD"
+    "reason": "cluster HOSTRADAR: Python blit a HOST_RADAR panel from REGISTER_FILE and RAM bits",
+    "ablation_target": "HOSTRADAR"
   },
   "teacher_specifiable": {
     "ok": false,
@@ -32,10 +32,10 @@
   ],
   "parity_risk": [
     {
-      "tape": "held_fwd_tape",
-      "why": "CLOCK/SETTLE edits change steps per tick and can desync held-fwd",
+      "tape": "door",
+      "why": "door occupancy pulse is a 2-step we_ram window",
       "live_green": true,
-      "listed": true
+      "listed": false
     },
     {
       "tape": "tick_tape",
@@ -44,22 +44,22 @@
       "listed": true
     }
   ],
-  "ablation_contract": "zeroing CLOCKPAD must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
+  "ablation_contract": "zeroing HOSTRADAR must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
   "cost_per_observable": null,
   "cheaper_alternative": {
-    "text": "keep SETTLE 29 (0 neurons)",
+    "text": "leave HOST_RADAR in demo/radar.py (0 neurons)",
     "neurons": 0,
     "legal": true,
-    "reason": "0 < 3"
+    "reason": "not cheaper than the proposal"
   },
   "bakeoff_need": false,
-  "score": 0.48,
+  "score": 0.47,
   "score_parts": {
     "observable": 0.0,
     "named_job_ablation": 1.0,
-    "parity": 0.7,
-    "cost": 0.5,
-    "cap_named": 1.0,
+    "parity": 0.8,
+    "cost": 1.0,
+    "cap_named": 0.0,
     "spec_not_waste": 0.0
   },
   "score_weights": {
@@ -72,15 +72,16 @@
   },
   "verdict": "REJECT_WASTE",
   "reasons": [
+    "Host overlay that fakes engine work is banned on the demo path.",
     "teacher_delta does not name a teacher field or apply_* function",
     "Text matches a waste pattern and there is no player-actionable observable.",
     "No player-actionable observable: turn, fire, door, or flee has nothing new to do.",
-    "Cheaper legal alternative: keep SETTLE 29 (0 neurons) (0 neurons).",
-    "cluster CLOCKPAD: pad SETTLE from 29 to 32 just in case carry chains starve",
+    "cluster HOSTRADAR: Python blit a HOST_RADAR panel from REGISTER_FILE and RAM bits",
     "teacher_delta does not name a teacher field or apply_* function",
-    "zeroing CLOCKPAD must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
+    "zeroing HOSTRADAR must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
   ],
   "gates_failed": [
+    "doom.demo_path",
     "doom.teacher_specifiable",
     "doom.host_cosmetics"
   ],

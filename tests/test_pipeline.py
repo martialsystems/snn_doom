@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, FRAME_H, N_COLS, V1_NEURON_CAP
+from snn_doom.const import CENTER_COL, FRAME_H, N_COLS, V1_NEURON_CAP, V2_NEURON_CAP
 from snn_doom.modules.pipeline import build_doom_snn
 from snn_doom.teacher.maps import spawn
 
@@ -25,6 +25,26 @@ def test_pipeline_builds_under_cap() -> None:
         "DOOR",
     ):
         assert name in mods, mods
+
+
+def test_pipeline_v2_e2_walks_under_cap() -> None:
+    from snn_doom.teacher.engine import tick_v2
+
+    v1 = build_doom_snn()
+    assert v1.net.n <= V1_NEURON_CAP
+    m = build_doom_snn(walk_e2=True)
+    assert m.net.n <= V2_NEURON_CAP
+    assert m.net.n > v1.net.n
+    s0 = spawn()
+    m.reset(s0)
+    pix = m.tick(0)
+    st = m.read_state()
+    tr = tick_v2(s0, 0)
+    assert st["ex2"] == tr.state.ex2
+    assert st["ey2"] == tr.state.ey2
+    assert st["ex"] == tr.state.ex
+    assert st["ex2"] != s0.ex2 or st["ey2"] != s0.ey2
+    np.testing.assert_array_equal(pix, tr.pixels)
 
 
 def test_pipeline_reset_and_frame_shape() -> None:

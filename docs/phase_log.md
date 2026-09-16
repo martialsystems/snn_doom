@@ -1,5 +1,9 @@
 # Phase log
 
+## v2 teacher and stitch (2026-09-16)
+
+`tick_v2` calls `apply_enemy2` after `apply_enemy`. v1 `tick()` still does not. Duplicate X-then-Y chase ALU; e2 register write is `pose_ring[3]` AND `clk[20]`, after e1 `we_e` and before `p_hit`. Not a muxed extra beat and not a SETTLE bump. Stitch 9,077 LIF, 44,420 edges, cap 12,000, SETTLE 29 unchanged. Export through `doomforge.gate.require_v2_cap`. Tape: `logs/tick_tape_v2.json` `all_match`. `--play` default remains v1.
+
 ## v1 closed / v2 spec (2026-09-14)
 
 v1 is the museum machine: 7,973 LIF, cap 8,000, leftover 27, e2 statue, `--play` default. Do not restamp `checkpoints/snn_doom_v1.json` for a walker. v2 is a new teacher, cap 12,000 (`doom.v2_cap`), and a later stitch. First v2 sentence: `apply_enemy2` in `tick()`. Phase 4 remains 166,700 and is refused. Notes: [v1.md](v1.md), [v2.md](v2.md).

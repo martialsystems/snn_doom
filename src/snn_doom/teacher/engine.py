@@ -207,6 +207,21 @@ class TickResult:
 
 
 def tick(state: GameState, input_bits: int) -> TickResult:
+    """v1 teacher. e2 is a statue. Walking e2 is tick_v2."""
+    return _engine_tick(state, input_bits, walk_e2=False)
+
+
+def run(state: GameState, inputs: list[int] | tuple[int, ...]) -> list[TickResult]:
+    out: list[TickResult] = []
+    s = state
+    for bits in inputs:
+        r = tick(s, bits)
+        out.append(r)
+        s = r.state
+    return out
+
+
+def _engine_tick(state: GameState, input_bits: int, *, walk_e2: bool) -> TickResult:
     turn_l, turn_r, fwd, back, fire, door = unpack_input(input_bits)
     if state.player_hit:
         columns = cast_frame(state)
@@ -217,6 +232,8 @@ def tick(state: GameState, input_bits: int) -> TickResult:
     s = apply_move(s, fwd, back)
     s = apply_pickup(s)
     s = apply_enemy(s)
+    if walk_e2:
+        s = apply_enemy2(s)
     s = apply_collide(s)
     columns = cast_frame(s)
     pixels = paint_frame(columns)
@@ -228,11 +245,6 @@ def tick(state: GameState, input_bits: int) -> TickResult:
     return TickResult(state=s, columns=columns, pixels=pixels, shot=shot)
 
 
-def run(state: GameState, inputs: list[int] | tuple[int, ...]) -> list[TickResult]:
-    out: list[TickResult] = []
-    s = state
-    for bits in inputs:
-        r = tick(s, bits)
-        out.append(r)
-        s = r.state
-    return out
+def tick_v2(state: GameState, input_bits: int) -> TickResult:
+    """v2 teacher. Second chaser enters after apply_enemy. Same ENEMY_STEP."""
+    return _engine_tick(state, input_bits, walk_e2=True)

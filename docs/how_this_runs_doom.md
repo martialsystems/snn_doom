@@ -15,4 +15,4 @@ Playing Doom would mean the net choosing keys to maximize a score in ViZDoom or 
 
 A conventional renderer behind a neural readout would mean Python still doing DDA or blit, and neurons only decorating the pixels. The demo path does not call `tick`, `cast_ray`, `apply_move`, `apply_enemy`, or `paint_frame`. Those functions exist in `teacher/` as the spec the net is supposed to match.
 
-v1 is an 8x8 map, 16 columns, 18-row paint, one chasing enemy and one stationary sprite, 3-bit ammo, 2-bit HP, one ammo pack, 2-bit color. It is a Doom-like tick, not 1993 vanilla.
+v1 is an 8x8 map, 16 columns, 18-row paint, one chasing enemy and one stationary sprite, 3-bit ammo, 2-bit HP, one ammo pack, 2-bit color. v2 keeps that layout and walks the second sprite under a 12,000 cap. `--play` still loads v1.

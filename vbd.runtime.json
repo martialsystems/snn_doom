@@ -49,9 +49,21 @@
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "src/snn_doom/tick_tape.py"]
     },
     {
+      "id": "tick-tape-v2",
+      "argv": [".venv/bin/python", "scripts/tick_tape.py", "--machine", "v2"],
+      "timeout_s": 400,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "src/snn_doom/tick_tape.py", "src/snn_doom/teacher/**"]
+    },
+    {
       "id": "ablation",
       "argv": [".venv/bin/python", "scripts/ablate.py"],
       "timeout_s": 180,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "scripts/ablate.py"]
+    },
+    {
+      "id": "ablation-v2",
+      "argv": [".venv/bin/python", "scripts/ablate.py", "--machine", "v2"],
+      "timeout_s": 240,
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "scripts/ablate.py"]
     },
     {

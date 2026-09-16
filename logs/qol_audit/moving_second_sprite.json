@@ -7,6 +7,8 @@
   },
   "baseline_neurons": 7973,
   "baseline_edges": 41811,
+  "cap": 8000,
+  "cap_law": "doom.v1_cap",
   "estimated_new_neurons": 86,
   "estimated_new_edges": 240,
   "headroom": -59,

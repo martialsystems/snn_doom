@@ -30,6 +30,18 @@ def test_ablation_json_held_key_visible() -> None:
     assert data.get("latch_held_key_dies") is True
     if "door_write_dies" in data:
         assert data["door_write_dies"] is True
+    v2p = Path(__file__).resolve().parents[1] / "logs" / "ablation_v2.json"
+    if v2p.is_file():
+        v2 = json.loads(v2p.read_text(encoding="utf-8"))
+        assert v2.get("machine") == "v2"
+        assert v2.get("latch_held_key_dies") is True
+        assert v2.get("door_write_dies") is True
+        rows = {r["module"]: r for r in v2.get("rows") or []}
+        for name in ("CLOCK", "BIT_LATCH", "REGISTER_FILE", "ADDER_COMPARE", "SEQUENCER"):
+            assert rows[name]["state_delta"]["px"]
+        for name in ("RAY_COLUMN", "FRAME_READOUT"):
+            assert int(rows[name]["pixel_l1"]) > 0
+        assert int(rows["RAM"]["pixel_l1"]) > 0
 
 
 def test_zero_clock_freezes_sequencer() -> None:

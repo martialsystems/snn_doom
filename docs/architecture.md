@@ -41,7 +41,7 @@ Input bits (host injects every LIF step of a game tick): turn_left, turn_right, 
 
 1. Turn: ±2 angle units, cancel if both or neither.
 2. Move: add `COS[ang]//2` (or minus if back). Stay if the destination cell is wall or out of world.
-3. Enemy: e1, if alive, steps 2 units on x toward the player, else on y. Stay if wall. e2 is stationary at cell (2,2). Walking e2 is specified as `apply_enemy2` and stays out of `tick`: a second chase ALU does not fit the 8,000 cap.
+3. Enemy: e1, if alive, steps 2 units on x toward the player, else on y. Stay if wall. On v1, e2 is stationary at cell (2,2) and `apply_enemy2` stays out of `tick()`. On v2, `tick_v2` calls `apply_enemy2` after `apply_enemy` with the same `ENEMY_STEP`. The v2 stitch is 9,077 LIF units under cap 12,000.
 4. Pickup: standing on cell (3,6) writes ammo to 7 and clears `pickup_alive`.
 5. Collide: same cell as e1 or e2 decrements 2-bit HP and clears that enemy. HP 0 sets `player_hit` sticky (pose held). HP 1 to 3 still moves.
 6. Ray: 16 columns, angles `ang-8 .. ang+7`. March 8 world units per step, up to 15. Record dist, side, sprite.
@@ -81,7 +81,7 @@ Fly cell-type names are not features. MaleCNS is a Phase 4 sparse init, not v1 t
 
 ## Neuron budget
 
-v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,973 neurons, 41,811 edges, SETTLE 29, 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
+v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,973 neurons, 41,811 edges, SETTLE 29, 7,598 LIF steps per tick. v2 cap: 12,000 (`doom.v2_cap`). Measured stitch (`checkpoints/snn_doom_v2.json`): 9,077 neurons, 44,420 edges, same SETTLE 29 and 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
 
 ## Curriculum (stitch)
 

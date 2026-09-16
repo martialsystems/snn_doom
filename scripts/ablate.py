@@ -25,16 +25,22 @@ MODULES = (
     "DOOR",
 )
 
+WALK_E2 = False
+
+
+def _build():
+    return build_doom_snn(walk_e2=WALK_E2)
+
 
 def _pass(bits: int, label: str) -> dict:
     s0 = spawn()
-    base = build_doom_snn()
+    base = _build()
     base.reset(s0)
     pix0 = base.tick(bits)
     st0 = base.read_state()
     rows = []
     for name in MODULES:
-        m = build_doom_snn()
+        m = _build()
         m.reset(s0)
         m.zero_module(name)
         pix = m.tick(bits)
@@ -51,6 +57,14 @@ def _pass(bits: int, label: str) -> dict:
 
 
 def main() -> None:
+    import argparse
+
+    global WALK_E2
+
+    p = argparse.ArgumentParser()
+    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    args = p.parse_args()
+    WALK_E2 = args.machine == "v2"
     idle = _pass(0, "idle")
     fwd = _pass(pack_input(0, 0, 1, 0), "fwd")
     by = {r["module"]: r for r in fwd["rows"]}
@@ -66,7 +80,7 @@ def main() -> None:
     closed = with_door(spawn(), 1)
 
     def _walk_after_toggle(zero_door: bool) -> tuple[int, int]:
-        m = build_doom_snn()
+        m = _build()
         m.reset(closed)
         if zero_door:
             m.zero_module("DOOR")
@@ -95,7 +109,8 @@ def main() -> None:
             "passed_cell": int(px_ok >> 4 >= DOOR_X),
         },
     }
-    out = ROOT / "logs" / "ablation.json"
+    payload["machine"] = "v2" if WALK_E2 else "v1"
+    out = ROOT / "logs" / ("ablation_v2.json" if WALK_E2 else "ablation.json")
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print("wrote", out)
 

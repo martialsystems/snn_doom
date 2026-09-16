@@ -42,6 +42,18 @@ def test_mux_still_over_headroom() -> None:
     assert report["verdict"] == "ACCEPT_WITH_CAP"
     assert report["estimated_new_neurons"] == 40
     assert report["headroom"] < 0
+    assert "doom.v1_cap" in report["gates_failed"]
+
+
+def test_mux_accepts_under_v2_cap() -> None:
+    from snn_doom.const import V2_NEURON_CAP
+
+    report = audit_proposal(load_proposal(PROPOSALS / "mux_enemy2.yaml"), cap=V2_NEURON_CAP)
+    assert report["cap"] == V2_NEURON_CAP
+    assert report["headroom"] > 0
+    assert report["verdict"] in {"ACCEPT", "ACCEPT_WITH_CAP"}
+    assert "doom.v1_cap" not in report["gates_failed"]
+    assert report["cap_law"] == "doom.v2_cap"
 
 
 def test_waste_and_law_proposals() -> None:

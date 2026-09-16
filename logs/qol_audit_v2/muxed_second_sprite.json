@@ -7,11 +7,11 @@
   },
   "baseline_neurons": 7973,
   "baseline_edges": 41811,
-  "cap": 8000,
-  "cap_law": "doom.v1_cap",
+  "cap": 12000,
+  "cap_law": "doom.v2_cap",
   "estimated_new_neurons": 40,
   "estimated_new_edges": 90,
-  "headroom": -13,
+  "headroom": 3987,
   "fly_scale_refused": false,
   "named_job_ok": {
     "ok": true,
@@ -59,13 +59,13 @@
     "reason": "not cheaper than the proposal"
   },
   "bakeoff_need": false,
-  "score": 0.905,
+  "score": 0.955,
   "score_parts": {
     "observable": 1.0,
     "named_job_ablation": 1.0,
     "parity": 0.7,
     "cost": 1.0,
-    "cap_named": 0.5,
+    "cap_named": 1.0,
     "spec_not_waste": 1.0
   },
   "score_weights": {
@@ -76,17 +76,14 @@
     "cap_named": 0.1,
     "spec_not_waste": 0.1
   },
-  "verdict": "ACCEPT_WITH_CAP",
+  "verdict": "ACCEPT",
   "reasons": [
-    "Estimated 40 neurons plus baseline 7973 exceeds cap 8000 (headroom -13).",
-    "Job is real; shrink to leftover units or mux an existing ALU.",
+    "Named job, teacher-specifiable, under cap, cheaper legal alt does not dominate.",
     "cluster ENEMY2: reuse e1 ALU through a mux so e2 takes one extra pose window",
     "apply_enemy2 exists and is not called from tick(); teacher can express the delta",
     "zeroing ENEMY2 must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
   ],
-  "gates_failed": [
-    "doom.v1_cap"
-  ],
+  "gates_failed": [],
   "live_logs": {
     "ray_parity": true,
     "tick_tape": true,

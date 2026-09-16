@@ -29,6 +29,7 @@ from snn_doom.const import (
     SIN,
     STEPS_PER_TICK,
     V1_NEURON_CAP,
+    V2_NEURON_CAP,
 )
 from snn_doom.modules.alu import add_adder, add_gt
 from snn_doom.modules.latch import add_reg, add_write
@@ -242,7 +243,63 @@ class DoomSNN:
         self.net.zero_module(name)
 
 
-def build_doom_snn() -> DoomSNN:
+def _chase_next(
+    b: NetBuilder,
+    px: list[Rail],
+    py: list[Rail],
+    ex: list[Rail],
+    ey: list[Rail],
+    alive: Rail,
+    ram_cells: list[Rail],
+    two8: list[Rail],
+    ntwo8: list[Rail],
+    zero8: list[Rail],
+    bias: int,
+    tag: str,
+) -> tuple[list[Rail], list[Rail]]:
+    """X-then-Y chase: step ENEMY_STEP on x toward the player, else on y; stay on wall."""
+    gt_x = add_gt(b, px, ex, f"gtx{tag}", "ADDER_COMPARE", bias)
+    lt_x = add_gt(b, ex, px, f"ltx{tag}", "ADDER_COMPARE", bias)
+    gt_y = add_gt(b, py, ey, f"gty{tag}", "ADDER_COMPARE", bias)
+    lt_y = add_gt(b, ey, py, f"lty{tag}", "ADDER_COMPARE", bias)
+    ne_x = or_n(b, [gt_x.t, lt_x.t], f"nex{tag}", "ADDER_COMPARE")
+    eq_x = and2(b, gt_x.f, lt_x.f, f"eqx{tag}", "ADDER_COMPARE")
+    ne_y = or_n(b, [gt_y.t, lt_y.t], f"ney{tag}", "ADDER_COMPARE")
+    edx = mux_int(b, gt_x, two8, ntwo8, f"edx{tag}", "ADDER_COMPARE")
+    edx = mux_int(b, Rail(ne_x, eq_x), edx, zero8, f"edxz{tag}", "ADDER_COMPARE")
+    edy = mux_int(b, gt_y, two8, ntwo8, f"edy{tag}", "ADDER_COMPARE")
+    eq_y = and2(b, gt_y.f, lt_y.f, f"eqy{tag}", "ADDER_COMPARE")
+    edy = mux_int(b, Rail(ne_y, eq_y), edy, zero8, f"edyz{tag}", "ADDER_COMPARE")
+    use_x = Rail(ne_x, eq_x)
+    e_dx = mux_int(b, use_x, edx, zero8, f"en_dx{tag}", "ADDER_COMPARE")
+    e_dy = mux_int(b, use_x, zero8, edy, f"en_dy{tag}", "ADDER_COMPARE")
+    cin3 = Rail(*b.alloc_pair(f"cin3{tag}", "ADDER_COMPARE"))
+    b.wire(bias, cin3.f, 1.2)
+    nex, _ = add_adder(b, ex, e_dx, cin3, f"nexadd{tag}", "ADDER_COMPARE")
+    cin4 = Rail(*b.alloc_pair(f"cin4{tag}", "ADDER_COMPARE"))
+    b.wire(bias, cin4.f, 1.2)
+    ney, _ = add_adder(b, ey, e_dy, cin4, f"neyadd{tag}", "ADDER_COMPARE")
+    addr_e = [nex[4], nex[5], nex[6], ney[4], ney[5], ney[6]]
+    dec_e = decoder_bits(b, addr_e, f"dec_e{tag}", "RAM")
+    ram_e = or_n(
+        b,
+        [and2(b, dec_e[i], ram_cells[i].t, f"ert{tag}{i}", "RAM") for i in range(len(ram_cells))],
+        f"ram_e{tag}",
+        "RAM",
+    )
+    ewall = or_n(b, [ram_e, nex[7].t, ney[7].t], f"ewall{tag}", "RAM")
+    not_ewall = b.alloc(f"not_ewall{tag}", "RAM")
+    b.wire(bias, not_ewall, 1.2)
+    b.wire(ewall, not_ewall, W_INH)
+    ecommit_t = and2(b, alive.t, not_ewall, f"ecommit_t{tag}", "ADDER_COMPARE")
+    ecommit_f = or_n(b, [alive.f, ewall], f"ecommit_f{tag}", "ADDER_COMPARE")
+    ecommit = Rail(ecommit_t, ecommit_f)
+    ex_next = mux_int(b, ecommit, nex, ex, f"exn{tag}", "REGISTER_FILE")
+    ey_next = mux_int(b, ecommit, ney, ey, f"eyn{tag}", "REGISTER_FILE")
+    return ex_next, ey_next
+
+
+def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     b = NetBuilder()
     bias = b.alloc("bias", "CLOCK")
     b.wire(bias, bias, 1.2)
@@ -391,39 +448,15 @@ def build_doom_snn() -> DoomSNN:
 
     two8 = _const_int(b, 2, 8, "two8", "ADDER_COMPARE", bias)
     ntwo8 = _const_int(b, (-2) & 0xFF, 8, "ntwo8", "ADDER_COMPARE", bias)
-    gt_x = add_gt(b, px, ex, "gtx", "ADDER_COMPARE", bias)
-    lt_x = add_gt(b, ex, px, "ltx", "ADDER_COMPARE", bias)
-    gt_y = add_gt(b, py, ey, "gty", "ADDER_COMPARE", bias)
-    lt_y = add_gt(b, ey, py, "lty", "ADDER_COMPARE", bias)
-    ne_x = or_n(b, [gt_x.t, lt_x.t], "nex", "ADDER_COMPARE")
-    eq_x = and2(b, gt_x.f, lt_x.f, "eqx", "ADDER_COMPARE")
-    ne_y = or_n(b, [gt_y.t, lt_y.t], "ney", "ADDER_COMPARE")
-    edx = mux_int(b, gt_x, two8, ntwo8, "edx", "ADDER_COMPARE")
-    edx = mux_int(b, Rail(ne_x, eq_x), edx, zero8, "edxz", "ADDER_COMPARE")
-    edy = mux_int(b, gt_y, two8, ntwo8, "edy", "ADDER_COMPARE")
-    eq_y = and2(b, gt_y.f, lt_y.f, "eqy", "ADDER_COMPARE")
-    edy = mux_int(b, Rail(ne_y, eq_y), edy, zero8, "edyz", "ADDER_COMPARE")
-    use_x = Rail(ne_x, eq_x)
-    e_dx = mux_int(b, use_x, edx, zero8, "en_dx", "ADDER_COMPARE")
-    e_dy = mux_int(b, use_x, zero8, edy, "en_dy", "ADDER_COMPARE")
-    cin3 = Rail(*b.alloc_pair("cin3", "ADDER_COMPARE"))
-    b.wire(bias, cin3.f, 1.2)
-    nex, _ = add_adder(b, ex, e_dx, cin3, "nexadd", "ADDER_COMPARE")
-    cin4 = Rail(*b.alloc_pair("cin4", "ADDER_COMPARE"))
-    b.wire(bias, cin4.f, 1.2)
-    ney, _ = add_adder(b, ey, e_dy, cin4, "neyadd", "ADDER_COMPARE")
-    addr_e = [nex[4], nex[5], nex[6], ney[4], ney[5], ney[6]]
-    dec_e = decoder_bits(b, addr_e, "dec_e", "RAM")
-    ram_e = or_n(b, [and2(b, dec_e[i], ram_cells[i].t, f"ert{i}", "RAM") for i in range(len(ram_cells))], "ram_e", "RAM")
-    ewall = or_n(b, [ram_e, nex[7].t, ney[7].t], "ewall", "RAM")
-    not_ewall = b.alloc("not_ewall", "RAM")
-    b.wire(bias, not_ewall, 1.2)
-    b.wire(ewall, not_ewall, W_INH)
-    ecommit_t = and2(b, enemy_alive.t, not_ewall, "ecommit_t", "ADDER_COMPARE")
-    ecommit_f = or_n(b, [enemy_alive.f, ewall], "ecommit_f", "ADDER_COMPARE")
-    ecommit = Rail(ecommit_t, ecommit_f)
-    ex_next = mux_int(b, ecommit, nex, ex, "exn", "REGISTER_FILE")
-    ey_next = mux_int(b, ecommit, ney, ey, "eyn", "REGISTER_FILE")
+    ex_next, ey_next = _chase_next(
+        b, px, py, ex, ey, enemy_alive, ram_cells, two8, ntwo8, zero8, bias, ""
+    )
+    ex2_next: list[Rail] | None = None
+    ey2_next: list[Rail] | None = None
+    if walk_e2:
+        ex2_next, ey2_next = _chase_next(
+            b, px, py, ex2, ey2, enemy2_alive, ram_cells, two8, ntwo8, zero8, bias, "2"
+        )
     same = and2(b, _cell_eq(b, px, ex, "cx"), _cell_eq(b, py, ey, "cy"), "same_cell", "ADDER_COMPARE")
     hit_set = and2(b, same, enemy_alive.t, "hit_set", "ADDER_COMPARE")
     same2 = and2(b, _cell_eq(b, px, ex2, "cx2"), _cell_eq(b, py, ey2, "cy2"), "same_cell2", "ADDER_COMPARE")
@@ -495,6 +528,14 @@ def build_doom_snn() -> DoomSNN:
     add_write(b, py, we_xy, py_next, "w_py", "REGISTER_FILE")
     add_write(b, ex, we_e, ex_next, "w_ex", "REGISTER_FILE")
     add_write(b, ey, we_e, ey_next, "w_ey", "REGISTER_FILE")
+    if walk_e2:
+        assert ex2_next is not None and ey2_next is not None
+        # e1 writes on we_e at pose_ring[2] exit. The second chase ALU is still
+        # glitching then; it is stable on pose_ring[3] before p_hit.
+        e2_late = and3(b, pose_ring[3], clk[20], player_hit.f, "e2_late", "SEQUENCER")
+        we_e2 = _we(b, e2_late, "we_e2", bias)
+        add_write(b, ex2, we_e2, ex2_next, "w_ex2", "REGISTER_FILE")
+        add_write(b, ey2, we_e2, ey2_next, "w_ey2", "REGISTER_FILE")
     hs1 = and2(b, p_hit, hit_set, "hs1", "SEQUENCER")
     hs2 = and2(b, p_hit, hit_set2, "hs2", "SEQUENCER")
     hs = or_n(b, [hs1, hs2], "hs", "SEQUENCER")
@@ -632,8 +673,10 @@ def build_doom_snn() -> DoomSNN:
     net = b.compile()
     # Merge SEQUENCER_POSE into SEQUENCER for ablation.
     net.module = ["SEQUENCER" if m == "SEQUENCER_POSE" else m for m in net.module]
-    if net.n > V1_NEURON_CAP:
-        raise RuntimeError(f"v1 net {net.n} exceeds cap {V1_NEURON_CAP}")
+    cap = V2_NEURON_CAP if walk_e2 else V1_NEURON_CAP
+    label = "v2" if walk_e2 else "v1"
+    if net.n > cap:
+        raise RuntimeError(f"{label} net {net.n} exceeds cap {cap}")
     return DoomSNN(
         net=net,
         clk=clk,

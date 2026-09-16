@@ -12,6 +12,7 @@ from snn_doom.const import (
     FLIES_BUDGET,
     STATE_FIELDS,
     V1_NEURON_CAP,
+    V2_NEURON_CAP,
 )
 from snn_doom.qol.yaml_lite import load as load_yaml
 
@@ -102,17 +103,17 @@ def load_proposal(path: Path) -> dict[str, Any]:
     return data
 
 
-def load_baseline(compare: Path | None = None) -> dict[str, Any]:
+def load_baseline(compare: Path | None = None, cap: int | None = None) -> dict[str, Any]:
     path = compare or CKPT
     data = _read_json(path)
     n = int(data.get("n_neurons") or 0)
     e = int(data.get("n_edges") or 0)
-    cap = int(data.get("cap") or V1_NEURON_CAP)
+    named = int(cap) if cap is not None else int(data.get("cap") or V1_NEURON_CAP)
     return {
         "path": str(path),
         "n_neurons": n,
         "n_edges": e,
-        "cap": cap,
+        "cap": named,
         "modules": list(data.get("modules") or EXISTING_MODULES),
         "counts": dict(data.get("counts") or {}),
         "steps_per_tick": int(data.get("steps_per_tick") or 0),
@@ -336,8 +337,10 @@ def _teacher_specifiable(p: dict[str, Any], tick_body: str) -> tuple[bool, str]:
     return False, "teacher_delta does not name a teacher field or apply_* function"
 
 
-def audit_proposal(p: dict[str, Any], *, compare: Path | None = None) -> dict[str, Any]:
-    baseline = load_baseline(compare)
+def audit_proposal(
+    p: dict[str, Any], *, compare: Path | None = None, cap: int | None = None
+) -> dict[str, Any]:
+    baseline = load_baseline(compare, cap=cap)
     logs = _live_logs()
     tick_body = _tick_body()
     pipe = _pipeline_text()
@@ -460,7 +463,8 @@ def audit_proposal(p: dict[str, Any], *, compare: Path | None = None) -> dict[st
         gates.append("doom.settle_floor")
         reasons.append("SETTLE 24 failed the 32-tick held-fwd tape; 29 is the floor.")
     if headroom < 0:
-        gates.append("doom.v1_cap")
+        cap_law = "doom.v2_cap" if int(baseline["cap"]) == V2_NEURON_CAP else "doom.v1_cap"
+        gates.append(cap_law)
         reasons.append(
             f"Estimated {est_n} neurons plus baseline {baseline['n_neurons']} exceeds cap {baseline['cap']} (headroom {headroom})."
         )
@@ -521,6 +525,8 @@ def audit_proposal(p: dict[str, Any], *, compare: Path | None = None) -> dict[st
         },
         "baseline_neurons": baseline["n_neurons"],
         "baseline_edges": baseline["n_edges"],
+        "cap": int(baseline["cap"]),
+        "cap_law": "doom.v2_cap" if int(baseline["cap"]) == V2_NEURON_CAP else "doom.v1_cap",
         "estimated_new_neurons": est_n,
         "estimated_new_edges": est_e,
         "headroom": headroom,
@@ -561,7 +567,7 @@ def render_md(report: dict[str, Any]) -> str:
         "",
         f"Verdict: {report['verdict']} (score {report['score']:.2f})",
         "",
-        f"Baseline: {report['baseline_neurons']:,} neurons, {report['baseline_edges']:,} edges, cap {V1_NEURON_CAP:,}.",
+        f"Baseline: {report['baseline_neurons']:,} neurons, {report['baseline_edges']:,} edges, cap {int(report.get('cap') or V1_NEURON_CAP):,}.",
         f"Ask: {report['estimated_new_neurons']:,} neurons, {report['estimated_new_edges']:,} edges. Headroom after spend: {report['headroom']:,}.",
         "",
         "## Score",
@@ -637,9 +643,11 @@ def write_report(report: dict[str, Any], dest_dir: Path | None = None) -> tuple[
     return js, md
 
 
-def scan_dir(folder: Path, *, compare: Path | None = None) -> list[dict[str, Any]]:
+def scan_dir(
+    folder: Path, *, compare: Path | None = None, cap: int | None = None
+) -> list[dict[str, Any]]:
     paths = sorted(list(folder.glob("*.yaml")) + list(folder.glob("*.yml")) + list(folder.glob("*.json")))
     reports = []
     for path in paths:
-        reports.append(audit_proposal(load_proposal(path), compare=compare))
+        reports.append(audit_proposal(load_proposal(path), compare=compare, cap=cap))
     return reports

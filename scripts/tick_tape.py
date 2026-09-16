@@ -9,13 +9,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from snn_doom.tick_tape import run_tick_tape
+from snn_doom.tick_tape import run_tick_tape, run_tick_tape_v2
 
 
 def main() -> None:
-    payload = run_tick_tape()
+    import argparse
+
+    p = argparse.ArgumentParser()
+    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    args = p.parse_args()
+    payload = run_tick_tape_v2() if args.machine == "v2" else run_tick_tape()
     summary = {
         "all_match": payload["all_match"],
+        "machine": payload.get("machine"),
         "extra_ticks": payload["extra_ticks"],
         "held_ticks": payload["held_ticks"],
         "tapes": {t["name"]: t["match"] for t in payload["tapes"]},
@@ -34,6 +40,8 @@ def main() -> None:
         "second": payload["second"]["match"],
         "ammo_dry": payload["ammo_dry"]["match"],
         "pickup": payload["pickup"]["match"],
+        "two_chaser": (payload.get("two_chaser") or {}).get("match"),
+        "two_chaser_e2_moved": (payload.get("two_chaser") or {}).get("e2_moved"),
     }
     print(json.dumps(summary, indent=2))
     if not payload["all_match"]:
