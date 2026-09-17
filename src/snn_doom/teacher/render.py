@@ -7,18 +7,17 @@ from dataclasses import dataclass
 import numpy as np
 
 from snn_doom.const import (
-    CENTER_COL,
     COLOR_ENEMY,
     COLOR_FLOOR,
     COLOR_SKY,
     COLOR_WALL,
     COS,
     FRAME_H,
-    FOV_HALF,
     MAX_DIST,
     N_ANG,
-    N_COLS,
     SIN,
+    VIEW_16,
+    ViewSpec,
     WORLD,
 )
 from snn_doom.teacher.state import GameState
@@ -38,8 +37,9 @@ def _clamp_ang(a: int) -> int:
     return a % N_ANG
 
 
-def column_angle(player_ang: int, col: int) -> int:
-    return _clamp_ang(player_ang - FOV_HALF + col)
+def column_angle(player_ang: int, col: int, view: ViewSpec | None = None) -> int:
+    v = view or VIEW_16
+    return _clamp_ang(player_ang - v.fov_half + col)
 
 
 def cast_ray(state: GameState, ang: int) -> Column:
@@ -68,13 +68,15 @@ def cast_ray(state: GameState, ang: int) -> Column:
     return Column(dist=0, side=0, sprite=sprite)
 
 
-def cast_frame(state: GameState) -> tuple[Column, ...]:
-    return tuple(cast_ray(state, column_angle(state.ang, c)) for c in range(N_COLS))
+def cast_frame(state: GameState, view: ViewSpec | None = None) -> tuple[Column, ...]:
+    v = view or VIEW_16
+    return tuple(cast_ray(state, column_angle(state.ang, c, view=v)) for c in range(v.n_cols))
 
 
-def hitscan(state: GameState) -> int:
+def hitscan(state: GameState, view: ViewSpec | None = None) -> int:
     """Center-column sprite: the heading ray visited the enemy cell before a wall."""
-    return cast_ray(state, column_angle(state.ang, CENTER_COL)).sprite
+    v = view or VIEW_16
+    return cast_ray(state, column_angle(state.ang, v.center_col, view=v)).sprite
 
 
 def column_height(dist: int) -> int:
@@ -110,10 +112,11 @@ def paint_column(col: Column) -> np.ndarray:
     return pix
 
 
-def paint_frame(columns: tuple[Column, ...] | list[Column]) -> np.ndarray:
-    if len(columns) != N_COLS:
-        raise ValueError(f"need {N_COLS} columns")
-    frame = np.zeros((FRAME_H, N_COLS), dtype=np.uint8)
+def paint_frame(columns: tuple[Column, ...] | list[Column], view: ViewSpec | None = None) -> np.ndarray:
+    v = view or VIEW_16
+    if len(columns) != v.n_cols:
+        raise ValueError(f"need {v.n_cols} columns")
+    frame = np.zeros((FRAME_H, v.n_cols), dtype=np.uint8)
     for c, col in enumerate(columns):
         frame[:, c] = paint_column(col)
     return frame

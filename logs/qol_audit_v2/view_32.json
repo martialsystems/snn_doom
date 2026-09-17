@@ -1,0 +1,95 @@
+{
+  "proposal": {
+    "name": "view_32",
+    "claimed_job": "VIEW goes from 16 columns to 32 columns, teacher-exact distances, WTA readout",
+    "claimed_qol": "twice the integer ray fan; walls and sprites occupy more columns at the same march",
+    "path": "proposals/view_32.yaml"
+  },
+  "baseline_neurons": 7973,
+  "baseline_edges": 41811,
+  "cap": 12000,
+  "cap_law": "doom.v2_cap",
+  "estimated_new_neurons": 3200,
+  "estimated_new_edges": 9000,
+  "headroom": 827,
+  "fly_scale_refused": false,
+  "named_job_ok": {
+    "ok": true,
+    "reason": "cluster VIEW32: VIEW goes from 16 columns to 32 columns, teacher-exact distances, WTA readout",
+    "ablation_target": "VIEW32"
+  },
+  "teacher_specifiable": {
+    "ok": true,
+    "reason": "delta names teacher state or apply_* "
+  },
+  "observable_deltas": [
+    {
+      "channel": "decoded_frame",
+      "before": "16 columns",
+      "after": "32 columns",
+      "player_actionable": true
+    }
+  ],
+  "parity_risk": [
+    {
+      "tape": "ray_parity",
+      "why": "RAY or column-count change can desync 16 distances",
+      "live_green": true,
+      "listed": true
+    },
+    {
+      "tape": "ammo_zero_cannot_kill",
+      "why": "ammo/fire datapath shares the heading sprite latch",
+      "live_green": true,
+      "listed": true
+    },
+    {
+      "tape": "tick_tape",
+      "why": "frame_ok is on every tape step",
+      "live_green": true,
+      "listed": true
+    }
+  ],
+  "ablation_contract": "zeroing VIEW32 must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape",
+  "cost_per_observable": 3200.0,
+  "cheaper_alternative": {
+    "text": "shared COS/SIN ROM plus column offset (est. 1800 neurons)",
+    "neurons": 1800,
+    "legal": true,
+    "reason": "1800 < 3200"
+  },
+  "bakeoff_need": false,
+  "score": 0.925,
+  "score_parts": {
+    "observable": 1.0,
+    "named_job_ablation": 1.0,
+    "parity": 1.0,
+    "cost": 0.5,
+    "cap_named": 1.0,
+    "spec_not_waste": 1.0
+  },
+  "score_weights": {
+    "observable": 0.3,
+    "named_job_ablation": 0.2,
+    "parity": 0.15,
+    "cost": 0.15,
+    "cap_named": 0.1,
+    "spec_not_waste": 0.1
+  },
+  "verdict": "ACCEPT",
+  "reasons": [
+    "Named job, teacher-specifiable, under cap, cheaper legal alt does not dominate.",
+    "Cheaper legal alternative: shared COS/SIN ROM plus column offset (est. 1800 neurons) (1800 neurons).",
+    "cluster VIEW32: VIEW goes from 16 columns to 32 columns, teacher-exact distances, WTA readout",
+    "delta names teacher state or apply_* ",
+    "zeroing VIEW32 must kill only the new job; CLOCK/LATCH/REG/ALU/RAM/RAY/READOUT/DOOR rows in logs/ablation.json must keep their isolation shape"
+  ],
+  "gates_failed": [],
+  "live_logs": {
+    "ray_parity": true,
+    "tick_tape": true,
+    "latch_held_key_dies": true,
+    "settle_24": false
+  },
+  "pipeline_mentions_enemy2_alu": true
+}

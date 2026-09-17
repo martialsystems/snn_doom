@@ -16,6 +16,7 @@ def test_readme_and_docs_prose() -> None:
         REPO / "docs" / "phase_log.md",
         REPO / "docs" / "v1.md",
         REPO / "docs" / "v2.md",
+        REPO / "docs" / "v2_32.md",
         REPO / "AGENTS.md",
     ]
     for path in files:
@@ -30,6 +31,7 @@ def test_readme_and_docs_prose() -> None:
     assert "## What it is not" in readme
     assert "docs/v1.md" in readme
     assert "docs/v2.md" in readme
+    assert "docs/v2_32.md" in readme
     assert "martialgames.net/snn-doom/" in readme
     assert readme.index("docs/v1.md") < readme.index("## Play")
     assert "inject" in readme.lower()

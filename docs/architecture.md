@@ -81,7 +81,7 @@ Fly cell-type names are not features. MaleCNS is a Phase 4 sparse init, not v1 t
 
 ## Neuron budget
 
-v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,973 neurons, 41,811 edges, SETTLE 29, 7,598 LIF steps per tick. v2 cap: 12,000 (`doom.v2_cap`). Measured stitch (`checkpoints/snn_doom_v2.json`): 9,077 neurons, 44,420 edges, same SETTLE 29 and 7,598 LIF steps per tick. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
+v1 cap: 8,000. Measured stitch (`checkpoints/snn_doom_v1.json`): 7,973 neurons, 41,811 edges, SETTLE 29, 7,598 LIF steps per tick. v2 cap: 12,000 (`doom.v2_cap`). Measured stitch (`checkpoints/snn_doom_v2.json`): 9,077 neurons, 44,420 edges, same SETTLE 29 and 7,598 LIF steps per tick. 32-col VIEW is `VIEW_32` (rays `ang-16` to `ang+15`, heading column 16, paint 32×18). That stitch is not exported until 32 distances match. Fly-scale 166,700 stays refused until leftover units have a named job and column distances stay teacher-exact under ablation.
 
 ## Curriculum (stitch)
 

@@ -29,6 +29,22 @@ def _v2_ready() -> tuple[bool, str]:
     return True, "ok"
 
 
+def _v2_32_ready() -> tuple[bool, str]:
+    ckpt = ROOT / "checkpoints" / "snn_doom_v2_32.json"
+    tape = ROOT / "logs" / "tick_tape_v2_32.json"
+    if not ckpt.is_file():
+        return False, "v2_32 stitch missing (checkpoints/snn_doom_v2_32.json); --play stays v1. See docs/v2_32.md"
+    if not tape.is_file():
+        return False, "v2_32 tape missing (logs/tick_tape_v2_32.json)"
+    try:
+        data = json.loads(tape.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False, "v2_32 tape unreadable"
+    if not data.get("all_match"):
+        return False, "v2_32 tape not all_match"
+    return True, "ok"
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="snn-doom-play")
     p.add_argument("--tty", action="store_true")
@@ -45,7 +61,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-waves", action="store_true", help="do not host-respawn e1")
     p.add_argument("--wave-e2", action="store_true", help="host-respawn the statue too")
     p.add_argument("--out", type=Path, default=None)
-    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    p.add_argument("--machine", choices=("v1", "v2", "v2_32"), default="v1")
     args = p.parse_args(argv)
     machine = None
     if args.machine == "v2":
@@ -56,6 +72,13 @@ def main(argv: list[str] | None = None) -> int:
         from snn_doom.modules.pipeline import build_doom_snn
 
         machine = build_doom_snn(walk_e2=True)
+    elif args.machine == "v2_32":
+        ok, why = _v2_32_ready()
+        if not ok:
+            print(why, file=sys.stderr)
+            return 2
+        print("v2_32 play loader waits on a 32-col stitch; refusing 16-col fallback", file=sys.stderr)
+        return 2
     stats = run_console(
         machine=machine,
         ticks=args.ticks,

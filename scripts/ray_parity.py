@@ -9,10 +9,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from snn_doom.ray_parity import run_parity
+from snn_doom.ray_parity import run_parity, write_teacher_ray_32
 
 
 def main() -> None:
+    import argparse
+
+    p = argparse.ArgumentParser()
+    p.add_argument("--cols", type=int, choices=(16, 32), default=16)
+    args = p.parse_args()
+    if args.cols == 32:
+        payload = write_teacher_ray_32()
+        print(json.dumps({c["name"]: c["teacher"] for c in payload["cases"]}, indent=2))
+        print("n_cols", payload["n_cols"], "missing_snn", payload["missing_snn"])
+        return
     payload = run_parity()
     print(json.dumps({c["name"]: {"match": c["match"], "teacher": c["teacher"], "snn": c["snn"]} for c in payload["cases"]}, indent=2))
     print("all_match", payload["all_match"])

@@ -1,5 +1,9 @@
 # Phase log
 
+## 32-col VIEW teacher (2026-09-16)
+
+`VIEW_32` is 32 integer rays, heading column 16, paint 32×18. `tick_v2_32` is the walker on that fan. `tick()` and `tick_v2` stay 16-col. Teacher distances: `logs/teacher_ray_32.json`. No `snn_doom_v2_32.json` until SNN distances match. `--machine v2_32` fail-closes if the stitch is missing.
+
 ## v2 teacher and stitch (2026-09-16)
 
 `tick_v2` calls `apply_enemy2` after `apply_enemy`. v1 `tick()` still does not. Duplicate X-then-Y chase ALU; e2 register write is `pose_ring[3]` AND `clk[20]`, after e1 `we_e` and before `p_hit`. Not a muxed extra beat and not a SETTLE bump. Stitch 9,077 LIF, 44,420 edges, cap 12,000, SETTLE 29 unchanged. Export through `doomforge.gate.require_v2_cap`. Tape: `logs/tick_tape_v2.json` `all_match`. `--play` default remains v1.

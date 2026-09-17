@@ -37,7 +37,7 @@ def main() -> None:
     p.add_argument("--no-dead", action="store_true")
     p.add_argument("--no-waves", action="store_true")
     p.add_argument("--wave-e2", action="store_true")
-    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    p.add_argument("--machine", choices=("v1", "v2", "v2_32"), default="v1")
     args = p.parse_args()
     require_demo_path()
     machine = None
@@ -50,6 +50,15 @@ def main() -> None:
             print(why, file=sys.stderr)
             raise SystemExit(2)
         machine = build_doom_snn(walk_e2=True)
+    elif args.machine == "v2_32":
+        from snn_doom.play import _v2_32_ready
+
+        ok, why = _v2_32_ready()
+        if not ok:
+            print(why, file=sys.stderr)
+            raise SystemExit(2)
+        print("v2_32 play loader waits on a 32-col stitch; refusing 16-col fallback", file=sys.stderr)
+        raise SystemExit(2)
     headless = args.frames is not None and args.frames > 0 and not args.play and not args.tty
     if headless:
         n = args.frames

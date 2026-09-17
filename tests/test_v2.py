@@ -85,6 +85,6 @@ def test_v2_stitch_and_tape_when_exported() -> None:
 
 def test_play_default_stays_v1() -> None:
     play = (REPO / "src" / "snn_doom" / "play.py").read_text(encoding="utf-8")
-    assert 'choices=("v1", "v2"), default="v1"' in play
+    assert 'choices=("v1", "v2", "v2_32"), default="v1"' in play
     demo = (REPO / "scripts" / "run_demo.py").read_text(encoding="utf-8")
-    assert 'choices=("v1", "v2"), default="v1"' in demo
+    assert 'choices=("v1", "v2", "v2_32"), default="v1"' in demo

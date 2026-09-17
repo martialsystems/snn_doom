@@ -45,6 +45,22 @@ def test_mux_still_over_headroom() -> None:
     assert "doom.v1_cap" in report["gates_failed"]
 
 
+def test_view_32_proposal_under_v2_cap() -> None:
+    from snn_doom.const import V2_NEURON_CAP
+
+    p = load_proposal(PROPOSALS / "view_32.yaml")
+    assert p["name"] == "view_32"
+    assert p["estimated_new_neurons"] == 3200
+    assert p["ablation_target"]
+    report = audit_proposal(p, cap=V2_NEURON_CAP)
+    assert report["verdict"] in {"ACCEPT", "ACCEPT_WITH_CAP"}
+    assert report["cap"] == V2_NEURON_CAP
+    assert "doom.v1_cap" not in report["gates_failed"]
+    assert any(o["player_actionable"] for o in report["observable_deltas"])
+    assert report["teacher_specifiable"]["ok"] is True
+    assert "—" not in str(report)
+
+
 def test_mux_accepts_under_v2_cap() -> None:
     from snn_doom.const import V2_NEURON_CAP
 

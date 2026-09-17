@@ -6,9 +6,9 @@ import json
 from pathlib import Path
 from typing import Any
 
-from snn_doom.const import N_COLS
+from snn_doom.const import N_COLS, N_COLS_32, VIEW_32
 from snn_doom.snn.io import read_int
-from snn_doom.teacher.engine import tick
+from snn_doom.teacher.engine import tick, tick_v2_32
 from snn_doom.teacher.maps import spawn
 from snn_doom.teacher.render import Column, cast_frame
 from snn_doom.teacher.state import GameState, pack_input
@@ -57,4 +57,32 @@ def run_parity(machine=None) -> dict[str, Any]:
     payload = {"all_match": all_match, "cases": cases}
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "ray_parity.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
+def teacher_dists_32(state: GameState, bits: int) -> list[int]:
+    nxt = tick_v2_32(state, bits).state
+    cols: tuple[Column, ...] = cast_frame(nxt, view=VIEW_32)
+    return [c.dist for c in cols]
+
+
+def write_teacher_ray_32() -> dict[str, Any]:
+    """Teacher-only 32-col distances. SNN compare waits on the v2_32 stitch."""
+    cases = []
+    for name, state, bits in CASES:
+        want = teacher_dists_32(state, bits)
+        if len(want) != N_COLS_32:
+            raise ValueError(f"{name} teacher dists {len(want)} != {N_COLS_32}")
+        cases.append({"name": name, "teacher": want})
+    payload = {
+        "n_cols": N_COLS_32,
+        "view": "VIEW_32",
+        "heading_col": VIEW_32.center_col,
+        "cases": cases,
+        "snn": None,
+        "all_match": False,
+        "missing_snn": True,
+    }
+    LOGS.mkdir(parents=True, exist_ok=True)
+    (LOGS / "teacher_ray_32.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return payload

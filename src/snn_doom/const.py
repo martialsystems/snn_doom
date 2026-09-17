@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass
 from typing import Final
 
 MAP_W: Final[int] = 8
@@ -12,6 +13,7 @@ CELL: Final[int] = 16
 WORLD: Final[int] = MAP_W * CELL
 N_ANG: Final[int] = 64
 N_COLS: Final[int] = 16
+N_COLS_32: Final[int] = 32
 FRAME_H: Final[int] = 18
 MAX_DIST: Final[int] = 15
 RAY_SCALE: Final[int] = 8
@@ -19,7 +21,25 @@ MOVE_DIV: Final[int] = 2
 TURN_STEP: Final[int] = 2
 ENEMY_STEP: Final[int] = 2
 FOV_HALF: Final[int] = 8
+FOV_HALF_32: Final[int] = 16
 CENTER_COL: Final[int] = FOV_HALF  # column_angle(ang, CENTER_COL) == ang; hitscan uses this ray
+CENTER_COL_32: Final[int] = FOV_HALF_32
+
+
+@dataclass(frozen=True, slots=True)
+class ViewSpec:
+    """Integer ray fan. center_col is the heading gun."""
+
+    n_cols: int
+    fov_half: int
+
+    @property
+    def center_col(self) -> int:
+        return self.fov_half
+
+
+VIEW_16: Final[ViewSpec] = ViewSpec(N_COLS, FOV_HALF)
+VIEW_32: Final[ViewSpec] = ViewSpec(N_COLS_32, FOV_HALF_32)
 
 COLOR_SKY: Final[int] = 0
 COLOR_FLOOR: Final[int] = 1
@@ -115,6 +135,7 @@ POSE_WINDOWS: Final[int] = 5
 MARCH_LEN: Final[int] = MAX_DIST + 1  # beat 0 loads; beats 1..15 add like the teacher
 DOOR_WINDOWS: Final[int] = 1  # after last march, before the next pose re-arm
 STEPS_PER_TICK: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS * MARCH_LEN + DOOR_WINDOWS)
+STEPS_PER_TICK_32: Final[int] = SETTLE_STEPS * (POSE_WINDOWS + N_COLS_32 * MARCH_LEN + DOOR_WINDOWS)
 # Freeze ticks after the contact tick. Contact also paints dead (alive already 0).
 DEATH_TICKS: Final[int] = 4
 

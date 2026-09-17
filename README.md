@@ -17,12 +17,13 @@ The page steps the exported v1 LIF. `python -m snn_doom.play` is the same stitch
 - [Full Methodology](docs/methodology.md)
 - [V1 - closed machine, 8,000 neurons](docs/v1.md)
 - [v2 - walking e2, 12,000 neuron cap](docs/v2.md)
+- [v2.32 - 32-column VIEW](docs/v2_32.md)
 
 or you can download this git and test yourself.
 
 ## Play
 
-*Note: Current playtest is v1 only. v2 is the walking-e2 12k machine (`--machine v2`).*
+*Note: Current playtest is v1 only. v2 is the walking-e2 16×18 machine (`--machine v2`). 32-col VIEW is `--machine v2_32` and fail-closes until that stitch exists.*
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -e ".[play]"
@@ -65,6 +66,7 @@ Useful flags:
 --no-waves         red stays dead; still does not quit
 --wave-e2          also loop the orange body (v1: statue; v2: walker)
 --machine v2       walking e2 stitch; fail-closes if the v2 tape or checkpoint is missing
+--machine v2_32    32-col VIEW; fail-closes if that stitch or tape is missing
 ```
 
 Hold-turn is 11.25° per tick (`TURN_STEP=2` on a 64-step circle). The host cannot spin you faster than that. Speeding it up is an ALU change, not a key repeat.

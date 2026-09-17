@@ -68,5 +68,12 @@
     "score": 0.6,
     "headroom": 7,
     "json": "/Users/samw/snn_doom/logs/qol_audit/spare_latches.json"
+  },
+  {
+    "name": "view_32",
+    "verdict": "ACCEPT_WITH_CAP",
+    "score": 0.875,
+    "headroom": -3173,
+    "json": "/Users/samw/snn_doom/logs/qol_audit/view_32.json"
   }
 ]

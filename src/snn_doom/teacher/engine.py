@@ -11,7 +11,6 @@ from dataclasses import dataclass, replace
 import numpy as np
 
 from snn_doom.const import (
-    CENTER_COL,
     COS,
     DOOR_IDX,
     ENEMY_STEP,
@@ -21,9 +20,12 @@ from snn_doom.const import (
     PICKUP_X,
     PICKUP_Y,
     SIN,
+    VIEW_16,
+    VIEW_32,
+    ViewSpec,
     WORLD,
 )
-from snn_doom.teacher.render import Column, cast_frame, paint_frame
+from snn_doom.teacher.render import Column, cast_frame, column_angle, paint_frame
 from snn_doom.teacher.state import GameState, unpack_input
 
 
@@ -126,14 +128,13 @@ def apply_pickup(state: GameState) -> GameState:
     )
 
 
-def _heading_enemy_hits(state: GameState) -> tuple[int, int]:
+def _heading_enemy_hits(state: GameState, view: ViewSpec = VIEW_16) -> tuple[int, int]:
     """Which living enemies the heading ray visits before a wall."""
     from snn_doom.const import COS, MAX_DIST, SIN, WORLD
-    from snn_doom.teacher.render import column_angle
 
     x = state.px
     y = state.py
-    ang = column_angle(state.ang, CENTER_COL)
+    ang = column_angle(state.ang, view.center_col, view=view)
     dx = COS[ang]
     dy = SIN[ang]
     hit1 = 0
@@ -153,11 +154,13 @@ def _heading_enemy_hits(state: GameState) -> tuple[int, int]:
     return hit1, hit2
 
 
-def apply_fire(state: GameState, fire: int, heading_sprite: int) -> tuple[GameState, int]:
+def apply_fire(
+    state: GameState, fire: int, heading_sprite: int, view: ViewSpec = VIEW_16
+) -> tuple[GameState, int]:
     """Consume one ammo if present. Kill heading-ray enemies only when ammo was > 0."""
     if not fire or state.ammo <= 0:
         return state, 0
-    hit1, hit2 = _heading_enemy_hits(state)
+    hit1, hit2 = _heading_enemy_hits(state, view)
     shot = int(bool(heading_sprite and (hit1 or hit2)))
     s = replace(
         state,
@@ -221,11 +224,13 @@ def run(state: GameState, inputs: list[int] | tuple[int, ...]) -> list[TickResul
     return out
 
 
-def _engine_tick(state: GameState, input_bits: int, *, walk_e2: bool) -> TickResult:
+def _engine_tick(
+    state: GameState, input_bits: int, *, walk_e2: bool, view: ViewSpec = VIEW_16
+) -> TickResult:
     turn_l, turn_r, fwd, back, fire, door = unpack_input(input_bits)
     if state.player_hit:
-        columns = cast_frame(state)
-        pixels = paint_frame(columns)
+        columns = cast_frame(state, view=view)
+        pixels = paint_frame(columns, view=view)
         s = apply_door(state, door)
         return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
     s = apply_turn(state, turn_l, turn_r)
@@ -235,16 +240,21 @@ def _engine_tick(state: GameState, input_bits: int, *, walk_e2: bool) -> TickRes
     if walk_e2:
         s = apply_enemy2(s)
     s = apply_collide(s)
-    columns = cast_frame(s)
-    pixels = paint_frame(columns)
+    columns = cast_frame(s, view=view)
+    pixels = paint_frame(columns, view=view)
     if s.player_hit:
         s = apply_door(s, door)
         return TickResult(state=s, columns=columns, pixels=pixels, shot=0)
-    s, shot = apply_fire(s, fire, columns[CENTER_COL].sprite)
+    s, shot = apply_fire(s, fire, columns[view.center_col].sprite, view=view)
     s = apply_door(s, door)
     return TickResult(state=s, columns=columns, pixels=pixels, shot=shot)
 
 
 def tick_v2(state: GameState, input_bits: int) -> TickResult:
-    """v2 teacher. Second chaser enters after apply_enemy. Same ENEMY_STEP."""
-    return _engine_tick(state, input_bits, walk_e2=True)
+    """v2 teacher. Second chaser enters after apply_enemy. Same ENEMY_STEP. 16 columns."""
+    return _engine_tick(state, input_bits, walk_e2=True, view=VIEW_16)
+
+
+def tick_v2_32(state: GameState, input_bits: int) -> TickResult:
+    """32-col VIEW teacher. Walking e2. Heading gun is CENTER_COL_32."""
+    return _engine_tick(state, input_bits, walk_e2=True, view=VIEW_32)
