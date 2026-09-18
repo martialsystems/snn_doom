@@ -47,6 +47,22 @@ def test_pipeline_v2_e2_walks_under_cap() -> None:
     np.testing.assert_array_equal(pix, tr.pixels)
 
 
+def test_pipeline_v2_32_under_cap_and_dists() -> None:
+    from snn_doom.const import VIEW_32, FRAME_H, N_COLS_32, V2_NEURON_CAP
+    from snn_doom.teacher.engine import tick_v2_32
+
+    m = build_doom_snn(walk_e2=True, view=VIEW_32)
+    assert m.net.n <= V2_NEURON_CAP
+    assert m.n_cols == N_COLS_32
+    s0 = spawn()
+    m.reset(s0)
+    pix = m.tick(0)
+    tr = tick_v2_32(s0, 0)
+    assert pix.shape == (FRAME_H, N_COLS_32)
+    assert m.read_dists() == [c.dist for c in tr.columns]
+    np.testing.assert_array_equal(pix, tr.pixels)
+
+
 def test_pipeline_reset_and_frame_shape() -> None:
     m = build_doom_snn()
     m.reset(spawn())

@@ -144,6 +144,40 @@ def test_v1_v2_checkpoints_unmoved() -> None:
     assert "v2_32" in play
 
 
+def test_v2_32_stitch_when_exported() -> None:
+    from snn_doom.play import _v2_32_ready, main as play_main
+
+    ckpt = REPO / "checkpoints" / "snn_doom_v2_32.json"
+    tape = REPO / "logs" / "tick_tape_v2_32.json"
+    ray = REPO / "logs" / "ray_parity_32.json"
+    if not ckpt.is_file() or not tape.is_file():
+        return
+    data = json.loads(ckpt.read_text(encoding="utf-8"))
+    assert data["n_neurons"] <= V2_NEURON_CAP
+    assert data["n_neurons"] == 9957
+    assert data["cap"] == V2_NEURON_CAP
+    assert data["machine"] == "v2_32"
+    assert data["steps_per_tick"] == STEPS_PER_TICK_32
+    t = json.loads(tape.read_text(encoding="utf-8"))
+    assert t.get("all_match") is True
+    assert t.get("machine") == "v2_32"
+    assert t.get("n_cols") == 32
+    assert t["held"]["match"] is True
+    assert t["two_chaser"]["e2_moved"] is True
+    if ray.is_file():
+        r = json.loads(ray.read_text(encoding="utf-8"))
+        assert r.get("all_match") is True
+        assert r.get("n_cols") == 32
+        for case in r["cases"]:
+            assert len(case["teacher"]) == 32
+            assert case["match"] is True
+    ok, why = _v2_32_ready()
+    assert ok is True, why
+    assert play_main(["--machine", "v2_32", "--ticks", "1"]) == 0
+    assert play_main(["--ticks", "1"]) == 0
+    assert play_main(["--machine", "v2", "--ticks", "1"]) == 0
+
+
 def test_docs_v2_32_prose() -> None:
     path = REPO / "docs" / "v2_32.md"
     text = path.read_text(encoding="utf-8")

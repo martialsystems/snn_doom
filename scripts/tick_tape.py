@@ -9,16 +9,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from snn_doom.tick_tape import run_tick_tape, run_tick_tape_v2
+from snn_doom.tick_tape import run_tick_tape, run_tick_tape_v2, run_tick_tape_v2_32
 
 
 def main() -> None:
     import argparse
 
     p = argparse.ArgumentParser()
-    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    p.add_argument("--machine", choices=("v1", "v2", "v2_32"), default="v1")
     args = p.parse_args()
-    payload = run_tick_tape_v2() if args.machine == "v2" else run_tick_tape()
+    if args.machine == "v2_32":
+        payload = run_tick_tape_v2_32()
+    elif args.machine == "v2":
+        payload = run_tick_tape_v2()
+    else:
+        payload = run_tick_tape()
     summary = {
         "all_match": payload["all_match"],
         "machine": payload.get("machine"),

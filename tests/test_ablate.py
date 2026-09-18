@@ -42,6 +42,18 @@ def test_ablation_json_held_key_visible() -> None:
         for name in ("RAY_COLUMN", "FRAME_READOUT"):
             assert int(rows[name]["pixel_l1"]) > 0
         assert int(rows["RAM"]["pixel_l1"]) > 0
+    v32p = Path(__file__).resolve().parents[1] / "logs" / "ablation_v2_32.json"
+    if v32p.is_file():
+        v32 = json.loads(v32p.read_text(encoding="utf-8"))
+        assert v32.get("machine") == "v2_32"
+        assert v32.get("latch_held_key_dies") is True
+        assert v32.get("door_write_dies") is True
+        rows32 = {r["module"]: r for r in v32.get("rows") or []}
+        for name in ("CLOCK", "BIT_LATCH", "REGISTER_FILE", "ADDER_COMPARE", "SEQUENCER"):
+            assert rows32[name]["state_delta"]["px"]
+        for name in ("RAY_COLUMN", "FRAME_READOUT"):
+            assert int(rows32[name]["pixel_l1"]) > 0
+        assert int(rows32["RAM"]["pixel_l1"]) > 0
 
 
 def test_zero_clock_freezes_sequencer() -> None:

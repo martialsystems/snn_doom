@@ -77,8 +77,10 @@ def main(argv: list[str] | None = None) -> int:
         if not ok:
             print(why, file=sys.stderr)
             return 2
-        print("v2_32 play loader waits on a 32-col stitch; refusing 16-col fallback", file=sys.stderr)
-        return 2
+        from snn_doom.const import VIEW_32
+        from snn_doom.modules.pipeline import build_doom_snn
+
+        machine = build_doom_snn(walk_e2=True, view=VIEW_32)
     stats = run_console(
         machine=machine,
         ticks=args.ticks,

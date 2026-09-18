@@ -50,7 +50,7 @@ Host vs neuron split: [how_this_runs_doom.md](how_this_runs_doom.md). Bit layout
 | 166k scale-up | refused until extra units have a named job |
 | v1 | closed museum machine; leftover 27 cannot buy walking e2 |
 | v2 | walking e2; cap 12,000; stitch 9,077 LIF (`checkpoints/snn_doom_v2.json`); tape `tick_tape_v2.json`; `--play` stays v1; `--machine v2` loads the walker |
-| v2.32 | 32-col VIEW teacher `tick_v2_32`; stitch not exported until 32 distances match; `--machine v2_32` fail-closes if missing |
+| v2.32 | 32-col VIEW; stitch 9,957 LIF (`checkpoints/snn_doom_v2_32.json`); tape `tick_tape_v2_32.json`; `--machine v2_32`; `--play` stays v1 |
 
 Ablations (`logs/ablation.json`): zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. LATCH ablation is silent if no key is held.
 

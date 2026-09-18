@@ -23,7 +23,7 @@ or you can download this git and test yourself.
 
 ## Play
 
-*Note: Current playtest is v1 only. v2 is the walking-e2 16×18 machine (`--machine v2`). 32-col VIEW is `--machine v2_32` and fail-closes until that stitch exists.*
+*Note: Current playtest is v1 only. v2 is the walking-e2 16×18 machine (`--machine v2`). 32-col VIEW is `--machine v2_32`.*
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -e ".[play]"

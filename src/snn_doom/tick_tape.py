@@ -8,10 +8,10 @@ from typing import Any
 
 import numpy as np
 
-from snn_doom.const import CENTER_COL, DOOR_X, N_COLS
+from snn_doom.const import CENTER_COL, DOOR_X, N_COLS, VIEW_32
 from snn_doom.ray_parity import CASES, LOGS
 from snn_doom.snn.io import read_bit, read_int
-from snn_doom.teacher.engine import tick, tick_v2
+from snn_doom.teacher.engine import tick, tick_v2, tick_v2_32
 from snn_doom.teacher.maps import door_closed, spawn, with_door
 from snn_doom.teacher.state import GameState, pack_input
 
@@ -54,11 +54,11 @@ def _pose_dict(state: GameState) -> dict[str, int]:
 
 def _snn_dists(machine) -> list[int]:
     s = machine.net.spikes
-    return [read_int(s, machine.dist_cols[c]) for c in range(N_COLS)]
+    return [read_int(s, machine.dist_cols[c]) for c in range(machine.n_cols)]
 
 
 def _snn_hitscan(machine) -> int:
-    return read_bit(machine.net.spikes, machine.sprite_cols[CENTER_COL])
+    return read_bit(machine.net.spikes, machine.sprite_cols[machine.center_col])
 
 
 def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, Any]:
@@ -66,7 +66,7 @@ def _step(i: int, bits: int, teacher: GameState, machine, pix, tr) -> dict[str, 
     dists = _snn_dists(machine)
     want_pose = _pose_dict(teacher)
     want_d = [c.dist for c in tr.columns]
-    want_hs = tr.columns[CENTER_COL].sprite
+    want_hs = tr.columns[machine.center_col].sprite
     got_hs = _snn_hitscan(machine)
     want_shot = tr.shot
     got_shot = machine.read_shot()
@@ -127,13 +127,14 @@ def run_tick_tape(
     *,
     tick_fn=None,
     walk_e2: bool = False,
+    view=None,
     out_name: str = "tick_tape.json",
     require_held_clear_heading: bool = True,
 ) -> dict[str, Any]:
     from snn_doom.modules.pipeline import build_doom_snn
 
     teacher_tick = tick_fn or tick
-    m = machine or build_doom_snn(walk_e2=walk_e2)
+    m = machine or build_doom_snn(walk_e2=walk_e2, view=view)
     tapes = []
     all_match = True
     cycle = list(TAPE_BITS)
@@ -261,7 +262,8 @@ def run_tick_tape(
         all_match = all_match and two_ok
     payload = {
         "all_match": all_match,
-        "machine": "v2" if walk_e2 else "v1",
+        "machine": "v2_32" if view is not None and getattr(view, "n_cols", 16) == 32 else ("v2" if walk_e2 else "v1"),
+        "n_cols": m.n_cols,
         "extra_ticks": extra_ticks,
         "held_ticks": held_ticks,
         "held_key": "fwd",
@@ -309,6 +311,20 @@ def run_tick_tape_v2(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = 
         tick_fn=tick_v2,
         walk_e2=True,
         out_name="tick_tape_v2.json",
+        require_held_clear_heading=False,
+    )
+
+
+def run_tick_tape_v2_32(machine=None, extra_ticks: int = TAPE_N, held_ticks: int = HELD_N) -> dict[str, Any]:
+    """32-col walker tape. Heading may see walking e2."""
+    return run_tick_tape(
+        machine,
+        extra_ticks=extra_ticks,
+        held_ticks=held_ticks,
+        tick_fn=tick_v2_32,
+        walk_e2=True,
+        view=VIEW_32,
+        out_name="tick_tape_v2_32.json",
         require_held_clear_heading=False,
     )
 

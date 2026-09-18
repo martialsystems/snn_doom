@@ -50,7 +50,7 @@ def test_view_32_proposal_under_v2_cap() -> None:
 
     p = load_proposal(PROPOSALS / "view_32.yaml")
     assert p["name"] == "view_32"
-    assert p["estimated_new_neurons"] == 3200
+    assert p["estimated_new_neurons"] == 880
     assert p["ablation_target"]
     report = audit_proposal(p, cap=V2_NEURON_CAP)
     assert report["verdict"] in {"ACCEPT", "ACCEPT_WITH_CAP"}

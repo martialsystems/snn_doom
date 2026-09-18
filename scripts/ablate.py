@@ -26,10 +26,11 @@ MODULES = (
 )
 
 WALK_E2 = False
+VIEW = None
 
 
 def _build():
-    return build_doom_snn(walk_e2=WALK_E2)
+    return build_doom_snn(walk_e2=WALK_E2, view=VIEW)
 
 
 def _pass(bits: int, label: str) -> dict:
@@ -59,12 +60,18 @@ def _pass(bits: int, label: str) -> dict:
 def main() -> None:
     import argparse
 
-    global WALK_E2
+    global WALK_E2, VIEW
 
     p = argparse.ArgumentParser()
-    p.add_argument("--machine", choices=("v1", "v2"), default="v1")
+    p.add_argument("--machine", choices=("v1", "v2", "v2_32"), default="v1")
     args = p.parse_args()
-    WALK_E2 = args.machine == "v2"
+    WALK_E2 = args.machine in {"v2", "v2_32"}
+    if args.machine == "v2_32":
+        from snn_doom.const import VIEW_32
+
+        VIEW = VIEW_32
+    else:
+        VIEW = None
     idle = _pass(0, "idle")
     fwd = _pass(pack_input(0, 0, 1, 0), "fwd")
     by = {r["module"]: r for r in fwd["rows"]}
@@ -109,8 +116,14 @@ def main() -> None:
             "passed_cell": int(px_ok >> 4 >= DOOR_X),
         },
     }
-    payload["machine"] = "v2" if WALK_E2 else "v1"
-    out = ROOT / "logs" / ("ablation_v2.json" if WALK_E2 else "ablation.json")
+    payload["machine"] = "v2_32" if VIEW is not None else ("v2" if WALK_E2 else "v1")
+    if VIEW is not None:
+        out_name = "ablation_v2_32.json"
+    elif WALK_E2:
+        out_name = "ablation_v2.json"
+    else:
+        out_name = "ablation.json"
+    out = ROOT / "logs" / out_name
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print("wrote", out)
 

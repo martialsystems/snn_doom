@@ -1,0 +1,608 @@
+{
+  "idle": {
+    "baseline_state": {
+      "px": 24,
+      "py": 88,
+      "ang": 0,
+      "ex": 102,
+      "ey": 40,
+      "enemy_alive": 1,
+      "player_hit": 0,
+      "ex2": 38,
+      "ey2": 40,
+      "enemy2_alive": 1,
+      "ammo": 7,
+      "hp": 3,
+      "pickup_alive": 1
+    },
+    "rows": [
+      {
+        "module": "CLOCK",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "BIT_LATCH",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 411
+      },
+      {
+        "module": "REGISTER_FILE",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 1,
+          "py": 1,
+          "ang": 0,
+          "ex": 1,
+          "ey": 1,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 1,
+          "enemy2_alive": 1,
+          "ammo": 1,
+          "hp": 1,
+          "pickup_alive": 1
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "ADDER_COMPARE",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAM",
+        "pixel_l1": 232,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 301
+      },
+      {
+        "module": "SEQUENCER",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAY_COLUMN",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "FRAME_READOUT",
+        "pixel_l1": 702,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "DOOR",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 411
+      }
+    ]
+  },
+  "fwd": {
+    "baseline_state": {
+      "px": 28,
+      "py": 88,
+      "ang": 0,
+      "ex": 102,
+      "ey": 40,
+      "enemy_alive": 1,
+      "player_hit": 0,
+      "ex2": 38,
+      "ey2": 40,
+      "enemy2_alive": 1,
+      "ammo": 7,
+      "hp": 3,
+      "pickup_alive": 1
+    },
+    "rows": [
+      {
+        "module": "CLOCK",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "BIT_LATCH",
+        "pixel_l1": 26,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 411
+      },
+      {
+        "module": "REGISTER_FILE",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 1,
+          "py": 1,
+          "ang": 0,
+          "ex": 1,
+          "ey": 1,
+          "enemy_alive": 1,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 1,
+          "enemy2_alive": 1,
+          "ammo": 1,
+          "hp": 1,
+          "pickup_alive": 1
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "ADDER_COMPARE",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAM",
+        "pixel_l1": 258,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 301
+      },
+      {
+        "module": "SEQUENCER",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 1,
+          "py": 0,
+          "ang": 0,
+          "ex": 1,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 1,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "RAY_COLUMN",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "FRAME_READOUT",
+        "pixel_l1": 728,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 0
+      },
+      {
+        "module": "DOOR",
+        "pixel_l1": 0,
+        "state_delta": {
+          "px": 0,
+          "py": 0,
+          "ang": 0,
+          "ex": 0,
+          "ey": 0,
+          "enemy_alive": 0,
+          "player_hit": 0,
+          "ex2": 0,
+          "ey2": 0,
+          "enemy2_alive": 0,
+          "ammo": 0,
+          "hp": 0,
+          "pickup_alive": 0
+        },
+        "pixels_nonzero": 418
+      }
+    ]
+  },
+  "baseline_state": {
+    "px": 28,
+    "py": 88,
+    "ang": 0,
+    "ex": 102,
+    "ey": 40,
+    "enemy_alive": 1,
+    "player_hit": 0,
+    "ex2": 38,
+    "ey2": 40,
+    "enemy2_alive": 1,
+    "ammo": 7,
+    "hp": 3,
+    "pickup_alive": 1
+  },
+  "held_key": "fwd",
+  "latch_held_key_dies": true,
+  "rows": [
+    {
+      "module": "CLOCK",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 1,
+        "py": 0,
+        "ang": 0,
+        "ex": 1,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "BIT_LATCH",
+      "pixel_l1": 26,
+      "state_delta": {
+        "px": 1,
+        "py": 0,
+        "ang": 0,
+        "ex": 0,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 411
+    },
+    {
+      "module": "REGISTER_FILE",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 1,
+        "py": 1,
+        "ang": 0,
+        "ex": 1,
+        "ey": 1,
+        "enemy_alive": 1,
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 1,
+        "enemy2_alive": 1,
+        "ammo": 1,
+        "hp": 1,
+        "pickup_alive": 1
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "ADDER_COMPARE",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 1,
+        "py": 0,
+        "ang": 0,
+        "ex": 1,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "RAM",
+      "pixel_l1": 258,
+      "state_delta": {
+        "px": 1,
+        "py": 0,
+        "ang": 0,
+        "ex": 1,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 301
+    },
+    {
+      "module": "SEQUENCER",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 1,
+        "py": 0,
+        "ang": 0,
+        "ex": 1,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 1,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "RAY_COLUMN",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 0,
+        "py": 0,
+        "ang": 0,
+        "ex": 0,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "FRAME_READOUT",
+      "pixel_l1": 728,
+      "state_delta": {
+        "px": 0,
+        "py": 0,
+        "ang": 0,
+        "ex": 0,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 0
+    },
+    {
+      "module": "DOOR",
+      "pixel_l1": 0,
+      "state_delta": {
+        "px": 0,
+        "py": 0,
+        "ang": 0,
+        "ex": 0,
+        "ey": 0,
+        "enemy_alive": 0,
+        "player_hit": 0,
+        "ex2": 0,
+        "ey2": 0,
+        "enemy2_alive": 0,
+        "ammo": 0,
+        "hp": 0,
+        "pickup_alive": 0
+      },
+      "pixels_nonzero": 418
+    }
+  ],
+  "door_write_dies": true,
+  "door_ablate": {
+    "open_px": 72,
+    "open_door": 0,
+    "ablate_px": 60,
+    "ablate_door": 1,
+    "passed_cell": 1
+  },
+  "machine": "v2_32"
+}

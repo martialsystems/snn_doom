@@ -1,6 +1,7 @@
 {
   "all_match": true,
   "machine": "v2",
+  "n_cols": 16,
   "extra_ticks": 4,
   "held_ticks": 32,
   "held_key": "fwd",

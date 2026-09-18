@@ -25,11 +25,15 @@ from snn_doom.const import (
     N_COLS,
     N_COLORS,
     N_INPUT_BITS,
+    DOOR_WINDOWS,
+    POSE_WINDOWS,
     SETTLE_STEPS,
     SIN,
     STEPS_PER_TICK,
     V1_NEURON_CAP,
     V2_NEURON_CAP,
+    VIEW_16,
+    ViewSpec,
 )
 from snn_doom.modules.alu import add_adder, add_gt
 from snn_doom.modules.latch import add_reg, add_write
@@ -130,6 +134,8 @@ class DoomSNN:
     pose_ring: list[int] = field(default_factory=list)
     col_ring: list[int] = field(default_factory=list)
     march_ring: list[int] = field(default_factory=list)
+    n_cols: int = N_COLS
+    center_col: int = CENTER_COL
 
     def reset(self, state: GameState) -> None:
         self.net.reset()
@@ -195,11 +201,11 @@ class DoomSNN:
 
     def read_dists(self) -> list[int]:
         s = self.net.spikes
-        return [read_int(s, self.dist_cols[c]) for c in range(N_COLS)]
+        return [read_int(s, self.dist_cols[c]) for c in range(self.n_cols)]
 
     def read_hitscan(self) -> int:
         """Center-column sprite latch. Same bit as the painted heading column."""
-        return read_bit(self.net.spikes, self.sprite_cols[CENTER_COL])
+        return read_bit(self.net.spikes, self.sprite_cols[self.center_col])
 
     def read_shot(self) -> int:
         """Fire AND heading sprite. Host may copy this; kill already wrote enemy_alive."""
@@ -299,7 +305,12 @@ def _chase_next(
     return ex_next, ey_next
 
 
-def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
+def build_doom_snn(*, walk_e2: bool = False, view: ViewSpec | None = None) -> DoomSNN:
+    v = view or VIEW_16
+    n_cols = int(v.n_cols)
+    fov_half = int(v.fov_half)
+    center_col = int(v.center_col)
+    steps_per_tick = SETTLE_STEPS * (POSE_WINDOWS + n_cols * MARCH_LEN + DOOR_WINDOWS)
     b = NetBuilder()
     bias = b.alloc("bias", "CLOCK")
     b.wire(bias, bias, 1.2)
@@ -319,7 +330,7 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     b.wire(ray_gate, march_gate, 1.2)
     march_ring = gated_ring(b, MARCH_LEN, march_gate, "SEQUENCER")
     col_adv = and2(b, march_gate, march_ring[-1], "col_adv", "SEQUENCER")
-    col_ring = gated_ring(b, N_COLS, col_adv, "SEQUENCER")
+    col_ring = gated_ring(b, n_cols, col_adv, "SEQUENCER")
     # End of pose: last pose state AND beat -> pose_busy off, ray_busy on.
     pose_end = and2(b, pose_gate, pose_ring[-1], "pose_end", "SEQUENCER")
     b.wire(pose_end, pose_busy.f, W_FORCE)
@@ -338,7 +349,7 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     for i in range(1, MARCH_LEN):
         b.wire(frame_end, march_ring[i], W_INH)
     b.wire(frame_end, col_ring[0], W_FORCE)
-    for i in range(1, N_COLS):
+    for i in range(1, n_cols):
         b.wire(frame_end, col_ring[i], W_INH)
     door_gate = and2(b, beat, door_busy.t, "door_gate", "SEQUENCER")
     door_end = door_gate
@@ -465,19 +476,36 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     rx = add_reg(b, "rx", 8, "RAY_COLUMN")
     ry = add_reg(b, "ry", 8, "RAY_COLUMN")
     rhit = bistable(b, "rhit", "RAY_COLUMN")
-    col_off = tuple((c - FOV_HALF) % N_ANG for c in range(N_COLS))
-    sel_dx = [Rail(*b.alloc_pair(f"sdx_{k}", "RAY_COLUMN")) for k in range(8)]
-    sel_dy = [Rail(*b.alloc_pair(f"sdy_{k}", "RAY_COLUMN")) for k in range(8)]
-    for c in range(N_COLS):
-        table_c = tuple(COS[(a + col_off[c]) % N_ANG] for a in range(N_ANG))
-        table_s = tuple(SIN[(a + col_off[c]) % N_ANG] for a in range(N_ANG))
-        crc = _rom(b, ang_dec, table_c, 8, f"cosc{c}", "RAY_COLUMN")
-        src = _rom(b, ang_dec, table_s, 8, f"sinc{c}", "RAY_COLUMN")
-        for k in range(8):
-            b.wire(and2(b, col_ring[c], crc[k].t, f"cdxt{c}{k}", "RAY_COLUMN"), sel_dx[k].t, 1.2)
-            b.wire(and2(b, col_ring[c], crc[k].f, f"cdxf{c}{k}", "RAY_COLUMN"), sel_dx[k].f, 1.2)
-            b.wire(and2(b, col_ring[c], src[k].t, f"cdyt{c}{k}", "RAY_COLUMN"), sel_dy[k].t, 1.2)
-            b.wire(and2(b, col_ring[c], src[k].f, f"cdyf{c}{k}", "RAY_COLUMN"), sel_dy[k].f, 1.2)
+    if n_cols == N_COLS:
+        col_off = tuple((c - fov_half) % N_ANG for c in range(n_cols))
+        sel_dx = [Rail(*b.alloc_pair(f"sdx_{k}", "RAY_COLUMN")) for k in range(8)]
+        sel_dy = [Rail(*b.alloc_pair(f"sdy_{k}", "RAY_COLUMN")) for k in range(8)]
+        for c in range(n_cols):
+            table_c = tuple(COS[(a + col_off[c]) % N_ANG] for a in range(N_ANG))
+            table_s = tuple(SIN[(a + col_off[c]) % N_ANG] for a in range(N_ANG))
+            crc = _rom(b, ang_dec, table_c, 8, f"cosc{c}", "RAY_COLUMN")
+            src = _rom(b, ang_dec, table_s, 8, f"sinc{c}", "RAY_COLUMN")
+            for k in range(8):
+                b.wire(and2(b, col_ring[c], crc[k].t, f"cdxt{c}{k}", "RAY_COLUMN"), sel_dx[k].t, 1.2)
+                b.wire(and2(b, col_ring[c], crc[k].f, f"cdxf{c}{k}", "RAY_COLUMN"), sel_dx[k].f, 1.2)
+                b.wire(and2(b, col_ring[c], src[k].t, f"cdyt{c}{k}", "RAY_COLUMN"), sel_dy[k].t, 1.2)
+                b.wire(and2(b, col_ring[c], src[k].f, f"cdyf{c}{k}", "RAY_COLUMN"), sel_dy[k].f, 1.2)
+    else:
+        # Shared COS/SIN ROM: ray_ang = player ang + (col - fov_half). 16-col keeps per-col tables.
+        off_rails = [Rail(*b.alloc_pair(f"coff_{k}", "RAY_COLUMN")) for k in range(6)]
+        for c in range(n_cols):
+            off = (c - fov_half) % N_ANG
+            for k in range(6):
+                if (off >> k) & 1:
+                    b.wire(col_ring[c], off_rails[k].t, 1.2)
+                else:
+                    b.wire(col_ring[c], off_rails[k].f, 1.2)
+        cin_ra = Rail(*b.alloc_pair("cin_rayang", "ADDER_COMPARE"))
+        b.wire(bias, cin_ra.f, 1.2)
+        ray_ang, _ = add_adder(b, ang, off_rails, cin_ra, "rayang", "ADDER_COMPARE")
+        ray_dec = decoder_bits(b, ray_ang, "ray_dec", "RAY_COLUMN")
+        sel_dx = _rom(b, ray_dec, COS, 8, "rcos", "RAY_COLUMN")
+        sel_dy = _rom(b, ray_dec, SIN, 8, "rsin", "RAY_COLUMN")
     cin5 = Rail(*b.alloc_pair("cin5", "ADDER_COMPARE"))
     b.wire(bias, cin5.f, 1.2)
     rxn, _ = add_adder(b, rx, sel_dx, cin5, "rxadd", "ADDER_COMPARE")
@@ -489,13 +517,13 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     ram_r = or_n(b, [and2(b, dec_r[i], ram_cells[i].t, f"rrt{i}", "RAM") for i in range(len(ram_cells))], "ram_r", "RAM")
     rwall = or_n(b, [ram_r, rxn[7].t, ryn[7].t], "rwall", "RAY_COLUMN")
 
-    dist_cols = [add_reg(b, f"dist{c}", 4, "RAY_COLUMN") for c in range(N_COLS)]
-    sprite_cols = [bistable(b, f"sp{c}", "RAY_COLUMN") for c in range(N_COLS)]
+    dist_cols = [add_reg(b, f"dist{c}", 4, "RAY_COLUMN") for c in range(n_cols)]
+    sprite_cols = [bistable(b, f"sp{c}", "RAY_COLUMN") for c in range(n_cols)]
     heading_e1 = bistable(b, "hd1", "RAY_COLUMN")
     heading_e2 = bistable(b, "hd2", "RAY_COLUMN")
 
-    ro = build_fixed_readout(b, "wta")
-    for c in range(N_COLS):
+    ro = build_fixed_readout(b, "wta", n_cols=n_cols)
+    for c in range(n_cols):
         for k in range(4):
             b.wire(dist_cols[c][k].t, ro["dist_bits"][c][k].t, 1.2)
             b.wire(dist_cols[c][k].f, ro["dist_bits"][c][k].f, 1.2)
@@ -572,7 +600,7 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     add_write(b, ry, we_col, py, "col_y", "RAY_COLUMN")
     b.wire(new_col, rhit.f, W_FORCE)
     b.wire(new_col, rhit.t, W_INH)
-    for c in range(N_COLS):
+    for c in range(n_cols):
         clr = and2(b, new_col, col_ring[c], f"spclr{c}", "RAY_COLUMN")
         b.wire(clr, sprite_cols[c].f, W_FORCE)
         b.wire(clr, sprite_cols[c].t, W_INH)
@@ -588,7 +616,17 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     capture = and2(b, do_step, rwall, "capture", "RAY_COLUMN")
     b.wire(capture, rhit.t, W_FORCE)
     b.wire(capture, rhit.f, W_INH)
-    for c in range(N_COLS):
+    if n_cols == N_COLS:
+        sxy_shared = None
+        sxy2_shared = None
+    else:
+        sprx_h = _cell_eq(b, rxn, ex, "sprx")
+        spry_h = _cell_eq(b, ryn, ey, "spry")
+        sxy_shared = and2(b, sprx_h, spry_h, "sxy", "RAY_COLUMN")
+        sprx2_h = _cell_eq(b, rxn, ex2, "sprx2")
+        spry2_h = _cell_eq(b, ryn, ey2, "spry2")
+        sxy2_shared = and2(b, sprx2_h, spry2_h, "sxy2", "RAY_COLUMN")
+    for c in range(n_cols):
         cap_c = and2(b, capture, col_ring[c], f"capc{c}", "RAY_COLUMN")
         for m in range(1, MARCH_LEN):
             cap_m = and2(b, cap_c, march_ring[m], f"cap{c}_{m}", "RAY_COLUMN")
@@ -603,18 +641,22 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
                     b.wire(cap_m, dist_cols[c][k].t, W_INH)
         # Sprite if the march visits the enemy cell, not only at the wall hit.
         vis = and2(b, do_step, col_ring[c], f"vis{c}", "RAY_COLUMN")
-        sprx = _cell_eq(b, rxn, ex, f"sprx{c}")
-        spry = _cell_eq(b, ryn, ey, f"spry{c}")
-        sxy = and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN")
+        if sxy_shared is None:
+            sprx = _cell_eq(b, rxn, ex, f"sprx{c}")
+            spry = _cell_eq(b, ryn, ey, f"spry{c}")
+            sxy = and2(b, sprx, spry, f"sxy{c}", "RAY_COLUMN")
+            sprx2 = _cell_eq(b, rxn, ex2, f"sprx2{c}")
+            spry2 = _cell_eq(b, ryn, ey2, f"spry2{c}")
+            sxy2 = and2(b, sprx2, spry2, f"sxy2{c}", "RAY_COLUMN")
+        else:
+            sxy = sxy_shared
+            sxy2 = sxy2_shared
         spr = and3(b, vis, sxy, enemy_alive.t, f"spr{c}", "RAY_COLUMN")
-        sprx2 = _cell_eq(b, rxn, ex2, f"sprx2{c}")
-        spry2 = _cell_eq(b, ryn, ey2, f"spry2{c}")
-        sxy2 = and2(b, sprx2, spry2, f"sxy2{c}", "RAY_COLUMN")
         spr2 = and3(b, vis, sxy2, enemy2_alive.t, f"spr2{c}", "RAY_COLUMN")
         spr_any = or_n(b, [spr, spr2], f"spra{c}", "RAY_COLUMN")
         b.wire(spr_any, sprite_cols[c].t, W_FORCE)
         b.wire(spr_any, sprite_cols[c].f, W_INH)
-        if c == CENTER_COL:
+        if c == center_col:
             clr_h = and2(b, new_col, col_ring[c], "hdclr", "RAY_COLUMN")
             b.wire(clr_h, heading_e1.f, W_FORCE)
             b.wire(clr_h, heading_e1.t, W_INH)
@@ -627,7 +669,7 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
 
     # Fire AND heading sprite. Kill on the last column's last march window (SETTLE long).
     ammo_nz = or_n(b, [ammo[i].t for i in range(AMMO_BITS)], "ammo_nz", "REGISTER_FILE")
-    shot = and3(b, fire.t, sprite_cols[CENTER_COL].t, ammo_nz, "shot", "SEQUENCER")
+    shot = and3(b, fire.t, sprite_cols[center_col].t, ammo_nz, "shot", "SEQUENCER")
     end_hold = and2(b, col_ring[-1], march_ring[-1], "end_hold", "SEQUENCER")
     kill1 = and3(b, end_hold, fire.t, and2(b, heading_e1.t, ammo_nz, "k1a", "SEQUENCER"), "kill1", "SEQUENCER")
     kill2 = and3(b, end_hold, fire.t, and2(b, heading_e2.t, ammo_nz, "k2a", "SEQUENCER"), "kill2", "SEQUENCER")
@@ -673,8 +715,12 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
     net = b.compile()
     # Merge SEQUENCER_POSE into SEQUENCER for ablation.
     net.module = ["SEQUENCER" if m == "SEQUENCER_POSE" else m for m in net.module]
-    cap = V2_NEURON_CAP if walk_e2 else V1_NEURON_CAP
-    label = "v2" if walk_e2 else "v1"
+    if n_cols != N_COLS or walk_e2:
+        cap = V2_NEURON_CAP
+        label = "v2_32" if n_cols != N_COLS else "v2"
+    else:
+        cap = V1_NEURON_CAP
+        label = "v1"
     if net.n > cap:
         raise RuntimeError(f"{label} net {net.n} exceeds cap {cap}")
     return DoomSNN(
@@ -700,7 +746,9 @@ def build_doom_snn(*, walk_e2: bool = False) -> DoomSNN:
         sprite_cols=sprite_cols,
         pixels=ro["pixels"],
         shot=shot,
-        steps_per_tick=STEPS_PER_TICK,
+        steps_per_tick=steps_per_tick,
+        n_cols=n_cols,
+        center_col=center_col,
         kick=[clk[0], bias, pose_busy.t, pose_ring[0], march_ring[0], col_ring[0], ray_busy.f, door_busy.f],
         pose_ring=pose_ring,
         col_ring=col_ring,

@@ -8,14 +8,15 @@ from snn_doom.snn.lif import NetBuilder
 from snn_doom.teacher.render import is_enemy_row, is_wall_row
 
 
-def build_fixed_readout(b: NetBuilder, encoding: str = "wta") -> dict:
+def build_fixed_readout(b: NetBuilder, encoding: str = "wta", *, n_cols: int | None = None) -> dict:
     del encoding
+    cols = N_COLS if n_cols is None else int(n_cols)
     module = "FRAME_READOUT"
     dist_bits: list[list[Rail]] = []
     sprite_bits: list[Rail] = []
     pixels = []
     mid = FRAME_H // 2
-    for c in range(N_COLS):
+    for c in range(cols):
         bits = [Rail(*b.alloc_pair(f"d{c}_{k}", module)) for k in range(4)]
         dist_bits.append(bits)
         sprite_bits.append(Rail(*b.alloc_pair(f"sp{c}", module)))
@@ -55,6 +56,6 @@ def build_fixed_readout(b: NetBuilder, encoding: str = "wta") -> dict:
         "dist_bits": dist_bits,
         "sprite_bits": sprite_bits,
         "pixels": pixels,
-        "n_in": N_COLS * 5,
-        "n_out": N_COLS * FRAME_H * 4,
+        "n_in": cols * 5,
+        "n_out": cols * FRAME_H * 4,
     }

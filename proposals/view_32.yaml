@@ -3,13 +3,13 @@ claimed_job: "VIEW goes from 16 columns to 32 columns, teacher-exact distances, 
 claimed_qol: "twice the integer ray fan; walls and sprites occupy more columns at the same march"
 new_state_bits: []
 new_modules_or_edges: ["RAY_COLUMN.col32", "FRAME_READOUT.wta32", "SEQUENCER.col_ring32"]
-estimated_new_neurons: 3200
-estimated_new_edges: 9000
+estimated_new_neurons: 880
+estimated_new_edges: 0
 teacher_delta: "tick_v2_32 calls cast_frame and paint_frame with VIEW_32; apply_fire still uses the heading ray at CENTER_COL_32; N_COLS stays 16 on tick and tick_v2"
 view_delta: "decoded frame is 32x18; --scale stays pixel size"
 ablation_target: module tag VIEW32
 must_not_break: [ray_parity, held_fwd_tape, door, ammo_zero_cannot_kill]
 alternatives:
   - host upsample of 16 rays (0 neurons, illegal on demo path if it fakes RAY)
-  - shared COS/SIN ROM plus column offset (est. 1800 neurons)
+  - per-column COS/SIN ROMs (est. 3200 neurons)
   - name a new cap law that is not 166700

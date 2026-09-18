@@ -2,7 +2,7 @@
 
 ## 32-col VIEW teacher (2026-09-16)
 
-`VIEW_32` is 32 integer rays, heading column 16, paint 32×18. `tick_v2_32` is the walker on that fan. `tick()` and `tick_v2` stay 16-col. Teacher distances: `logs/teacher_ray_32.json`. No `snn_doom_v2_32.json` until SNN distances match. `--machine v2_32` fail-closes if the stitch is missing.
+`VIEW_32` is 32 integer rays, heading column 16, paint 32×18. `tick_v2_32` is the walker on that fan. `tick()` and `tick_v2` stay 16-col. Stitch 9,957 LIF, 38,089 edges, shared COS/SIN ROM, SETTLE 29. Export through `doom.v2_cap`. Tapes: `logs/ray_parity_32.json`, `logs/tick_tape_v2_32.json`. `--machine v2_32` loads it. `--play` stays v1.
 
 ## v2 teacher and stitch (2026-09-16)
 

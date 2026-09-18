@@ -86,3 +86,35 @@ def write_teacher_ray_32() -> dict[str, Any]:
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / "teacher_ray_32.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return payload
+
+
+def net_dists_32(machine, state: GameState, bits: int) -> list[int]:
+    machine.reset(state)
+    machine.tick(bits)
+    spikes = machine.net.spikes
+    return [read_int(spikes, machine.dist_cols[c]) for c in range(N_COLS_32)]
+
+
+def run_parity_32(machine=None) -> dict[str, Any]:
+    from snn_doom.modules.pipeline import build_doom_snn
+
+    m = machine or build_doom_snn(walk_e2=True, view=VIEW_32)
+    cases = []
+    all_match = True
+    for name, state, bits in CASES:
+        want = teacher_dists_32(state, bits)
+        got = net_dists_32(m, state, bits)
+        match = got == want
+        all_match = all_match and match
+        cases.append({"name": name, "teacher": want, "snn": got, "match": match})
+    payload = {
+        "all_match": all_match,
+        "n_cols": N_COLS_32,
+        "view": "VIEW_32",
+        "heading_col": VIEW_32.center_col,
+        "cases": cases,
+        "missing_snn": False,
+    }
+    LOGS.mkdir(parents=True, exist_ok=True)
+    (LOGS / "ray_parity_32.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return payload

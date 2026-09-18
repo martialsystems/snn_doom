@@ -10,4 +10,4 @@
 - muxed_second_sprite: ACCEPT_WITH_CAP (score 0.91, headroom -13)
 - settle_padding: REJECT_WASTE (score 0.48, headroom 24)
 - spare_latches: REJECT_WASTE (score 0.60, headroom 7)
-- view_32: ACCEPT_WITH_CAP (score 0.88, headroom -3173)
+- view_32: ACCEPT_WITH_CAP (score 0.95, headroom -853)

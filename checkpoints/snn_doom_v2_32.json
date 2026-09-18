@@ -1,0 +1,29 @@
+{
+  "n_neurons": 9957,
+  "n_edges": 38089,
+  "steps_per_tick": 15022,
+  "cap": 12000,
+  "machine": "v2_32",
+  "modules": [
+    "ADDER_COMPARE",
+    "BIT_LATCH",
+    "CLOCK",
+    "DOOR",
+    "FRAME_READOUT",
+    "RAM",
+    "RAY_COLUMN",
+    "REGISTER_FILE",
+    "SEQUENCER"
+  ],
+  "counts": {
+    "ADDER_COMPARE": 3308,
+    "BIT_LATCH": 26,
+    "CLOCK": 30,
+    "DOOR": 5,
+    "FRAME_READOUT": 3712,
+    "RAM": 911,
+    "RAY_COLUMN": 1240,
+    "REGISTER_FILE": 569,
+    "SEQUENCER": 156
+  }
+}

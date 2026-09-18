@@ -52,13 +52,14 @@ def main() -> None:
         machine = build_doom_snn(walk_e2=True)
     elif args.machine == "v2_32":
         from snn_doom.play import _v2_32_ready
+        from snn_doom.const import VIEW_32
+        from snn_doom.modules.pipeline import build_doom_snn
 
         ok, why = _v2_32_ready()
         if not ok:
             print(why, file=sys.stderr)
             raise SystemExit(2)
-        print("v2_32 play loader waits on a 32-col stitch; refusing 16-col fallback", file=sys.stderr)
-        raise SystemExit(2)
+        machine = build_doom_snn(walk_e2=True, view=VIEW_32)
     headless = args.frames is not None and args.frames > 0 and not args.play and not args.tty
     if headless:
         n = args.frames

@@ -55,6 +55,18 @@
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "src/snn_doom/tick_tape.py", "src/snn_doom/teacher/**"]
     },
     {
+      "id": "ray-parity-32",
+      "argv": [".venv/bin/python", "scripts/ray_parity.py", "--cols", "32"],
+      "timeout_s": 180,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "src/snn_doom/ray_parity.py", "src/snn_doom/teacher/**"]
+    },
+    {
+      "id": "tick-tape-v2-32",
+      "argv": [".venv/bin/python", "scripts/tick_tape.py", "--machine", "v2_32"],
+      "timeout_s": 600,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "src/snn_doom/tick_tape.py", "src/snn_doom/teacher/**"]
+    },
+    {
       "id": "ablation",
       "argv": [".venv/bin/python", "scripts/ablate.py"],
       "timeout_s": 180,
@@ -64,6 +76,12 @@
       "id": "ablation-v2",
       "argv": [".venv/bin/python", "scripts/ablate.py", "--machine", "v2"],
       "timeout_s": 240,
+      "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "scripts/ablate.py"]
+    },
+    {
+      "id": "ablation-v2-32",
+      "argv": [".venv/bin/python", "scripts/ablate.py", "--machine", "v2_32"],
+      "timeout_s": 360,
       "paths": ["src/snn_doom/modules/**", "src/snn_doom/const.py", "scripts/ablate.py"]
     },
     {
