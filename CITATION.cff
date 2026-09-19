@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: snn_doom
+message: If you use this locked split, cite the science-lock commit.
+type: software
+authors:
+  - name: Martial Systems LLC
+license: MIT
+repository-code: https://github.com/martialsystems/snn_doom
+url: https://gist.github.com/martialsystems/12835f747d6360781f3cc7f91f243178
+abstract: >
+  7973 LIF under an 8000 cap run a toy Doom tick. Remap / stitch, not a brain model.
+version: "0.1.0"
+date-released: "2026-09-19"

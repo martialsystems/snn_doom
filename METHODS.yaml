@@ -1,0 +1,16 @@
+question: Can a discrete LIF net under a hard 8,000-unit cap run a toy Doom tick (8×8 map, 16×18 VIEW, two sprites, 3-bit ammo, 2-bit HP) with teacher-exact pose, 16 column distances, and heading hitscan?
+falsifier: teacher-exact pose fails or neuron count exceeds 8000
+object: remap / stitch
+status: Closed
+system: 7973 LIF, 41811 edges, SETTLE 29, 8000 cap
+data_version: stitched discrete LIF; cell types are not features
+neuron_table: remap; neurons given jobs the fly does not have
+dynamics: "discrete LIF v <- tau v + I; s <- [v >= theta]; digital gates tau=0"
+rng: "frozen play @890cd83"
+n_seeds: 1
+n_meaning: 1 frozen play
+locked_metric: 7973 LIF, 41811 edges, SETTLE 29; science_lock 889524b
+pre_specified: false
+science_lock: 889524b
+parent_sha: ""
+reduction: a LIF net with this budget implements a toy Doom tick; the fly does not play Doom

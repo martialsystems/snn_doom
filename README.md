@@ -126,3 +126,17 @@ It is not "we mapped a fly and it learned to play." Cell types are not features.
 Zero CLOCK, LATCH, REG, ALU, or SEQUENCER and motion dies. Zero RAY or READOUT and pixels die. Zero RAM and the frame changes. That is the point of the stitch.
 
 [Fly Research Index](https://gist.github.com/martialsystems/12835f747d6360781f3cc7f91f243178)
+
+## Methods card
+
+Copied from `METHODS.yaml`.
+
+| Field | Value |
+|-------|-------|
+| Object | remap / stitch |
+| Status | Closed |
+| Falsifier | teacher-exact pose fails or neuron count exceeds 8000 |
+| n / seeds | 1 frozen play |
+| Science lock | `889524b` |
+| Pre-specified | false |
+

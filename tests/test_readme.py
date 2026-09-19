@@ -85,3 +85,14 @@ def test_methodology_7217_is_museum_not_live() -> None:
     window = method[max(0, idx - 100) : idx + 80]
     assert "museum" in window.lower()
     assert "not the running machine" in window.lower()
+
+
+def test_methods_card_and_citation() -> None:
+    methods = (REPO / "METHODS.yaml").read_text(encoding="utf-8")
+    assert "science_lock:" in methods
+    assert "pre_specified: false" in methods
+    assert "—" not in methods
+    assert "What it is not" not in methods
+    cite = (REPO / "CITATION.cff").read_text(encoding="utf-8")
+    assert "cff-version: 1.2.0" in cite
+    assert "Martial Systems LLC" in cite
